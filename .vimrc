@@ -14,8 +14,13 @@ Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'Syntastic'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/The-NERD-tree'
+Bundle 'scrooloose/nerdtree'
 Bundle 'nvie/vim-flake8'
+Bundle 'davidhalter/jedi-vim'
+Bundle 'plasticboy/vim-markdown'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'Raimondi/delimitMate'
+Bundle 'bling/vim-airline'
 
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle commands are not allowed.
@@ -23,8 +28,8 @@ Bundle 'nvie/vim-flake8'
 filetype plugin indent on     " required!
 
 syntax enable
-syntax on
 filetype on
+"======Solarized theme============
 set background=dark
 colorscheme solarized
 
@@ -51,10 +56,20 @@ set wildignore=*.swp,*.bak,*.pyc,*.class
 set title                " change the terminal's title
 set visualbell           " don't beep
 set noerrorbells         " don't beep
-autocmd filetype python set expandtab
-autocmd BufWritePost *.py call Flake8()
+set showcmd
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+set laststatus=2
+
 let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+let g:airline#extensions#tabline#enabled = 1
+
+autocmd filetype python set expandtab
+autocmd FileType python setlocal textwidth=78
+"autocmd BufWritePost *.py call Flake8()
+
+nnoremap <F6> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+map <C-o> :NERDTreeToggle<CR>
