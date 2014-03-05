@@ -26,11 +26,14 @@ Bundle 'bling/vim-airline'
 " NOTE: comments after Bundle commands are not allowed.
 
 filetype plugin indent on     " required!
-
-syntax enable
 filetype on
 "======Solarized theme============
+syntax on
+syntax enable
+let g:solarized_termtrans = 1
 set background=dark
+"set t_Co=256
+let g:solarized_termcolors=256
 colorscheme solarized
 
 " ===========sontek.net============
@@ -57,6 +60,7 @@ set title                " change the terminal's title
 set visualbell           " don't beep
 set noerrorbells         " don't beep
 set showcmd
+set cursorline
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
