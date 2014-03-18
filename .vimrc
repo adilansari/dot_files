@@ -18,7 +18,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'nvie/vim-flake8'
 Bundle 'davidhalter/jedi-vim'
 Bundle 'plasticboy/vim-markdown'
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 Bundle 'Raimondi/delimitMate'
 Bundle 'bling/vim-airline'
 
@@ -70,9 +70,11 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 let g:airline#extensions#tabline#enabled = 1
+let g:jedi#popup_select_first = 1
+let g:vim_markdown_folding_disabled=1
 
 autocmd filetype python set expandtab
-autocmd FileType python setlocal textwidth=78
+autocmd FileType  python setlocal textwidth=78
 "autocmd BufWritePost *.py call Flake8()
 
 nnoremap <F6> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
