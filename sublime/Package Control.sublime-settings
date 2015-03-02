@@ -1,0 +1,24 @@
+{
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"All Autocomplete",
+		"CTags",
+		"DashDoc",
+		"Evernote",
+		"Git",
+		"GitGutter",
+		"Markdown Preview",
+		"Package Control",
+		"Pretty JSON",
+		"Python PEP8 Autoformat",
+		"SideBarEnhancements",
+		"SqlBeautifier",
+		"SublimeCodeIntel",
+		"SublimePythonIDE",
+		"Theme - Soda",
+		"Tomorrow Color Schemes"
+	]
+}
