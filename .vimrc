@@ -10,6 +10,7 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'L9'
 Bundle 'FuzzyFinder'
+Bundle 'kien/ctrlp.vim'
 Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'Syntastic'
 Bundle 'altercation/vim-colors-solarized'
@@ -36,35 +37,40 @@ set background=dark
 let g:solarized_termcolors=256
 colorscheme solarized
 
+
 " ===========sontek.net============
-set foldmethod=indent
-set foldlevel=99
-set nowrap        " don't wrap lines
-set tabstop=4     " a tab is four spaces
-set backspace=indent,eol,start 		" allow backspacing over everything in insert mode
 set autoindent    " always set autoindenting on
+set backspace=indent,eol,start 		" allow backspacing over everything in insert mode
 set copyindent    " copy the previous indentation on
+set cursorline
+set foldlevel=99
+set foldmethod=indent
+set hidden
+set history=1000         " remember more commands and search history
+set hlsearch      "
+set ignorecase    " ignore case when searching
+set incsearch     "
+set laststatus=2
+set noerrorbells         " don't beep
+set nowrap        " don't wrap lines
 set number        " always show line numbers
+set ruler
 set shiftwidth=4  " number of spaces to use for
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
+set showcmd
 set showmatch     " set show matching parenthesis
-set ignorecase    " ignore case when searching
 set smartcase     " ignore case if search pattern is all lowercase,
 set smarttab      " insert tabs on the
-set hlsearch      "
-set incsearch     "
-set history=1000         " remember more commands and search history
-set undolevels=1000      " use many muchos levels of undo
-set wildignore=*.swp,*.bak,*.pyc,*.class
-set title                " change the terminal's title
-set visualbell           " don't beep
-set noerrorbells         " don't beep
-set showcmd
-set cursorline
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-set laststatus=2
+set tabstop=4     " a tab is four spaces
+set showtabline=2
+set title                " change the terminal's title
+set ttyfast
+set undolevels=1000      " use many muchos levels of undo
+set visualbell           " don't beep
+set wildignore=*.swp,*.bak,*.pyc,*.class
 
 let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
@@ -72,9 +78,12 @@ let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_
 let g:airline#extensions#tabline#enabled = 1
 let g:jedi#popup_select_first = 1
 let g:vim_markdown_folding_disabled=1
+let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 
 autocmd filetype python set expandtab
-autocmd FileType  python setlocal textwidth=78
+autocmd FileType  python setlocal textwidth=79
 "autocmd BufWritePost *.py call Flake8()
 
 nnoremap <F6> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
