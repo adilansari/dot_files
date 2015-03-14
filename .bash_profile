@@ -17,23 +17,9 @@ fi
 #bash aliases
 alias ll='ls -la'
 
-# git aliases
-alias g='git status'
-alias gad='git add'
-alias gco='git checkout'
-alias gcm='git commit'
-alias glog='git log --oneline --graph'
-alias gst='git stash'
-alias gb='git branch'
-alias gd='git diff'
-alias greb='git rebase -i master'
-
-# tmux aliases
-alias tm='tmux at -t'
-
-# ssh aliases
-alias vagr='cd ~/onebox/ && vagrant ssh'
-alias ssh_d='ssh adil@d.caffeine.io'
+if [ -f ~/.aliases ]; then
+	. ~/.aliases
+fi
 
 # ulimit for running grunt
 ulimit -n 4096
