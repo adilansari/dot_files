@@ -14,11 +14,8 @@ if [ -f ~/.git-completion.bash ]; then
 	  . ~/.git-completion.bash
 fi
 
-#bash aliases
-alias ll='ls -la'
-
-if [ -f ~/.aliases ]; then
-	. ~/.aliases
+if [ -f ~/zsh/aliases ]; then
+	. ~/zsh/aliases
 fi
 
 # ulimit for running grunt
