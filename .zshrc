@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/adil/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -56,10 +56,10 @@ export EDITOR='vim'
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/.dot_files/tmuxinator.zsh
-source $HOME/.dot_files/prompt.zsh
-source $HOME/.dot_files/functions.zsh
-source $HOME/.dot_files/aliases
+source $HOME/.zsh/tmuxinator.zsh
+source $HOME/.zsh/prompts.zsh
+source $HOME/.zsh/functions.zsh
+source $HOME/.zsh/aliases
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
