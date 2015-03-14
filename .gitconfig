@@ -1,0 +1,12 @@
+[user]
+	name = Adil Ansari
+	email = adil@chartboost.com
+[push]
+	default = simple
+[alias]
+	ignore = update-index --assume-unchanged
+	unignore = update-index --no-assume-unchanged
+	ignored = !git ls-files -v | grep "^[[:lower:]]"
+[core]
+	editor = /usr/bin/vim
+	excludesfile = /Users/adil/.gitignore

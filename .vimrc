@@ -43,6 +43,7 @@ set autoindent    " always set autoindenting on
 set backspace=indent,eol,start 		" allow backspacing over everything in insert mode
 set copyindent    " copy the previous indentation on
 set cursorline
+set cursorcolumn
 set foldlevel=99
 set foldmethod=indent
 set hidden
