@@ -29,5 +29,6 @@ windows:
         - . env/bin/activate
   - server:
       panes:
-        - . env/bin/activate
-        - git status
+        - server:
+            - . env/bin/activate
+            - git status
