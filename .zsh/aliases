@@ -1,5 +1,6 @@
 # master
 alias zshconfig="vi ~/.zshrc"
+alias aliases='vi ~/.zsh/aliases'
 
 # git aliases
 alias g='git status'
@@ -48,3 +49,6 @@ alias ll='ls -lFh'          # Long view, no hidden
 # Helpers
 alias grep='grep --color=auto' # Always highlight grep search term
 alias ssh='ssh -R 10999:localhost:22' # scp to  localhost:10999:~ 
+
+# virutalenv
+alias venv='. env/bin/activate'
