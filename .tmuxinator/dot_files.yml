@@ -1,7 +1,7 @@
-# ~/.tmuxinator/pydash.yml
+# ~/.tmuxinator/dot_files.yml
 
-name: pydash
-root: ~/onebox/pydash-flask
+name: dot_files
+root: ~/onebox/.dot_files
 
 # Optional tmux socket
 # socket_name: foo
@@ -22,12 +22,8 @@ root: ~/onebox/pydash-flask
 # startup_window: logs
 
 windows:
-  - pydash:
+  - editor:
       layout: main-horizontal
       panes:
-        - . env/bin/activate
-        - . env/bin/activate
-  - server:
-      panes:
-        - . env/bin/activate
-        - git status
+        - g
+        - vi .zshrc
