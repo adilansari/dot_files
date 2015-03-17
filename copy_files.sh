@@ -21,6 +21,7 @@ filenames=(
 	'.tmuxinator'
 	'.gitconfig'
 	'.git-completion.bash'
+	'.ctags'
 ) 
 
 for i in ${filenames[@]}; do
