@@ -1,6 +1,6 @@
-# ~/.tmuxinator/d.yml
+# ~/.tmuxinator/scribe.yml
 
-name: d
+name: scribe
 root: ~/
 
 # Optional tmux socket
@@ -25,6 +25,11 @@ windows:
   - editor:
       layout: main-horizontal
       panes:
-        - mongo:
-            - ssh adil@d.caffeine.io
-            - musers chartboost
+        - pydash:
+            - ssh scribe2.caffeine.io
+            - cd /data/scribe/primary/pydash
+            - less +F | grep "Error"
+        - php:
+            - ssh scribe2.caffeine.io
+            - cd /data/scribe/primary/adserver-unknowns
+            - less +F | grep "Error"

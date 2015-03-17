@@ -5,8 +5,8 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-# ZSH_THEME="miloshadzic"
-ZSH_THEME="cloud"
+ ZSH_THEME="miloshadzic"
+#ZSH_THEME="cloud"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -65,11 +65,11 @@ source $HOME/.zsh/aliases
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+#if [[ -n $SSH_CONNECTION ]]; then
+#  export EDITOR='vim'
+#else
+#  export EDITOR='mvim'
+#fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
