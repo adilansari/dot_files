@@ -1,6 +1,11 @@
 # master
 alias zshconfig="vi ~/.zshrc"
-alias aliases='vi ~/.zsh/aliases'
+aliases () {
+	grep "$1" ~/.zsh/aliases
+}
+
+# ctags
+alias ctag_py='ctags -R --languages=python --exclude=.git --exclude=log --exclude=env'
 
 # git aliases
 alias g='git status'
