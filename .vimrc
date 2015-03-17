@@ -89,3 +89,4 @@ autocmd FileType  python setlocal textwidth=79
 
 nnoremap <F6> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 map <C-o> :NERDTreeToggle<CR>
+inoremap ,w <esc>:w<cr>a
