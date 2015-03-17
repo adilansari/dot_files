@@ -22,6 +22,7 @@ Bundle 'plasticboy/vim-markdown'
 "Bundle 'Valloric/YouCompleteMe'
 Bundle 'Raimondi/delimitMate'
 Bundle 'bling/vim-airline'
+Bundle 'majutsushi/tagbar.git'
 
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle commands are not allowed.
@@ -82,6 +83,7 @@ let g:vim_markdown_folding_disabled=1
 let g:ackprg = 'ag --nogroup --nocolor --column'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+let mapleader=","
 
 autocmd filetype python set expandtab
 autocmd FileType  python setlocal textwidth=79
@@ -89,4 +91,8 @@ autocmd FileType  python setlocal textwidth=79
 
 nnoremap <F6> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 map <C-o> :NERDTreeToggle<CR>
-inoremap ,w <esc>:w<cr>a
+inoremap <leader>w <esc>:w<cr>a
+inoremap <leader>q <esc>:q<cr>
+inoremap <leader>o <esc>o<cr>i
+nnoremap <silent> <leader>b :TagbarToggle<CR>
+nnoremap <leader>. :CtrlPTag<cr>
