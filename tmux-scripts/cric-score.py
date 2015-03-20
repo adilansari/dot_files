@@ -1,7 +1,9 @@
 import json
 import requests
 
-URL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20cricket.scorecard.summary%20where%20match_id%3D186880&format=json&diagnostics=false&env=store%3A%2F%2F0TxIGQMQbObzvU4Apia0V0&callback="
+match_id = "186881"
+URL =
+"https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20cricket.scorecard.summary%20where%20match_id%3D{}&format=json&diagnostics=false&env=store%3A%2F%2F0TxIGQMQbObzvU4Apia0V0&callback=".format(match_id)
 resp = requests.get(URL)
 scorecard = resp.json()["query"]["results"]["Scorecard"]
 t1 = scorecard["teams"][0]["sn"]
