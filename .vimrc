@@ -96,3 +96,5 @@ inoremap <leader>q <esc>:q<cr>
 inoremap <leader>o <esc>o<cr>i
 nnoremap <silent> <leader>b :TagbarToggle<CR>
 nnoremap <leader>. :CtrlPTag<cr>
+vmap <C-x> :!pbcopy<CR>  
+vmap <C-c> :w !pbcopy<CR><CR> 
