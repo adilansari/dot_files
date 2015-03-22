@@ -45,8 +45,9 @@ set backspace=indent,eol,start 		" allow backspacing over everything in insert m
 set copyindent    " copy the previous indentation on
 set cursorline
 set cursorcolumn
-set foldlevel=99
-set foldmethod=indent
+"set foldlevel=299
+set nofoldenable    " disable folding"
+"set foldmethod=indent
 set hidden
 set history=1000         " remember more commands and search history
 set hlsearch      "

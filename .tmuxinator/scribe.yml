@@ -28,8 +28,4 @@ windows:
         - pydash:
             - ssh scribe2.caffeine.io
             - cd /data/scribe/primary/pydash
-            - less +F | grep "Error"
-        - php:
-            - ssh scribe2.caffeine.io
-            - cd /data/scribe/primary/adserver-unknowns
-            - less +F | grep "Error"
+            - less +F pydash_current | grep --color=always "pydash - ERROR"
