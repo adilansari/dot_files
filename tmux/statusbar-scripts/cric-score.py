@@ -21,36 +21,3 @@ p2_run = scorecard["past_ings"]["d"]["a"]["t"][1]["r"]
 print("{}:{}/{} {} ovrs || {}:{}, {}:{} || {}").format(t1, t1_run, t1_wicket, t1_over, p1_name,
         p1_run, p2_name, p2_run, t2)
 
-"""
-- Find a match_id
-- Recognize the team currently batting
-- format: IND:41/0 in 9.3 | Rohit Sharma:12, Virat Kohli:25 | PAK:255/7 in 50
-"""
-
-
-class CricketScores:
-
-    URL = 'https://query.yahooapis.com/v1/public/yql'
-
-    def __init__(self, match_id):
-        self.match_id = match_id
-
-    def get_display_string(self):
-        pass
-
-    def _get_scores(self):
-        params = {
-            'q': 'select * from cricket.scorecard.summary where match_id={}'.format(self.match_id),
-            'format': 'json',
-            'diagnostics': 'false',
-            'env': 'store://0TxIGQMQbObzvU4Apia0V0'
-        }
-
-        resp = req.get(CricketScores.URL, params=params)
-
-    def _validate_response(self, r):
-        return r.status_code == req.codes.ok
-
-if __name__ == '__main__':
-    obj = CricketScores(argv[1])
-    print obj.get_display_string()
