@@ -51,7 +51,9 @@ class CricketScores(ScoresAbstract):
         return '{} | {} | {}'.format(t1_score, player_scores, t2_score)
 
     def _process_data(self, data):
-        teams = [data["teams"][i]["sn"] for i in [0, 1]]
+        teams = {}
+        for x in [0, 1]:
+            teams[data['teams'][x]['i']] = data['teams'][x]['sn']
 
         innings = 1
         if isinstance(data['past_ings'], list) and len(data['past_ings']) == 2:
@@ -61,22 +63,23 @@ class CricketScores(ScoresAbstract):
         else:
             batting_innings = data['past_ings']
 
-        batting_team = int(batting_innings['s']['t'])
+        batting_team = teams.pop(batting_innings['s']['a']['i'])
         batting_team_score = '{}:{}/{} {} ovrs'.format(
-            teams[batting_team],
+            batting_team,
             batting_innings["s"]["a"]["r"],
             batting_innings["s"]["a"]["w"],
             batting_innings["s"]["a"]["o"]
         )
 
+        bowling_team = teams.popitem()[1]
         if innings == 2:
             bowling_team_score = '{}:{}/{}'.format(
-                teams[not batting_team],
+                bowling_team,
                 bowling_innings["s"]["a"]["r"],
                 bowling_innings["s"]["a"]["w"]
             )
         else:
-            bowling_team_score = '{}'.format(teams[not batting_team])
+            bowling_team_score = '{}'.format(bowling_team)
 
         player_scores = self._get_player_scores(batting_innings)
 
