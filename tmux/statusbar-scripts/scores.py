@@ -2,6 +2,7 @@ from abc import ABCMeta, abstractmethod
 import requests as req
 from datetime import datetime, timedelta
 from sys import argv
+import traceback
 
 
 class ScoresAbstract:
@@ -26,12 +27,12 @@ class CricketScores(ScoresAbstract):
 
     def get_display_string(self):
         try:
-            return self._get_scores()
-        except Exception as e:
-            print e.message
+            return self._fetch_and_parse()
+        except:
+            print traceback.format_exc()
             return False
 
-    def _get_scores(self):
+    def _fetch_and_parse(self):
         params = {
             'q': 'select * from cricket.scorecard.live.summary',
             'format': 'json',
@@ -45,35 +46,45 @@ class CricketScores(ScoresAbstract):
             raise Exception
 
         scorecard = resp.json()['query']['results']['Scorecard']
-        t1_score, t2_score = self._get_team_scores(scorecard)
-        batsmen = self._get_player_scores(scorecard)
+        t1_score, t2_score, player_scores = self._process_data(scorecard)
 
-        return '{} | {} | {}'.format(t1_score, batsmen, t2_score)
+        return '{} | {} | {}'.format(t1_score, player_scores, t2_score)
 
-    def _get_team_scores(self, data):
+    def _process_data(self, data):
         teams = [data["teams"][i]["sn"] for i in [0, 1]]
 
-        innings = data['past_ings']['s']['i']
-        if innings == '0':
-            raise Exception
+        innings = 1
+        if isinstance(data['past_ings'], list) and len(data['past_ings']) == 2:
+            batting_innings = data['past_ings'][0]
+            bowling_innings = data['past_ings'][1]
+            innings = 2
+        else:
+            batting_innings = data['past_ings']
 
-        batting_team = int(data['past_ings']['s']['t'])
+        batting_team = int(batting_innings['s']['t'])
         batting_team_score = '{}:{}/{} {} ovrs'.format(
             teams[batting_team],
-            data["past_ings"]["s"]["a"]["r"],
-            data["past_ings"]["s"]["a"]["w"],
-            data["past_ings"]["s"]["a"]["o"]
+            batting_innings["s"]["a"]["r"],
+            batting_innings["s"]["a"]["w"],
+            batting_innings["s"]["a"]["o"]
         )
 
-        bowling_team_score = '{}'.format(teams[not batting_team])
         if innings == 2:
-            bowling_team_score = bowling_team_score
+            bowling_team_score = '{}:{}/{}'.format(
+                teams[not batting_team],
+                bowling_innings["s"]["a"]["r"],
+                bowling_innings["s"]["a"]["w"]
+            )
+        else:
+            bowling_team_score = '{}'.format(teams[not batting_team])
 
-        return batting_team_score, bowling_team_score
+        player_scores = self._get_player_scores(batting_innings)
+
+        return batting_team_score, bowling_team_score, player_scores
 
     def _get_player_scores(self, data):
-        p1 = '{}:{}'.format(data["past_ings"]["d"]["a"]["t"][0]["name"], data["past_ings"]["d"]["a"]["t"][0]["r"])
-        p2 = '{}:{}'.format(data["past_ings"]["d"]["a"]["t"][1]["name"], data["past_ings"]["d"]["a"]["t"][1]["r"])
+        p1 = '{}:{}'.format(data["d"]["a"]["t"][0]["name"], data["d"]["a"]["t"][0]["r"])
+        p2 = '{}:{}'.format(data["d"]["a"]["t"][1]["name"], data["d"]["a"]["t"][1]["r"])
 
         return '{}, {}'.format(p1, p2)
 
@@ -106,8 +117,8 @@ class SoccerScores(ScoresAbstract):
     def get_display_string(self):
         try:
             return self._get_fixtures(self._get_date(-3), self._get_date(5))
-        except Exception as e:
-            print e.message
+        except:
+            print traceback.format_exc()
             return SoccerScores.DEFAULT_SCORELINE
 
     def _get_date(self, delta):

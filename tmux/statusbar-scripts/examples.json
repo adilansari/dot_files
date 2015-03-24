@@ -1,6 +1,6 @@
 // 0 : Pre game start
 // 1 : During 1st innings
-//
+// 2 : During 2nd Innings
 [
 {
    "query":{
@@ -245,6 +245,181 @@
             "ms":"Play in Progress",
             "mt":"2",
             "cts":"1427159639"
+         }
+      }
+   }
+},
+{
+   "query":{
+      "count":1,
+      "created":"2015-03-24T07:26:25Z",
+      "lang":"en-US",
+      "results":{
+         "Scorecard":{
+            "v":"0",
+            "mid":"186883",
+            "m":"2",
+            "series":{
+               "series_id":"11737",
+               "series_name":"World Cup Coverage"
+            },
+            "ecf":"0",
+            "place":{
+               "vid":"49",
+               "stadium":"Eden Park, Auckland",
+               "city":"Auckland",
+               "country":"New Zealand",
+               "Gimaget":"https://s.yimg.com/qx/cricket/fufp/images/venue_49_thumb-13-7-2010-e36a4e6be7206f89cace06914ac07ffb.jpg",
+               "date":"20150324010000",
+               "enddate":"20150324090000"
+            },
+            "mn":"1st Semi Final",
+            "teams":[
+               {
+                  "i":"5",
+                  "fn":"New Zealand",
+                  "sn":"NZ",
+                  "logo":{
+                     "std":"https://s.yimg.com/qx/cricket/fufp/images/new_zealand-26-2-2013-e83c496a930a420848b561c210dbbaf4.jpg",
+                     "small":"https://s.yimg.com/qx/cricket/fufp/images/new_zealand_small-26-2-2013-f3b6a4b8899eb627854a956677ea2c53.jpg"
+                  },
+                  "flag":{
+                     "std":"https://s.yimg.com/qx/cricket/fufp/images/new_zealand_flag-1-2-2011-47faa19586061974b01c99058628d32e.gif",
+                     "small":"https://s.yimg.com/qx/cricket/fufp/images/new_zealand_flag_small-1-2-2011-648a3001043e4d94a5eebd9dfe9a88a5.gif",
+                     "roundstd":"https://s.yimg.com/qx/cricket/fufp/images/5-11-2-2012-36848dfcad81aae16dfc28cc1c506618.png",
+                     "roundsmall":"https://s.yimg.com/qx/cricket/fufp/images/5_s-11-2-2012-a3e1d867528e59013ea81407d1fdfe02.png",
+                     "roundlarge":"https://s.yimg.com/qx/cricket/fufp/images/5_l-11-2-2012-78e43d8e16ee76e5f28da1a679de2eff.png"
+                  }
+               },
+               {
+                  "i":"7",
+                  "fn":"South Africa",
+                  "sn":"SA",
+                  "logo":{
+                     "std":"https://s.yimg.com/qx/cricket/fufp/images/south_africa-26-2-2013-0dd53b4c3d9d2d62fdf47e690a892b92.jpg",
+                     "small":"https://s.yimg.com/qx/cricket/fufp/images/south_africa_small-1-2-2011-53d3554a638cc4b114764c154ea164bd.jpg"
+                  },
+                  "flag":{
+                     "std":"https://s.yimg.com/qx/cricket/fufp/images/south_africa_flag-1-2-2011-d42076e888a05412fdfdf7504c4c6649.gif",
+                     "small":"https://s.yimg.com/qx/cricket/fufp/images/south_africa_flag_small-1-2-2011-52e6632a8c28d6b73e7e583692b58f16.gif",
+                     "roundstd":"https://s.yimg.com/qx/cricket/fufp/images/7-11-2-2012-4541e123431f83ef71ca72c9ba36a989.png",
+                     "roundsmall":"https://s.yimg.com/qx/cricket/fufp/images/7_s-11-2-2012-d7641c072634340445b36f19996601ba.png",
+                     "roundlarge":"https://s.yimg.com/qx/cricket/fufp/images/7_l-11-2-2012-6ffcebebcba7787554927c94de0b3109.png"
+                  }
+               }
+            ],
+            "past_ings":[
+               {
+                  "s":{
+                     "t":"1",
+                     "i":"2",
+                     "ps":"0",
+                     "stay_live":"Yes",
+                     "ld":"No",
+                     "ldmsg":null,
+                     "pms":"live",
+                     "a":{
+                        "fo":"0",
+                        "pp":null,
+                        "i":"5",
+                        "cr":"8.66",
+                        "r":"104",
+                        "o":"12",
+                        "w":"2",
+                        "reo":"43",
+                        "b":"4",
+                        "lb":"0",
+                        "wd":"2",
+                        "nb":"0",
+                        "pt":"0",
+                        "l":"0",
+                        "rr":"6.25",
+                        "ru":"194",
+                        "ro":"31",
+                        "tg":"298",
+                        "cp":{
+                           "cp":"23",
+                           "bls":"19",
+                           "s":"0"
+                        }
+                     },
+                     "tz":"+13:00"
+                  },
+                  "d":{
+                     "a":{
+                        "t":[
+                           {
+                              "i":"4964",
+                              "a":"2",
+                              "c":"Batting",
+                              "dt":null,
+                              "fd":"0",
+                              "bd":"0",
+                              "cb":"no",
+                              "b":"25",
+                              "r":"21",
+                              "sr":"84",
+                              "four":"2",
+                              "six":"1",
+                              "name":"Martin Guptill"
+                           },
+                           {
+                              "i":"3752",
+                              "a":"3",
+                              "c":"Batting",
+                              "dt":null,
+                              "fd":"0",
+                              "bd":"0",
+                              "cb":"no",
+                              "b":"10",
+                              "r":"12",
+                              "sr":"120",
+                              "four":"2",
+                              "six":"0",
+                              "name":"Ross Taylor"
+                           }
+                        ]
+                     }
+                  }
+               },
+               {
+                  "s":{
+                     "t":"1",
+                     "i":"1",
+                     "ps":"0",
+                     "stay_live":"Yes",
+                     "ld":"No",
+                     "ldmsg":null,
+                     "pms":"live",
+                     "a":{
+                        "fo":"0",
+                        "pp":null,
+                        "i":"7",
+                        "cr":"6.53",
+                        "r":"281",
+                        "o":"43",
+                        "w":"5",
+                        "reo":"43",
+                        "b":"1",
+                        "lb":"0",
+                        "wd":"13",
+                        "nb":"0",
+                        "pt":"0",
+                        "l":"0"
+                     },
+                     "tz":"+13:00"
+                  }
+               }
+            ],
+            "toss":{
+               "win":"7",
+               "bat":"1",
+               "text":"xxx-xxx-xxx"
+            },
+            "result":"0",
+            "ms":"Drinks",
+            "mt":"2",
+            "cts":"1427181967"
          }
       }
    }
