@@ -7,6 +7,9 @@ aliases () {
 # ctags
 alias ctag_py='ctags -R --languages=python --exclude=.git --exclude=log --exclude=env'
 
+# vim
+alias vi='vim'
+
 # git aliases
 alias g='git status'
 alias gad='git add'
@@ -58,3 +61,7 @@ alias ssh='ssh -R 10999:localhost:22' # scp to  localhost:10999:~
 
 # virutalenv
 alias venv='. env/bin/activate'
+
+# Launchctl
+alias redis-launch="sudo launchctl start io.redis.redis-server"
+alias redis-stop="sudo launchctl stop io.redis.redis-server"

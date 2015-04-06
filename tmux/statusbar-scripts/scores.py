@@ -29,7 +29,7 @@ class CricketScores(ScoresAbstract):
         try:
             return self._fetch_and_parse()
         except:
-            print traceback.format_exc()
+            # print traceback.format_exc()
             return False
 
     def _fetch_and_parse(self):
@@ -121,7 +121,7 @@ class SoccerScores(ScoresAbstract):
         try:
             return self._get_fixtures(self._get_date(-3), self._get_date(5))
         except:
-            print traceback.format_exc()
+            # print traceback.format_exc()
             return SoccerScores.DEFAULT_SCORELINE
 
     def _get_date(self, delta):
@@ -145,6 +145,8 @@ class SoccerScores(ScoresAbstract):
         for match in matches:
             if match['match_localteam_name'].lower() == SoccerScores.TEAM or match['match_visitorteam_name'].lower() == SoccerScores.TEAM:
                 return self._process_data(match)
+
+        raise Exception
 
     def validate_response(self, r):
         return super(SoccerScores, self).validate_response(r, self.response_callback)

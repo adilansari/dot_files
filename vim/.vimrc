@@ -4,8 +4,7 @@ filetype off                  " required!
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#rc()
 
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-fugitive'
+Bundle 'gmarik/Vundle.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'L9'
@@ -16,18 +15,21 @@ Bundle 'Syntastic'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'Shougo/neocomplete'
 Bundle 'nvie/vim-flake8'
-Bundle 'davidhalter/jedi-vim'
+"Bundle 'davidhalter/jedi-vim'
 Bundle 'plasticboy/vim-markdown'
-"Bundle 'Valloric/YouCompleteMe'
 Bundle 'Raimondi/delimitMate'
 Bundle 'bling/vim-airline'
+Bundle 'airblade/vim-gitgutter'
 Bundle 'majutsushi/tagbar.git'
 
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle commands are not allowed.
 
 filetype plugin indent on     " required!
+filetype plugin on
 filetype on
 "======Solarized theme============
 syntax on
@@ -45,7 +47,8 @@ set backspace=indent,eol,start 		" allow backspacing over everything in insert m
 set copyindent    " copy the previous indentation on
 set cursorline
 set cursorcolumn
-set nofoldenable    " disable folding"
+set foldlevel=99    "folding"
+set foldmethod=indent
 set hidden
 set history=1000         " remember more commands and search history
 set hlsearch      "
@@ -77,7 +80,10 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 let g:airline#extensions#tabline#enabled = 1
-let g:jedi#popup_select_first = 1
+let g:jedi#popup_select_first = 0
+let g:jedi#auto_vim_configuration = 1
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
 let g:vim_markdown_folding_disabled=1
 let g:ackprg = 'ag --nogroup --nocolor --column'
 let g:ctrlp_map = '<c-p>'
@@ -85,11 +91,12 @@ let g:ctrlp_cmd = 'CtrlP'
 let mapleader=","
 
 autocmd filetype python set expandtab
-autocmd FileType  python setlocal textwidth=79
+"autocmd FileType  python setlocal textwidth=79
 "autocmd BufWritePost *.py call Flake8()
 
 nnoremap <F6> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 map <C-o> :NERDTreeToggle<CR>
+map <C-n> :nohlsearch<CR>
 inoremap <leader>w <esc>:w<cr>a
 inoremap <leader>q <esc>:q<cr>
 inoremap <leader>o <esc>o<cr>i
