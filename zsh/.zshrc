@@ -47,7 +47,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(autojump git python history history-substring-search terminalapp brew colorize command-not-found supervisor tmux tmuxinator virtualenv vundle)
+plugins=(autojump git python history history-substring-search terminalapp brew colorize command-not-found pip supervisor tmux tmuxinator virtualenv vundle)
 
 
 # User configuration

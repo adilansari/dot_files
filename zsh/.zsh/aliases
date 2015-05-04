@@ -65,3 +65,5 @@ alias venv='. env/bin/activate'
 # Launchctl
 alias redis-launch="sudo launchctl start io.redis.redis-server"
 alias redis-stop="sudo launchctl stop io.redis.redis-server"
+alias mongo-launch="sudo launchctl load /Library/LaunchDaemons/io.mongo.mongodb.plist"
+alias mongo-stop="sudo launchctl unload /Library/LaunchDaemons/io.mongo.mongodb.plist"

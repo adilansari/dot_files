@@ -86,8 +86,10 @@ class CricketScores(ScoresAbstract):
         return batting_team_score, bowling_team_score, player_scores
 
     def _get_player_scores(self, data):
-        p1 = '{}:{}'.format(data["d"]["a"]["t"][0]["name"], data["d"]["a"]["t"][0]["r"])
-        p2 = '{}:{}'.format(data["d"]["a"]["t"][1]["name"], data["d"]["a"]["t"][1]["r"])
+        n1 = data["d"]["a"]["t"][0]["name"].split()[-1]
+        n2 = data["d"]["a"]["t"][1]["name"].split()[-1]
+        p1 = '{}:{}'.format(n1, data["d"]["a"]["t"][0]["r"])
+        p2 = '{}:{}'.format(n2, data["d"]["a"]["t"][1]["r"])
 
         return '{}, {}'.format(p1, p2)
 
