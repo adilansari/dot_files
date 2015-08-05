@@ -4,12 +4,12 @@ dls () {
 }
 dgrep() {
 	# A recursive, case-insensitive grep that excludes binary files
-	grep -iR "$1" * | grep -v "Binary"
+	grep -iR "$1" * | grep -v "Binary"| grep -v "env"
 }
 dfgrep() {
 	# A recursive, case-insensitive grep that excludes binary files
 	# and returns only unique filenames
-	grep -iR "$1" * | grep -v "Binary" | sed 's/:/ /g' | awk '{ print $1 }' | sort | uniq
+	grep -iR "$1" * | grep -v "Binary"| grep -v "env" | sed 's/:/ /g' | awk '{ print $1 }' | sort | uniq
 }
 psgrep() {
 	if [ ! -z $1 ] ; then

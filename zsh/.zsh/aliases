@@ -23,7 +23,7 @@ alias greb='git rebase -i master'
 
 # tmux aliases
 alias tms='tmuxinator start'
-alias tmo='tmuxinator open'
+alias tmo='tmux new'
 
 # ssh aliases
 alias vagr='cd ~/onebox/ && vagrant ssh'
@@ -54,6 +54,16 @@ alias ....='cd ../../..'    # And for good measure
 alias l='ls -lah'           # Long view, show hidden
 alias la='ls -AF'           # Compact view, show hidden
 alias ll='ls -lFh'          # Long view, no hidden
+alias clean_pyc='find . -name "*.pyc" -type f -delete'   # pyc cleanup from al subdir
+
+# Jekyll
+alias jekyll_serve="bundle exec jekyll build && bundle exec jekyll serve"
+
+# Launchctl
+alias redis-launch="sudo launchctl start io.redis.redis-server"
+alias redis-stop="sudo launchctl stop io.redis.redis-server"
+alias mongo-launch="sudo launchctl load /Library/LaunchDaemons/io.mongo.mongodb.plist"
+alias mongo-stop="sudo launchctl unload /Library/LaunchDaemons/io.mongo.mongodb.plist"
 
 # Helpers
 alias grep='grep --color=auto' # Always highlight grep search term
@@ -62,8 +72,3 @@ alias ssh='ssh -R 10999:localhost:22' # scp to  localhost:10999:~
 # virutalenv
 alias venv='. env/bin/activate'
 
-# Launchctl
-alias redis-launch="sudo launchctl start io.redis.redis-server"
-alias redis-stop="sudo launchctl stop io.redis.redis-server"
-alias mongo-launch="sudo launchctl load /Library/LaunchDaemons/io.mongo.mongodb.plist"
-alias mongo-stop="sudo launchctl unload /Library/LaunchDaemons/io.mongo.mongodb.plist"
