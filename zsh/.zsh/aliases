@@ -27,25 +27,6 @@ alias tmo='tmux new'
 
 # ssh aliases
 alias vagr='cd ~/onebox/ && vagrant ssh'
-alias ssh_d='ssh adil@d.caffeine.io'
-alias ssh_monitoring='ssh adil@monitoring.caffeine.io'
-alias ssh_staging_3='ssh adil@flask-pyapi-staging-e1a-003.caffeine.io'
-alias ssh_pyapi_int_3='ssh adil@flask-pyapi-integration3-e1a-001.caffeine.io'
-alias ssh_pyapi_int_7='ssh adil@flask-pyapi-integration7-e1e-001.caffeine.io'
-alias ssh_dash_int_1=' ssh adil@dashboard-integration1-e1a-003.caffeine.io'
-alias ssh_scribe='ssh adil@scribe.caffeine.io'
-alias ssh_scribe2='ssh adil@scribe2.caffeine.io'
-alias ssh_pyapi_prod_a='ssh adil@flask-pyapi-production-e1a-001.caffeine.io'
-alias ssh_pyapi_prod_d='ssh adil@flask-pyapi-production-e1d-001.caffeine.io'
-alias ssh_pyapi_prod_e='ssh adil@flask-pyapi-production-e1e-001.caffeine.io'
-alias ssh_mongo_int_2='ssh adil@mongo-integration2-e1a-001.caffeine.io'
-alias ssh_mongo_int_3='ssh adil@mongo-integration3-e1a-001.caffeine.io'
-alias ssh_mongo_int_4='ssh adil@mongo-integration4-e1a-001.caffeine.io'
-alias ssh_mongo_int_7='ssh adil@mongo-integration7-e1e-001.caffeine.io'
-alias ssh_admin_prod_a='ssh adil@admin-production-e1a-001.caffeine.io'
-alias ssh_admin_int_7='ssh adil@admin-integration7-e1e-001.caffeine.io'
-alias ssh_bicron='ssh adil@bicron.caffeine.io'
-alias ssh_ana_prod_3='ssh adil@ana-prod-dn-013.caffeine.io'
 
 # Filesystem
 alias ..='cd ..'            # Go up one directory
