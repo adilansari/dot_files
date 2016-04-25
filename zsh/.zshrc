@@ -78,3 +78,6 @@ source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+# added by travis gem
+[ -f /Users/adil/.travis/travis.sh ] && source /Users/adil/.travis/travis.sh
