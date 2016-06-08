@@ -48,7 +48,6 @@ alias mongo-stop="sudo launchctl unload /Library/LaunchDaemons/io.mongo.mongodb.
 
 # Helpers
 alias grep='grep --color=auto' # Always highlight grep search term
-alias ssh='ssh -R 10999:localhost:22' # scp to  localhost:10999:~ 
 
 # virutalenv
 alias venv='. env/bin/activate'

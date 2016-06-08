@@ -1,7 +1,7 @@
 # ~/.tmuxinator/dot_files.yml
-
+#
 name: dot_files
-root: ~/onebox/.dot_files
+root: ~/onebox/dot_files
 
 # Optional tmux socket
 # socket_name: foo
@@ -11,7 +11,7 @@ root: ~/onebox/.dot_files
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
 # pre_window: rbenv shell 2.0.0-p247
-
+#
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
 
@@ -22,8 +22,8 @@ root: ~/onebox/.dot_files
 # startup_window: logs
 
 windows:
-  - editor:
-      layout: main-horizontal
-      panes:
-        - g
-        - vi .zshrc
+    - editor:
+        layout: even-horizontal
+        panes:
+            - g
+            - vi zsh/.zshrc
