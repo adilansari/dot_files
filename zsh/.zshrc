@@ -6,8 +6,6 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="miloshadzic"
-#ZSH_THEME="cloud"
-#ZSH_THEME="seeker"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -47,7 +45,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(autojump git python history history-substring-search terminalapp brew colorize command-not-found pip supervisor tmux tmuxinator virtualenv vundle)
+plugins=(autojump git python history history-substring-search terminalapp brew colorize command-not-found docker jsontools pip sbt scala supervisor tmux tmuxinator virtualenv vundle)
 
 
 # User configuration
