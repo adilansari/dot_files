@@ -18,12 +18,13 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'Shougo/neocomplete'
 Bundle 'nvie/vim-flake8'
-"Bundle 'davidhalter/jedi-vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'Raimondi/delimitMate'
 Bundle 'bling/vim-airline'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'majutsushi/tagbar.git'
+Bundle 'luochen1990/rainbow'
+Bundle 'derekwyatt/vim-scala'
 
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle commands are not allowed.
@@ -88,6 +89,7 @@ let g:vim_markdown_folding_disabled=1
 let g:ackprg = 'ag --nogroup --nocolor --column'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+let g:rainbow_active = 0
 let mapleader=","
 
 autocmd filetype python set expandtab
