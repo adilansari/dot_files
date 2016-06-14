@@ -23,7 +23,10 @@ alias greb='git rebase -i master'
 
 # tmux aliases
 alias tms='tmuxinator start'
-alias tmo='tmux new'
+alias tml='tmux list-sessions'
+tmo () {
+	tmux new -s $1
+}
 
 # ssh aliases
 alias vagr='cd ~/onebox/ && vagrant ssh'
