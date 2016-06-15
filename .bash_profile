@@ -8,6 +8,7 @@ export PYTHONPATH
 
 export JAVA_HOME=$(/usr/libexec/java_home)
 export PATH=${PATH}:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=/usr/local/php5/bin:$PATH
 export TERM="xterm-256color"
 
 #git autocomplete

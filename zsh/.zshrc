@@ -51,8 +51,9 @@ plugins=(autojump git python history history-substring-search terminalapp brew c
 # User configuration
 
 export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/texbin:/Users/adil/Code/adt-bundle-mac-x86_64-20140321/sdk/platform-tools"
+export PATH=/usr/local/php5/bin:$PATH
+export TERM="xterm-256color"
 export EDITOR='vim'
-# export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.zsh/tmuxinator.zsh
