@@ -26,4 +26,4 @@ windows:
         layout: even-horizontal
         panes:
             - g
-            - vi zsh/.zshrc
+            - cd tmux
