@@ -171,7 +171,6 @@ if __name__ == '__main__':
     obj = CricketScores().get_display_string()
 
     if not obj:
-        arg = argv[1]
-        obj = SoccerScores(arg).get_display_string()
+        obj = 'A.R.S.E.N.A.L'
 
     print obj
