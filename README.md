@@ -11,6 +11,7 @@
 ```
 
 - Else update the `dot_files_dir` in the **install.sh** file to the location where this is cloned and follow the above steps.
+
 > `install.sh` file creates symlinks to the needed files.
 
 # tmux + zsh = awesomeness
@@ -27,8 +28,8 @@
 ![Cricket score in tmux status bas](https://raw.github.com/adilansari/.dot_files/master/tmux/statusbar-scripts/screengrabs/cric-score.png)
 
 # License
-
-MIT License
+```
+The MIT License
 
 Copyright (c) 2016 Adil Ansari
 
@@ -49,3 +50,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
