@@ -3,7 +3,7 @@
 cd $HOME
 
 # Check to make sure dotfiles is located at $HOME/dot_files
-dot_files_dir="$HOME/onebox/dot_files"
+dot_files_dir="$HOME/dot_files"
 
 if [[ ! -d $dot_files_dir ]]; then
   echo "Could not find dotfiles directory. Make sure you place it under $HOME"

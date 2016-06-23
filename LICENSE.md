@@ -1,33 +1,3 @@
-# Install
-
-- Install [tmux](http://linoxide.com/how-tos/install-tmux-manage-multiple-linux-terminals/)(optional).
-- But you definitely need [vim](http://www.vim.org/download.php).
-- If you clone this repo in your **$HOME** directory.
-
-```bash
-	$ git clone https://github.com/adilansari/dot_files.git
-	cd dot_files
-	./install.sh
-```
-
-- Else update the `dot_files_dir` in the **install.sh** file to the location where this is cloned and follow the above steps.
-> `install.sh` file creates symlinks to the needed files.
-
-# tmux + zsh = awesomeness
-=======
-![powertools](https://raw.github.com/adilansari/.dot_files/master/screengrabs/terminal.png)
-
-# Vim
-=======
-### What it looks like now?
-![Terminal mode (_No GUI_)](https://raw.github.com/adilansari/.dot_files/master/screengrabs/vimrc.png)
-
-# Cricket Score
-=======
-![Cricket score in tmux status bas](https://raw.github.com/adilansari/.dot_files/master/tmux/statusbar-scripts/screengrabs/cric-score.png)
-
-# License
-
 MIT License
 
 Copyright (c) 2016 Adil Ansari
