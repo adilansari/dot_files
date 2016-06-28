@@ -6,8 +6,8 @@
 
 ```bash
 	$ git clone https://github.com/adilansari/dot_files.git
-	cd dot_files
-	./install.sh
+	$ cd dot_files
+	$ ./install.sh
 ```
 
 - Else update the `dot_files_dir` in the **install.sh** file to the location where this is cloned and follow the above steps.
