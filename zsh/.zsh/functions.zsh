@@ -2,6 +2,10 @@ dls () {
 	# directory LS
 	echo `ls -l | grep "^d" | awk '{ print $1 }' | tr -d "/"`
 }
+dfind(){
+	# recursive search for filename/pattern
+	find . -type f -name $1
+}
 dgrep() {
 	# A recursive, case-insensitive grep that excludes binary files
 	grep -iR "$1" * | grep -v "Binary"| grep -v "env"
