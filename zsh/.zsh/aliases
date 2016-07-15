@@ -4,6 +4,10 @@ aliases () {
 	grep "$1" ~/.zsh/aliases
 }
 
+# SULTAN of aliases
+alias maut='sudo rm -rf /'
+# Woh dus maarenge aur tu ek maarega ... us ek mein dus ka vazan hoga
+
 # ctags
 alias ctag_py='ctags -R --languages=python --exclude=.git --exclude=log --exclude=env'
 alias ctags="`brew --prefix`/bin/ctags"
