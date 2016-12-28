@@ -1,0 +1,11 @@
+# ~/.tmuxinator/blog.yml
+
+name: blog-dev
+root: ~/onebox/adilansari.github.io
+
+windows:
+  - editor:
+      layout: even-horizontal
+      panes:
+        - git status
+        - bundle exec jekyll build && bundle exec jekyll serve
