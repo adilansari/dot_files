@@ -1,7 +1,7 @@
 # Install
 
 - Install [tmux](http://linoxide.com/how-tos/install-tmux-manage-multiple-linux-terminals/)(optional).
-- But you definitely need [vim](http://www.vim.org/download.php) and a package manager for it, I use [Vundle](https://github.com/VundleVim/Vundle.vim).
+- But you definitely need [vim](http://www.vim.org/download.php) and [Vundle](https://github.com/VundleVim/Vundle.vim), its a package manager for vim.
 - If you clone this repo in your **$HOME** directory.
 
 ```bash
