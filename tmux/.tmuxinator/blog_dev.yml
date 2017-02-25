@@ -8,4 +8,4 @@ windows:
       layout: even-horizontal
       panes:
         - git status
-        - bundle exec jekyll build && bundle exec jekyll serve
+        - bundle exec jekyll build && bundle exec jekyll serve --config=_config.dev.yml

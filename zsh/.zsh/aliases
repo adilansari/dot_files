@@ -37,6 +37,7 @@ alias l='ls -lah'           # Long view, show hidden
 alias la='ls -AF'           # Compact view, show hidden
 alias ll='ls -lFh'          # Long view, no hidden
 alias clean_pyc='find . -name "*.pyc" -type f -delete'   # pyc cleanup from al subdir
+alias mp3_tag='eyeD3 --genre Desi */*.mp3'
 
 # Jekyll
 alias jekyll_serve="bundle exec jekyll build && bundle exec jekyll serve"
