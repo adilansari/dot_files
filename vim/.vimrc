@@ -10,7 +10,7 @@ Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'kien/ctrlp.vim'
-Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'wincent/command-t'
 Bundle 'Syntastic'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'tpope/vim-surround'
