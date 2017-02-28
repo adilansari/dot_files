@@ -1,0 +1,11 @@
+# ~/.tmuxinator/blog.yml
+
+name: courses
+root: ~/onebox/finagle-play-akka
+
+windows:
+  - editor:
+      layout: even-horizontal
+      panes:
+        - git status
+        - ll

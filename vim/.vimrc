@@ -25,6 +25,8 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'majutsushi/tagbar.git'
 Bundle 'luochen1990/rainbow'
 Bundle 'derekwyatt/vim-scala'
+Bundle 'othree/html5.vim'
+Bundle 'pangloss/vim-javascript'
 
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle commands are not allowed.

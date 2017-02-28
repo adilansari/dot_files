@@ -1,0 +1,11 @@
+# ~/.tmuxinator/blog.yml
+
+name: web-host
+root: ~/onebox/
+
+windows:
+  - editor:
+      layout: even-horizontal
+      panes:
+        - ssh -p 21098 adilgpah@adilansari.com
+        - ssh -p 21098 adilgpah@adilansari.com
