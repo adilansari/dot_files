@@ -27,48 +27,18 @@
 =======
 ![Cricket score in tmux status bas](https://raw.github.com/adilansari/.dot_files/master/tmux/statusbar-scripts/screengrabs/cric-score.png)
 
-# Suggested Improvements
-- Lemme start using emojis in commit mesages
+# Other installations
 
-Suggested Emojis
 ----------------
 
-| Emoji | Raw Emoji Code | Description |
+| Emoji | What | Description |
 |:---:|:---:|---|
-| :art: | `:art:` | when improving the **format**/structure of the code |
-| :racehorse: | `:racehorse:` | when improving **performance** |
-| :books: | `:books:` | when writing **docs** |
-| :bug: | `:bug:` | when reporting a **bug**, with [`@FIXME`](https://github.com/slashsBin/styleguide-todo-grammar#bug-report)Comment Tag |
-| :ambulance: | `:ambulance:` | when fixing a **bug** |
-| :penguin: | `:penguin:` | when fixing something on **Linux** |
-| :apple: | `:apple:` | when fixing something on **Mac OS** |
-| :checkered_flag: | `:checkered_flag:` | when fixing something on **Windows** |
-| :fire: | `:fire:` | when **removing code** or files, _maybe_ with `@CHANGED` Comment Tag |
-| :umbrella: | `:umbrella:` | when adding **tests** |
-| :green_heart: | `:green_heart:` | when fixing the **CI** build |
-| :lock: | `:lock:` | when dealing with **security** |
-| :arrow_up: | `:arrow_up:` | when upgrading **dependencies** |
-| :arrow_down: | `:arrow_down:` | when downgrading **dependencies** |
-| :fast_forward: | `:fast_forward:` | when **forward-porting features** from an older version/branch |
-| :rewind: | `:rewind:` | when **backporting features** from a newer version/branch |
-| :shirt: | `:shirt:` | when removing **linter**/strict/deprecation warnings |
-| :lipstick: | `:lipstick:` | when improving **UI**/Cosmetic |
-| :wheelchair: | `:wheelchair:` | when improving **accessibility** |
-| :globe_with_meridians: | `:globe_with_meridians:` | when dealing with **globalization**/internationalization/i18n/g11n |
-| :construction: | `:construction:` | **WIP**(Work In Progress) Commits, _maybe_ with `@REVIEW` Comment Tag |
-| :gem: | `:gem:` | New **Release** |
-| :bookmark: | `:bookmark:` | Version **Tags** |
-| :tada: | `:tada:` | **Initial** Commit |
-| :speaker: | `:speaker:` | when Adding **Logging** |
-| :mute: | `:mute:` | when Reducing **Logging** |
-| :sparkles: | `:sparkles:` | when introducing **New** Features |
-| :zap: | `:zap:` | when introducing **Backward-InCompatible** Features, _maybe_ with `@CHANGED` Comment Tag |
-| :bulb: | `:bulb:` | New **Idea**, with `@IDEA` Comment Tag |
-| :snowflake: | `:snowflake:` | changing **Configuration**, Usually together with :penguin: or :ribbon: or :rocket: |
-| :ribbon: | `:ribbon:` | Customer requested application **Customization**, with `@HACK` Comment Tag |
-| :rocket: | `:rocket:` | Anything related to Deployments/**DevOps** |
+| :art: | [gitmoji-cli](https://github.com/carloscuesta/gitmoji-cli) | improving the **look** of git commits |
+| :speaker: | [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) | **Shell** works best |
+| :sparkles: | [IntelliJ material theme](https://plugins.jetbrains.com/plugin/8006-material-theme-ui) | IntelliJ UI theme |
 | :elephant: | `:elephant:` | **PostgreSQL** Database specific(Migrations, Scripts, Extensions, ...)  |
 | :dolphin: | `:dolphin:` | **MySQL** Database specific(Migrations, Scripts, Extensions, ...) |
+
 
 # License
 ```
