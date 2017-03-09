@@ -22,5 +22,5 @@ if [ -f ~/.zsh/aliases ]; then
 fi
 
 
-export NVM_DIR="/Users/adil.ansari/.nvm"
+export NVM_DIR="~/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
