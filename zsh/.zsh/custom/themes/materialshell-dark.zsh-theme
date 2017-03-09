@@ -10,8 +10,8 @@ eval cyan='$FG[037]'
 eval white='$FG[231]'
 eval grey='$FG[145]'
 
-PROMPT='$(_user_host)${_current_dir}$(git_prompt_info)
-%{$white%}>%{$reset_color%} '
+PROMPT='$(_virtualenv)$(_user_host)${_current_dir}$(git_prompt_info)
+%{$white%}⚡%{$reset_color%} '
 
 PROMPT2='%{$grey%}◀%{$reset_color%} '
 
@@ -24,6 +24,10 @@ local _hist_no="%{$grey%}%h%{$reset_color%}"
 
 function _user_host() {
   echo "%{$red%}%n%{$reset_color%}%{$white%} at %{$yellow%}%m%{$reset_color%} %{$white%}in "
+}
+
+function _virtualenv(){
+	[ $VIRTUAL_ENV ] && echo " %{$cyan%}("`basename $VIRTUAL_ENV`")%{$reset_color%} "
 }
 
 function _vi_status() {
