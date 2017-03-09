@@ -36,8 +36,9 @@
 | :art: | [gitmoji-cli](https://github.com/carloscuesta/gitmoji-cli) | improving the **look** of git commits |
 | :speaker: | [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) | **Shell** works best |
 | :sparkles: | [IntelliJ material theme](https://plugins.jetbrains.com/plugin/8006-material-theme-ui) | IntelliJ UI theme |
-| :elephant: | `:elephant:` | **PostgreSQL** Database specific(Migrations, Scripts, Extensions, ...)  |
-| :dolphin: | `:dolphin:` | **MySQL** Database specific(Migrations, Scripts, Extensions, ...) |
+| :elephant: | [httpie](https://httpie.org/) | beautiful **CuRL** replacement with goodies  |
+| :dolphin: | [autojump](https://github.com/wting/autojump) | **cd** command but fast |
+| :snake: | [hack](http://sourcefoundry.org/hack/) | beautiful **fontface** for source code |
 
 
 # License
