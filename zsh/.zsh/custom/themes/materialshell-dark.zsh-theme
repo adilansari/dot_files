@@ -2,6 +2,7 @@
 # Modified by : Carlos Cuesta
 
 eval red='$FG[203]'
+eval bg_red='$BG[203]'
 eval green='$FG[184]'
 eval yellow='$FG[220]'
 eval blue='$FG[075]'
@@ -10,10 +11,12 @@ eval cyan='$FG[037]'
 eval white='$FG[231]'
 eval grey='$FG[145]'
 
-PROMPT='$(_virtualenv)$(_user_host)${_current_dir}$(git_prompt_info)
-%{$white%}⚡%{$reset_color%} '
+PROMPT='${PROMPT_SUFFIX}$(_virtualenv)$(_git_time_since_commit)${_current_dir}💥
+%{$yellow%} $⚡%{$reset_color%} '
 
-PROMPT2='%{$grey%}◀%{$reset_color%} '
+PROMPT_PREFIX='λ'
+PROMPT_SUFFIX="%{$magenta%}❮❮❮λ%{$reset_color%}"
+PROMPT2='%{$grey%}asad◀%{$reset_color%}'
 
 #RPROMPT='$(_vi_status)%{$(echotc UP 1)%}$(git_prompt_short_sha) $(_git_time_since_commit) ${_return_status} %T% %{$(echotc DO 1)%}'
 RPROMPT='$(_vi_status)%{$(echotc UP 1)%}$(git_prompt_short_sha) ${_return_status} %{$white%}%T%{$(echotc DO 1)%}%{$reset_color%}'
@@ -23,11 +26,11 @@ local _return_status="%{$red%}%(?..×)%{$reset_color%}"
 local _hist_no="%{$grey%}%h%{$reset_color%}"
 
 function _user_host() {
-  echo "%{$red%}%n%{$reset_color%}%{$white%} at %{$yellow%}%m%{$reset_color%} %{$white%}in "
+  echo "%{$cyan%}%n%{$reset_color%}%{$white%} at %{$red%}%m%{$reset_color%} %{$white%}in "
 }
 
 function _virtualenv(){
-  [ $VIRTUAL_ENV ] && echo " %{$cyan%}("`basename $VIRTUAL_ENV`")%{$reset_color%} "
+  [ $VIRTUAL_ENV ] && echo " %{$yellow%}("`basename $VIRTUAL_ENV`")%{$reset_color%} "
 }
 
 function _vi_status() {
@@ -65,13 +68,13 @@ function _git_time_since_commit() {
       if [ $hours -gt 24 ]; then
           commit_age="${days}d"
       elif [ $minutes -gt 60 ]; then
-          commit_age="${sub_hours}h${sub_minutes}m"
+          commit_age="${sub_hours}h ${sub_minutes}m"
       else
           commit_age="${minutes}m"
       fi
 
       color=$ZSH_THEME_GIT_TIME_SINCE_COMMIT_NEUTRAL
-      echo "$color$commit_age%{$reset_color%}"
+      echo " %{$blue%}$commit_age%{$reset_color%} %{$white%}since last commit in%{$reset_color%} "
     fi
   fi
 }

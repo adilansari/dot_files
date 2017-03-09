@@ -74,4 +74,4 @@ function virtualenv_info {
 }
 
 #PROMPT='$(virtualenv_info)%{$fg[cyan]%}%2~%{$reset_color%}%{$fg[red]%}|%{$reset_color%}$(git_prompt_info)%{$fg[cyan]%}⇒%{$reset_color%} '
-PROMPT='%{$fg_bold[red]%}$(virtualenv_info) %{$fg[cyan]%}%2~%{$reset_color%}%{$fg[magenta]%}⚡%{$reset_color%} '
+#PROMPT='%{$fg_bold[red]%}$(virtualenv_info) %{$fg[cyan]%}%2~%{$reset_color%}%{$fg[magenta]%}⚡%{$reset_color%} '
