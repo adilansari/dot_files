@@ -27,7 +27,7 @@ function _user_host() {
 }
 
 function _virtualenv(){
-	[ $VIRTUAL_ENV ] && echo " %{$cyan%}("`basename $VIRTUAL_ENV`")%{$reset_color%} "
+  [ $VIRTUAL_ENV ] && echo " %{$cyan%}("`basename $VIRTUAL_ENV`")%{$reset_color%} "
 }
 
 function _vi_status() {
