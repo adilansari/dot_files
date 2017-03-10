@@ -39,6 +39,7 @@
 | :elephant: | [httpie](https://httpie.org/) | beautiful **CuRL** replacement with goodies  |
 | :dolphin: | [autojump](https://github.com/wting/autojump) | **cd** command but fast |
 | :snake: | [hack](http://sourcefoundry.org/hack/) | beautiful **fontface** for source code |
+| :ribbon: | [ctop](https://bcicen.github.io/ctop/) | top like **container metrics** |
 
 
 # License
