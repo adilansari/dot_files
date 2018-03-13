@@ -2,34 +2,35 @@ set nocompatible              " be iMproved
 filetype off                  " required!
 
 set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#rc()
+call vundle#begin()
 
-Bundle 'gmarik/Vundle.vim'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-Bundle 'kien/ctrlp.vim'
-Bundle 'wincent/command-t'
-Bundle 'Syntastic'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'tpope/vim-surround'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'Shougo/neocomplete'
-Bundle 'nvie/vim-flake8'
-Bundle 'plasticboy/vim-markdown'
-Bundle 'Raimondi/delimitMate'
-Bundle 'bling/vim-airline'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'majutsushi/tagbar.git'
-Bundle 'luochen1990/rainbow'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'othree/html5.vim'
-Bundle 'pangloss/vim-javascript'
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'L9'
+Plugin 'FuzzyFinder'
+Plugin 'kien/ctrlp.vim'
+Plugin 'wincent/command-t'
+Plugin 'Syntastic'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'Shougo/neocomplete'
+Plugin 'nvie/vim-flake8'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'Raimondi/delimitMate'
+Plugin 'bling/vim-airline'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'majutsushi/tagbar.git'
+Plugin 'luochen1990/rainbow'
+Plugin 'derekwyatt/vim-scala'
+Plugin 'othree/html5.vim'
+Plugin 'pangloss/vim-javascript'
+
+call vundle#end()
 
 " see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle commands are not allowed.
+" NOTE: comments after Plugin commands are not allowed.
 
 filetype plugin indent on     " required!
 filetype plugin on
