@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 from datetime import datetime, timedelta
 
 import requests as req
-from xml.etree import ElementTree as ET
+import random
 
 
 class ScoresAbstract:
@@ -13,116 +13,77 @@ class ScoresAbstract:
         pass
 
     @abstractmethod
-    def validate_response(self, request, callback):
+    def validate_response(self, response, callback):
         data = {}
-        if request.status_code == req.codes.ok:
-            data = request.json()
+        if response.status_code == req.codes.ok:
+            data = response.json()
 
         return callback(data)
 
 
-class CricketScoresx(ScoresAbstract):
-
-    URL = 'https://query.yahooapis.com/v1/public/yql'
-
-    def get_display_string(self):
-        try:
-            return self._fetch_and_parse()
-        except:
-            # print traceback.format_exc()
-            return False
+class CricketScores(ScoresAbstract):
+    URL = 'http://www.cricbuzz.com/match-api/livematches.json'
+    SERIES_KEYWORDS = ['IND', 'RSA', 'AUS', 'PAK', 'NZ', 'ENG', 'IPL']  # short_name
 
     def _fetch_and_parse(self):
-        params = {
-            'q': 'select * from cricket.scorecard.live.summary',
-            'format': 'json',
-            'diagnostics': 'false',
-            'env': 'store://0TxIGQMQbObzvU4Apia0V0'
-        }
-
-        resp = req.get(CricketScores.URL, params=params)
-
-        if not self.validate_response(resp):
+        resp = req.get(CricketScores.URL)
+        if not self.validate_response(resp, self.response_callback):
             raise Exception
 
-        scorecard = resp.json()['query']['results']['Scorecard']
-        t1_score, t2_score, player_scores = self._process_data(scorecard)
+        return self._process_data(self.data['matches'])
 
-        return '{} | {} | {}'.format(t1_score, player_scores, t2_score)
+    def _process_data(self, matches):
+        self._set_random_match(matches)
+        batting_score, bowling_score = self._get_team_scores(self.match)
+        individual_scores = self._get_individual_scores(self.match)
+        return '{} | {} | {}'.format(batting_score, individual_scores, bowling_score)
 
-    def _process_data(self, data):
-        teams = {}
-        for x in [0, 1]:
-            teams[data['teams'][x]['i']] = data['teams'][x]['sn']
-
-        innings = 1
-        if isinstance(data['past_ings'], list) and len(data['past_ings']) == 2:
-            batting_innings = data['past_ings'][0]
-            bowling_innings = data['past_ings'][1]
-            innings = 2
+    @staticmethod
+    def _get_team_scores(match):
+        if match['score']['batting']['id'] == match['team1']['id']:
+            batting_team, bowling_team = (match['team1'], match['team2'])
         else:
-            batting_innings = data['past_ings']
+            batting_team, bowling_team = (match['team2'], match['team1'])
 
-        batting_team = teams.pop(batting_innings['s']['a']['i'])
-        batting_team_score = '{}:{}/{} {} ovrs'.format(
-            batting_team,
-            batting_innings["s"]["a"]["r"],
-            batting_innings["s"]["a"]["w"],
-            batting_innings["s"]["a"]["o"]
-        )
+        batting_score, bowling_score = match['score']['batting']['score'], match['score']['bowling']['score']
+        batting_formatted_score = '{}: {}'.format(batting_team['s_name'], batting_score)
+        bowling_formatted_score = '{}: {}'.format(bowling_team['s_name'], bowling_score)
 
-        bowling_team = teams.popitem()[1]
-        if innings == 2:
-            bowling_team_score = '{}:{}/{}'.format(
-                bowling_team,
-                bowling_innings["s"]["a"]["r"],
-                bowling_innings["s"]["a"]["w"]
-            )
-        else:
-            bowling_team_score = '{}'.format(bowling_team)
+        return batting_formatted_score, bowling_formatted_score
 
-        player_scores = self._get_player_scores(batting_innings)
+    @staticmethod
+    def _get_individual_scores(match):
+        batsmen = {}
+        for player in match['players']:
+            batsmen[player['id']] = player['name']
 
-        return batting_team_score, bowling_team_score, player_scores
+        batsmen_scores = []
+        for batsman in match['score']['batsman']:
+            batsmen_scores.append('{}: {}'.format(batsmen[batsman['id']], batsman['r']))
 
-    def _get_player_scores(self, data):
-        n1 = data["d"]["a"]["t"][0]["name"].split()[-1]
-        n2 = data["d"]["a"]["t"][1]["name"].split()[-1]
-        p1 = '{}:{}'.format(n1, data["d"]["a"]["t"][0]["r"])
-        p2 = '{}:{}'.format(n2, data["d"]["a"]["t"][1]["r"])
+        return ', '.join(batsmen_scores)
 
-        return '{}, {}'.format(p1, p2)
+    def _set_random_match(self, matches):
+        matches = {id: match_data for id, match_data in matches.items() if self._display_this_match(match_data)}
+        self.match = random.choice(matches.values())
 
-    def validate_response(self, r):
-        return super(CricketScores, self).validate_response(r, self.response_callback)
+    @staticmethod
+    def _display_this_match(match):
+        keys = filter(lambda key: key in match['series']['short_name'], CricketScores.SERIES_KEYWORDS)
+        return bool(keys) and 'score' in match  # needs to be a live match
+
+    def validate_response(self, response, callback):
+        return super(CricketScores, self).validate_response(response, callback)
 
     def response_callback(self, data):
-        return data['query'].get('count') > 0
-
-
-class CricketScores(ScoresAbstract):
-
-    URL = 'http://www.cricbuzz.com/match-api/'
-    LIVE_MATCHES_SUFFIX = 'livematches.json'
-    MATCH_URL_SUFFIX = 'commentary.json'
-    SERIES_KEYWORDS = ['IND', 'RSA', 'AUS', 'PAK', 'NZ', 'ENG', 'IPL'] # short_name
-
-    def _use_match_data(self):
-        return True
-
-    def _fetch_and_parse(self):
-        resp = ET.fromstring(req.get(CricketScores.URL).text)
-        print resp.tag, resp.attrib
-
-    def validate_response(self, request, callback):
-        pass
+        self.data = data
+        return len(data['matches']) > 0
 
     def get_display_string(self):
-        self._fetch_and_parse()
+        return self._fetch_and_parse()
 
 
 class SoccerScores(ScoresAbstract):
-
     """
     supports only premier league on free tier
     will look if any matches inpast 2 days for 'ARSENAL' and return scoreline
@@ -166,7 +127,8 @@ class SoccerScores(ScoresAbstract):
 
         matches = resp.json().get('matches')
         for match in matches:
-            if match['match_localteam_name'].lower() == SoccerScores.TEAM or match['match_visitorteam_name'].lower() == SoccerScores.TEAM:
+            if match['match_localteam_name'].lower() == SoccerScores.TEAM or match[
+                'match_visitorteam_name'].lower() == SoccerScores.TEAM:
                 return self._process_data(match)
 
         raise Exception
@@ -189,9 +151,7 @@ class SoccerScores(ScoresAbstract):
 
 
 if __name__ == '__main__':
-    obj = CricketScores().get_display_string()
+    cricket_score = CricketScores()
+    score_display = cricket_score.get_display_string()
 
-    if not obj:
-        obj = 'A.R.S.E.N.A.L'
-
-    print obj
+    print score_display
