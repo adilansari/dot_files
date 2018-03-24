@@ -1,7 +1,9 @@
 # Install
 
 - Install [tmux](http://linoxide.com/how-tos/install-tmux-manage-multiple-linux-terminals/)(optional).
-- But you definitely need [vim](http://www.vim.org/download.php) and [Vundle](https://github.com/VundleVim/Vundle.vim), its a package manager for vim.
+- install [vundle](https://github.com/VundleVim/Vundle.vim)
+- install [on-my-zsh](https://github.com/robbyrussell/oh-my-zsh/)(recommended)
+- You definitely need [vim](http://www.vim.org/download.php) and [Vundle](https://github.com/VundleVim/Vundle.vim), its a package manager for vim.
 - If you clone this repo in your **$HOME** directory.
 
 ```bash
@@ -23,9 +25,19 @@
 ### What it looks like now?
 ![Terminal mode (_No GUI_)](https://raw.github.com/adilansari/.dot_files/master/screengrabs/vimrc.png)
 
-# Cricket Score
+# Scores in status bar
 =======
-![Cricket score in tmux status bas](https://raw.github.com/adilansari/.dot_files/master/tmux/statusbar-scripts/screengrabs/cric-score.png)
+`.tmux.conf` runs for `($HOME/.tmux-status.sh)` in your home directory, create that executable file and status bar will display the string output of that executable.
+
+This is how my `($HOME/.tmux-status.sh)` executable file looks like to display cricket/soccer scores:
+```
+#!/bin/bash
+cd $HOME/dot_files/tmux/statusbar-scripts [API_SECRET]
+env/bin/python scores.py
+```
+> Note: I have a python virtualenv created in that directory.
+
+![Cricket score in tmux status bar](https://raw.github.com/adilansari/.dot_files/master/tmux/statusbar-scripts/screengrabs/cric-score.png)
 
 # Other installations
 
