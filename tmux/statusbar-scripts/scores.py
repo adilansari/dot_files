@@ -1,8 +1,8 @@
 from abc import ABCMeta, abstractmethod
-import requests as req
 from datetime import datetime, timedelta
-from sys import argv
-import traceback
+
+import requests as req
+from xml.etree import ElementTree as ET
 
 
 class ScoresAbstract:
@@ -21,7 +21,7 @@ class ScoresAbstract:
         return callback(data)
 
 
-class CricketScores(ScoresAbstract):
+class CricketScoresx(ScoresAbstract):
 
     URL = 'https://query.yahooapis.com/v1/public/yql'
 
@@ -98,6 +98,27 @@ class CricketScores(ScoresAbstract):
 
     def response_callback(self, data):
         return data['query'].get('count') > 0
+
+
+class CricketScores(ScoresAbstract):
+
+    URL = 'http://www.cricbuzz.com/match-api/'
+    LIVE_MATCHES_SUFFIX = 'livematches.json'
+    MATCH_URL_SUFFIX = 'commentary.json'
+    SERIES_KEYWORDS = ['IND', 'RSA', 'AUS', 'PAK', 'NZ', 'ENG', 'IPL'] # short_name
+
+    def _use_match_data(self):
+        return True
+
+    def _fetch_and_parse(self):
+        resp = ET.fromstring(req.get(CricketScores.URL).text)
+        print resp.tag, resp.attrib
+
+    def validate_response(self, request, callback):
+        pass
+
+    def get_display_string(self):
+        self._fetch_and_parse()
 
 
 class SoccerScores(ScoresAbstract):

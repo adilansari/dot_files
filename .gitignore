@@ -1,3 +1,4 @@
 env
 ck_*.yml
 *.sublime*
+*.idea
