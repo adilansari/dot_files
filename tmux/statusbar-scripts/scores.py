@@ -65,6 +65,9 @@ class CricketScores(ScoresAbstract):
 
     def _set_random_match(self, matches):
         matches = {id: match_data for id, match_data in matches.items() if self._display_this_match(match_data)}
+        if len(matches.keys()) == 0:
+            raise Exception('no live matches')
+
         self.match = random.choice(matches.values())
 
     @staticmethod
