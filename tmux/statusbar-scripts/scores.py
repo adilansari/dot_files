@@ -3,6 +3,8 @@ from datetime import datetime, timedelta
 
 import requests as req
 import random
+import pytz
+import sys
 
 
 class ScoresAbstract:
@@ -88,73 +90,70 @@ class CricketScores(ScoresAbstract):
 
 class SoccerScores(ScoresAbstract):
     """
-    supports only premier league on free tier
-    will look if any matches inpast 2 days for 'ARSENAL' and return scoreline
-    else will find any fixtures in next 7 days
-
-    args = API_KEY from football-api.com
-    Sample request: http://football-api.com/api/?Action=fixtures&APIKey={}&comp_id={}&match_date={}
+    Register at http://football-data.org/ for API key
     """
 
-    COMP_ID = 1204
-    TEAM = 'arsenal'
-    URL = 'http://football-api.com/api'
+    URL = 'http://api.football-data.org/v1/teams/{0}/fixtures?timeFrameStart={1}&timeFrameEnd={2}'
     DEFAULT_SCORELINE = 'A.R.S.E.N.A.L'
+    TEAMS = {
+        'Arsenal': 57,
+        'Chelsea': 61,
+        'ManCity': 65,
+        'ManUtd': 66,
+    }
 
     def __init__(self, _api_key):
-        self._api_key = _api_key
+        self.headers = {'X-Auth-Token': _api_key, 'X-Response-Control': 'minified'}
 
     def get_display_string(self):
         try:
-            return self._get_fixtures(self._get_date(-3), self._get_date(5))
+            return self._get_fixtures()
         except:
-            # print traceback.format_exc()
             return SoccerScores.DEFAULT_SCORELINE
 
-    def _get_date(self, delta):
-        date = datetime.now() + timedelta(days=delta)
-        return date.strftime('%d.%m.%Y')
+    def _get_fixtures(self):
+        start_date, end_date = self.get_start_end_dates()
+        resp = req.get(SoccerScores.URL.format(SoccerScores.TEAMS['Arsenal'], start_date, end_date),
+                       headers=self.headers)
 
-    def _get_fixtures(self, from_date, to_date):
-        params = {
-            'Action': 'fixtures',
-            'from_date': from_date,
-            'to_date': to_date,
-            'APIKey': self._api_key,
-            'comp_id': SoccerScores.COMP_ID
-        }
-        resp = req.get(SoccerScores.URL, params=params)
-
-        if not self.validate_response(resp):
+        if not self.validate_response(resp, self.response_callback):
             raise Exception
 
-        matches = resp.json().get('matches')
-        for match in matches:
-            if match['match_localteam_name'].lower() == SoccerScores.TEAM or match[
-                'match_visitorteam_name'].lower() == SoccerScores.TEAM:
-                return self._process_data(match)
+        home_team, away_team = self.fixture['homeTeamName'], self.fixture['awayTeamName']
+        home_team_score, away_team_score = self.fixture['result']['goalsHomeTeam'] or 0, self.fixture['result'][
+            'goalsAwayTeam'] or 0
+        fixture_date = self.get_pdt_date(self.fixture['date'])
 
-        raise Exception
+        return '{}  {}:{}  {} || {}'.format(home_team, home_team_score, away_team_score, away_team, fixture_date)
 
-    def validate_response(self, r):
-        return super(SoccerScores, self).validate_response(r, self.response_callback)
+    @staticmethod
+    def get_start_end_dates():
+        start_date = datetime.now() - timedelta(days=2)
+        end_date = start_date + timedelta(days=11)
+        return start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')
+
+    @staticmethod
+    def get_pdt_date(date_string):
+        dt = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=pytz.utc)
+        return dt.astimezone(pytz.timezone('US/Pacific')).strftime('%Y-%m-%d %H:%M:%S %Z')
+
+    def validate_response(self, response, callback):
+        return super(SoccerScores, self).validate_response(response, callback)
 
     def response_callback(self, data):
-        return data.get("ERROR") == "OK"
-
-    def _process_data(self, match_data):
-        return '[{}] {} {}-{} {} ({})'.format(
-            match_data['match_date'],
-            match_data['match_localteam_name'],
-            match_data['match_localteam_score'],
-            match_data['match_visitorteam_score'],
-            match_data['match_visitorteam_name'],
-            match_data['match_status']
-        )
+        self.fixture = data['fixtures'][0]
+        return data['count'] < 3
 
 
 if __name__ == '__main__':
-    cricket_score = CricketScores()
-    score_display = cricket_score.get_display_string()
+    if random.randint(1, 2) == 1:
+        score = CricketScores()
+    else:
+        score = SoccerScores(sys.argv[1])
 
-    print score_display
+    score_display = score.get_display_string()
+
+    if not score_display:
+        print 'A.R.S.E.N.A.L'
+    else:
+        print score_display
