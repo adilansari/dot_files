@@ -21,12 +21,12 @@
 ![powertools](https://raw.github.com/adilansari/.dot_files/master/screengrabs/terminal.png)
 
 # Vim
-=======
+
 ### What it looks like now?
 ![Terminal mode (_No GUI_)](https://raw.github.com/adilansari/.dot_files/master/screengrabs/vimrc.png)
 
 # Scores in status bar
-=======
+
 `.tmux.conf` runs for `($HOME/.tmux-status.sh)` in your home directory, create that executable file and status bar will display the string output of that executable.
 
 This is how my `($HOME/.tmux-status.sh)` executable file looks like to display cricket/soccer scores:
