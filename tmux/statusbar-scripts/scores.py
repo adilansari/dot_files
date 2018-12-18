@@ -93,13 +93,24 @@ class SoccerScores(ScoresAbstract):
     Register at http://football-data.org/ for API key
     """
 
-    URL = 'http://api.football-data.org/v1/teams/{0}/fixtures?timeFrameStart={1}&timeFrameEnd={2}'
+    URL = 'http://api.football-data.org/v2/matches'
     DEFAULT_SCORELINE = 'A.R.S.E.N.A.L'
     TEAMS = {
-        'Arsenal': 57,
-        'Chelsea': 61,
-        'ManCity': 65,
-        'ManUtd': 66,
+        57: 'Arsenal',
+        61: 'Chelsea',
+        65: 'ManCity',
+        66: 'ManUtd',
+        73: 'Tottenham',
+        81: 'Barcelona',
+        86: 'Real Madrid',
+        119: 'Juventus',
+        524: 'PSG',
+        232: 'Bayern',
+    }
+    COMPETITIONS = {
+        'Premier League': '2021',
+        'Champions League': '2001',
+        'Europa League': '2046',
     }
 
     def __init__(self, _api_key):
@@ -113,23 +124,34 @@ class SoccerScores(ScoresAbstract):
 
     def _get_fixtures(self):
         start_date, end_date = self.get_start_end_dates()
-        resp = req.get(SoccerScores.URL.format(SoccerScores.TEAMS['Arsenal'], start_date, end_date),
-                       headers=self.headers)
+        payload= {
+            'dateFrom': start_date,
+            'dateTo': end_date,
+            'competitions': ','.join(SoccerScores.COMPETITIONS.values())
+        }
 
-        if not self.validate_response(resp, self.response_callback):
-            raise Exception
-
-        home_team, away_team = self.fixture['homeTeamName'], self.fixture['awayTeamName']
-        home_team_score, away_team_score = self.fixture['result']['goalsHomeTeam'] or 0, self.fixture['result'][
-            'goalsAwayTeam'] or 0
-        fixture_date = self.get_pdt_date(self.fixture['date'])
+        resp = req.get(SoccerScores.URL, params=payload, headers=self.headers)
+        matches = filter(SoccerScores._matches_filter, self.validate_response(resp, self.response_callback))
+        match = random.choice(matches)
+        home_team, away_team = match['homeTeam']['name'], match['awayTeam']['name']
+        home_team_score, away_team_score = match['score']['fullTime']['homeTeam'] or 0, match['score']['fullTime'][
+            'awayTeam'] or 0
+        fixture_date = self.get_pdt_date(match['utcDate'])
 
         return '{}  {}:{}  {} || {}'.format(home_team, home_team_score, away_team_score, away_team, fixture_date)
 
     @staticmethod
+    def _matches_filter(match):
+        if match['awayTeam']['id'] in SoccerScores.TEAMS.keys():
+            return True
+        elif match['homeTeam']['id'] in SoccerScores.TEAMS.keys():
+            return True
+        return False
+
+    @staticmethod
     def get_start_end_dates():
         start_date = datetime.now() - timedelta(days=2)
-        end_date = start_date + timedelta(days=11)
+        end_date = start_date + timedelta(days=8)
         return start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')
 
     @staticmethod
@@ -141,8 +163,7 @@ class SoccerScores(ScoresAbstract):
         return super(SoccerScores, self).validate_response(response, callback)
 
     def response_callback(self, data):
-        self.fixture = data['fixtures'][0]
-        return data['count'] < 3
+        return data['matches']
 
 
 if __name__ == '__main__':
