@@ -4,7 +4,7 @@
 [push]
 	default = simple
 [core]
-	editor = /usr/local/bin/vim
+	editor = /usr/bin/vim
 	excludesfile = /Users/adil/.gitignore
 [alias]
 	ignore = update-index --assume-unchanged
