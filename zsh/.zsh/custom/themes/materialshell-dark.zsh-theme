@@ -11,7 +11,7 @@ eval cyan='$FG[037]'
 eval white='$FG[231]'
 eval grey='$FG[145]'
 
-PROMPT='$(_virtualenv)${PROMPT_SUFFIX}$(_git_time_since_commit)${_current_dir}💥
+PROMPT='$(_virtualenv)${PROMPT_SUFFIX}$(_git_time_since_commit) ${_current_dir}💥
 %{$yellow%}$ ➔ %{$reset_color%} '
 
 PROMPT_PREFIX='λ'
