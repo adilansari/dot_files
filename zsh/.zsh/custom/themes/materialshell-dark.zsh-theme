@@ -3,7 +3,7 @@
 
 eval red='$FG[203]'
 eval bg_red='$BG[203]'
-eval green='$FG[184]'
+eval green='$FG[154]'
 eval yellow='$FG[220]'
 eval blue='$FG[075]'
 eval magenta='$FG[161]'
@@ -12,7 +12,7 @@ eval white='$FG[231]'
 eval grey='$FG[145]'
 
 PROMPT='$(_virtualenv)${PROMPT_SUFFIX}$(_git_time_since_commit)${_current_dir}💥
-%{$yellow%} $⚡%{$reset_color%} '
+%{$yellow%}$ ➔ %{$reset_color%} '
 
 PROMPT_PREFIX='λ'
 PROMPT_SUFFIX="%{$magenta%}❮❮❮λ%{$reset_color%}"
