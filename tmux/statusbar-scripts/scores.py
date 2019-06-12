@@ -70,7 +70,7 @@ class CricketScores(ScoresAbstract):
         if len(matches.keys()) == 0:
             raise Exception('no live matches')
 
-        self.match = random.choice(matches.values())
+        self.match = random.choice(list(matches.values()))
 
     @staticmethod
     def _display_this_match(match):
@@ -175,6 +175,6 @@ if __name__ == '__main__':
     score_display = score.get_display_string()
 
     if not score_display:
-        print 'A.R.S.E.N.A.L'
+        print('A.R.S.E.N.A.L')
     else:
-        print score_display
+        print(score_display)
