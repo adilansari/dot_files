@@ -45,7 +45,7 @@ ZSH_CUSTOM=$HOME/.zsh/custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(autojump git python history history-substring-search terminalapp brew colorize command-not-found docker jsontools pip sbt scala supervisor tmux virtualenv vundle)
+plugins=(autojump git python history history-substring-search brew colorize command-not-found docker jsontools pip sbt scala supervisor tmux virtualenv vundle)
 
 
 # User configuration
