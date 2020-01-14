@@ -1,18 +1,22 @@
-# Install
+# Installation instructions
 
-- Install [tmux](http://linoxide.com/how-tos/install-tmux-manage-multiple-linux-terminals/)(optional).
-- install [vundle](https://github.com/VundleVim/Vundle.vim)
-- install [on-my-zsh](https://github.com/robbyrussell/oh-my-zsh/)(recommended)
-- You definitely need [vim](http://www.vim.org/download.php) and [Vundle](https://github.com/VundleVim/Vundle.vim), its a package manager for vim.
-- If you clone this repo in your **$HOME** directory.
-
+1. Install [Homebrew](https://brew.sh/), the package manager for macOS.
+2. Use `Homebrew` to install [tmux](https://formulae.brew.sh/formula/tmux), [tmuxinator](https://formulae.brew.sh/formula/tmuxinator).
+3. Set `vim` as default editor and install [vundle](https://github.com/VundleVim/Vundle.vim)
+4. Get [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh/)(recommended).
+5. Clone this repo and create symlinks
 ```bash
 	$ git clone https://github.com/adilansari/dot_files.git
-	$ cd dot_files
-	$ ./install.sh
+	$ sh dot_files/install.sh
 ```
-
-- Else update the `dot_files_dir` in the **install.sh** file to the location where this is cloned and follow the above steps.
+6. Change the terminal theme to material-shell:
+	- Terminal -> Preferences -> Profiles
+	- Expand the Settings icon at the bottom of list of themes in left sidebar
+	- Import the `$DOT_FILES_DIR/osx/materialshell-dark.terminal` theme and set as Default.
+	- Restart terminal
+7. [Install Vim plugins](https://github.com/VundleVim/Vundle.vim/blob/v0.10.2/doc/vundle.txt#L234-L254)
+	- Open vimrc, `vi $HOME/.vimrc`
+	- `:PluginInstall`
 
 > `install.sh` file creates symlinks to the needed files.
 
@@ -32,8 +36,8 @@
 This is how my `($HOME/.tmux-status.sh)` executable file looks like to display cricket/soccer scores:
 ```
 #!/bin/bash
-cd $HOME/dot_files/tmux/statusbar-scripts [API_SECRET]
-env/bin/python scores.py
+cd $HOME/dot_files/tmux/statusbar-scripts
+env/bin/python scores.py [API_SECRET]
 ```
 > Note: I have a python virtualenv created in that directory.
 
