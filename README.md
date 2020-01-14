@@ -7,7 +7,7 @@
 5. Clone this repo and create symlinks
 ```bash
 	$ git clone https://github.com/adilansari/dot_files.git
-	$ cd dot_files && sh install.sh
+	$ sh dot_files/install.sh
 ```
 6. Change the terminal theme to material-shell:
 	- Terminal -> Preferences -> Profiles
