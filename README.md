@@ -18,8 +18,6 @@
 	- Open vimrc, `vi $HOME/.vimrc`
 	- `:PluginInstall`
 
-> `install.sh` file creates symlinks to the needed files.
-
 # tmux + zsh = awesomeness
 
 ![powertools](https://raw.github.com/adilansari/.dot_files/master/screengrabs/terminal.png)
