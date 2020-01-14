@@ -109,6 +109,8 @@ class SoccerScores(ScoresAbstract):
     }
     COMPETITIONS = {
         'Premier League': '2021',
+        'Bundesliga': '2002',
+        'Italian Serie A': '2019',
         'Champions League': '2001',
         'Europa League': '2046',
     }
@@ -167,11 +169,15 @@ class SoccerScores(ScoresAbstract):
 
 
 if __name__ == '__main__':
+    """
+    Temporarily disabling Cricscores as the API has been discontinued.
+
     if random.randint(1, 2) == 1:
         score = CricketScores()
     else:
         score = SoccerScores(sys.argv[1])
-
+    """
+    score = SoccerScores(sys.argv[1])
     score_display = score.get_display_string()
 
     if not score_display:
