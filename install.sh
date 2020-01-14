@@ -1,12 +1,9 @@
 #!/bin/bash
 
-cd $HOME
+DOT_FILES_DIR="$(pwd)/dot_files"
 
-# Check to make sure dotfiles is located at $HOME/dot_files
-dot_files_dir="$HOME/onebox/dot_files"
-
-if [[ ! -d $dot_files_dir ]]; then
-  echo "Could not find dotfiles directory. Make sure you place it under $HOME"
+if [[ ! -d $DOT_FILES_DIR ]]; then
+  echo "Could not find dotfiles directory. Make sure you are in the directory where repo is cloned."
   exit 1
 fi
 
@@ -29,7 +26,7 @@ create_symlink() {
 
 # iterate over given file/directory names
 for name in ${filenames[@]}; do
-	path=$dot_files_dir/$name
+	path=$DOT_FILES_DIR/$name
 	if [[ -d $path ]]; then
 		for f in $path/.*; do
 			create_symlink $f
