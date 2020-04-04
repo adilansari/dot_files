@@ -16,10 +16,11 @@ alias g='git status'
 alias gad='git add'
 alias gco='git checkout'
 alias gcm='git commit'
-alias glog='git log --oneline --graph'
+alias glog='git log --oneline ${1:---graph}'
 alias gst='git stash'
 alias gb='git branch'
 alias gd='git diff'
+alias gd_stat='git diff --stat master..HEAD'
 alias greb='git rebase -i master'
 
 # tmux aliases
