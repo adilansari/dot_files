@@ -5,7 +5,8 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="materialshell-dark"
+ZSH_THEME="michelebologna"
+#ZSH_THEME="materialshell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -45,12 +46,12 @@ ZSH_CUSTOM=$HOME/.zsh/custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(autojump git python history history-substring-search brew colorize command-not-found docker jsontools pip sbt scala supervisor tmux virtualenv vundle)
+plugins=(autojump git python history history-substring-search colorize command-not-found docker jsontools pip sbt scala supervisor tmux virtualenv vundle)
 
 
 # User configuration
 
-export EDITOR='vim'
+export EDITOR='vi'
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.zsh/tmuxinator.zsh
@@ -58,7 +59,7 @@ source $HOME/.zsh/prompts.zsh
 source $HOME/.zsh/functions.zsh
 source $HOME/.zsh/aliases
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $HOME/.rvm/scripts/rvm
+# source $HOME/.rvm/scripts/rvm
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -77,7 +78,7 @@ source $HOME/.rvm/scripts/rvm
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # added by travis gem
-[ -f /Users/adil/.travis/travis.sh ] && source /Users/adil/.travis/travis.sh
+# [ -f /Users/adil/.travis/travis.sh ] && source /Users/adil/.travis/travis.sh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# export PATH="$PATH:$HOME/.rvm/bin"

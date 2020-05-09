@@ -6,10 +6,10 @@ aliases () {
 
 # ctags
 alias ctag_py='ctags -R --languages=python --exclude=.git --exclude=log --exclude=env'
-alias ctags="`brew --prefix`/bin/ctags"
+#alias ctags="`brew --prefix`/bin/ctags"
 
 # vim
-alias vi='vim'
+#alias vi='vim'
 
 # git aliases
 alias g='git status'
