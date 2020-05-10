@@ -17,6 +17,7 @@
 7. [Install Vim plugins](https://github.com/VundleVim/Vundle.vim/blob/v0.10.2/doc/vundle.txt#L234-L254)
 	- Open vimrc, `vi $HOME/.vimrc`
 	- `:PluginInstall`
+8. default .zshrc will prompt for autojump and tmux installation
 
 # tmux + zsh = awesomeness
 
