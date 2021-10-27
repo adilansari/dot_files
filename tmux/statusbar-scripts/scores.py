@@ -24,8 +24,8 @@ class ScoresAbstract:
 
 
 class CricketScores(ScoresAbstract):
-    URL = 'http://www.cricbuzz.com/match-api/livematches.json'
-    SERIES_KEYWORDS = ['IND', 'RSA', 'AUS', 'PAK', 'NZ', 'ENG', 'IPL']  # short_name
+    URL = 'https://hs-consumer-api.espncricinfo.com/v1/pages/matches/live?lang=en'
+    TEAM_KEYWORDS = ['INDIA', 'SA', 'AUS', 'PAK', 'NZ', 'ENG', 'BAN', 'WI', 'MI', 'RCB', 'CSK', 'PBKS']  # short_name
 
     def _fetch_and_parse(self):
         resp = req.get(CricketScores.URL)
@@ -36,9 +36,13 @@ class CricketScores(ScoresAbstract):
 
     def _process_data(self, matches):
         self._set_random_match(matches)
-        batting_score, bowling_score = self._get_team_scores(self.match)
-        individual_scores = self._get_individual_scores(self.match)
-        return '{} | {} | {}'.format(batting_score, individual_scores, bowling_score)
+        #batting_score, bowling_score = self._get_team_scores(self.match)
+        #individual_scores = self._get_individual_scores(self.match)
+        return '{} | {}'.format(self._get_team_display(), self.match['statusText'])
+
+    def _get_team_display(self):
+        t1, t2 = self.match['teams'][0]['team'], self.match['teams'][1]['team']
+        return '{} vs {}'.format(t1['name'], t2['name'])
 
     @staticmethod
     def _get_team_scores(match):
@@ -66,23 +70,21 @@ class CricketScores(ScoresAbstract):
         return ', '.join(batsmen_scores)
 
     def _set_random_match(self, matches):
-        matches = {id: match_data for id, match_data in matches.items() if self._display_this_match(match_data)}
-        if len(matches.keys()) == 0:
-            raise Exception('no live matches')
-
-        self.match = random.choice(list(matches.values()))
-
-    @staticmethod
-    def _display_this_match(match):
-        keys = filter(lambda key: key in match['series']['short_name'], CricketScores.SERIES_KEYWORDS)
-        return bool(keys) and 'score' in match  # needs to be a live match
+        filtered_matches = dict()
+        for m in matches:
+            for t in m['teams']:
+                if t['team']['abbreviation'] in self.TEAM_KEYWORDS:
+                    filtered_matches[m['id']] = m
+        if not filtered_matches:
+            return 'No live Cricket matches'
+        self.match = random.choice(list(filtered_matches.values()))
 
     def validate_response(self, response, callback):
         return super(CricketScores, self).validate_response(response, callback)
 
     def response_callback(self, data):
-        self.data = data
-        return len(data['matches']) > 0
+        self.data = data['content']
+        return len(self.data['matches']) > 0
 
     def get_display_string(self):
         return self._fetch_and_parse()
@@ -169,15 +171,11 @@ class SoccerScores(ScoresAbstract):
 
 
 if __name__ == '__main__':
-    """
-    Temporarily disabling Cricscores as the API has been discontinued.
-
-    if random.randint(1, 2) == 1:
-        score = CricketScores()
-    else:
-        score = SoccerScores(sys.argv[1])
-    """
-    score = SoccerScores(sys.argv[1])
+    # if random.randint(1, 2) == 1:
+    score = CricketScores()
+    # else:
+    #     score = SoccerScores(sys.argv[1])
+    # score = SoccerScores(sys.argv[1])
     score_display = score.get_display_string()
 
     if not score_display:
