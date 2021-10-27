@@ -42,7 +42,7 @@ class CricketScores(ScoresAbstract):
 
     def _get_team_display(self):
         t1, t2 = self.match['teams'][0]['team'], self.match['teams'][1]['team']
-        return '{} vs {}'.format(t1['name'], t2['name'])
+        return '{} vs {}'.format(t1['abbreviation'], t2['abbreviation'])
 
     @staticmethod
     def _get_team_scores(match):
