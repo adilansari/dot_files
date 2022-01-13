@@ -36,26 +36,35 @@ class CricketScores(ScoresAbstract):
 
     def _process_data(self, matches):
         self._set_random_match(matches)
-        #batting_score, bowling_score = self._get_team_scores(self.match)
         #individual_scores = self._get_individual_scores(self.match)
-        return '{} | {}'.format(self._get_team_display(), self.match['statusText'])
+        return '{} || {}'.format(self._get_team_display(), self._get_score_text())
+
+    def _get_score_text(self):
+        if self.match['stage'] == 'RUNNING' and self.match['state'] == 'LIVE':
+            return self._get_team_scores(self.match)
+        else:
+            return self.match['statusText']
 
     def _get_team_display(self):
         t1, t2 = self.match['teams'][0]['team'], self.match['teams'][1]['team']
-        return '{} vs {}'.format(t1['abbreviation'], t2['abbreviation'])
+        return '{} vs {} {}'.format(t1['abbreviation'], t2['abbreviation'], self.match['format'])
 
     @staticmethod
     def _get_team_scores(match):
-        if match['score']['batting']['id'] == match['team1']['id']:
-            batting_team, bowling_team = (match['team1'], match['team2'])
+        team1, team2 = match['teams'][0], match['teams'][1]
+
+        if team1['isLive']:
+            batting_team, bowling_team = team1, team2
+        elif team2['isLive']:
+            batting_team, bowling_team = team2, team1
         else:
-            batting_team, bowling_team = (match['team2'], match['team1'])
+            return 'AlgorithmError: No teams live'
 
-        batting_score, bowling_score = match['score']['batting']['score'], match['score']['bowling']['score']
-        batting_formatted_score = '{}: {}'.format(batting_team['s_name'], batting_score)
-        bowling_formatted_score = '{}: {}'.format(bowling_team['s_name'], bowling_score)
+        batting_score, bowling_score = '{} in {}'.format(batting_team['score'], batting_team['scoreInfo']), bowling_team['score']
+        batting_formatted_score = '{}: {}'.format(batting_team['team']['abbreviation'], batting_score)
+        bowling_formatted_score = '{}: {}'.format(bowling_team['team']['abbreviation'], bowling_score)
 
-        return batting_formatted_score, bowling_formatted_score
+        return '{} | {}'.format(batting_formatted_score, bowling_formatted_score)
 
     @staticmethod
     def _get_individual_scores(match):
