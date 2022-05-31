@@ -58,7 +58,6 @@ source $HOME/.zsh/prompts.zsh
 source $HOME/.zsh/functions.zsh
 source $HOME/.zsh/aliases
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $HOME/.rvm/scripts/rvm
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
