@@ -21,7 +21,7 @@ alias gst='git stash'
 alias gb='git branch'
 alias gd='git diff'
 alias gd_stat='git diff --stat master..HEAD'
-alias greb='git rebase -i master'
+alias greb='git rebase -i main'
 
 # tmux aliases
 alias tms='tmuxinator start'

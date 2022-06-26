@@ -69,14 +69,13 @@ source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #  export EDITOR='mvim'
 #fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
 # added by travis gem
 [ -f /Users/adil/.travis/travis.sh ] && source /Users/adil/.travis/travis.sh
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-#export PATH="$PATH:$HOME/.rvm/bin"
+# java path - java 8
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+
+# go path
+export GOPATH="$HOME/devbox/gocode"
+export GOBIN="$GOPATH/bin"
+export PATH="$PATH:$GOPATH:$GOBIN"
