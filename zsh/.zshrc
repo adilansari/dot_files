@@ -57,6 +57,7 @@ source $HOME/.zsh/tmuxinator.zsh
 source $HOME/.zsh/prompts.zsh
 source $HOME/.zsh/functions.zsh
 source $HOME/.zsh/aliases
+source $HOME/.zsh/tigris_aliases
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # You may need to manually set your language environment

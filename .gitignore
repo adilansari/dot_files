@@ -2,3 +2,4 @@ env
 ck_*.yml
 *.sublime*
 *.idea
+tigris_aliases
