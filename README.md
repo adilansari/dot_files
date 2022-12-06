@@ -60,7 +60,7 @@ env/bin/python scores.py [API_SECRET]
 ```
 The MIT License
 
-Copyright (c) 2016 Adil Ansari
+Copyright (c) 2023 Adil Ansari
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
