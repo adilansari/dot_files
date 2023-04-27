@@ -37,7 +37,6 @@ filetype plugin on
 filetype on
 "======Solarized theme============
 syntax on
-syntax enable
 let g:solarized_termtrans = 1
 set background=dark
 "set t_Co=256
@@ -62,6 +61,7 @@ set laststatus=2
 set noerrorbells         " don't beep
 set nowrap        " don't wrap lines
 set number        " always show line numbers
+set re=0		" to speed up typescript syntax highlighting
 set ruler
 set shiftwidth=4  " number of spaces to use for
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
