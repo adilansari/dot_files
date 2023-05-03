@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 import requests as req
 import random
 import pytz
-import sys
 
 
 class ScoresAbstract:
@@ -25,7 +24,7 @@ class ScoresAbstract:
 
 class CricketScores(ScoresAbstract):
     URL = 'https://hs-consumer-api.espncricinfo.com/v1/pages/matches/live?lang=en'
-    TEAM_KEYWORDS = ['INDIA', 'SA', 'AUS', 'PAK', 'NZ', 'ENG', 'BAN', 'WI', 'MI', 'RCB', 'CSK', 'PBKS']  # short_name
+    TEAM_KEYWORDS = ['INDIA', 'SA', 'AUS', 'PAK', 'NZ', 'ENG', 'BAN', 'WI', 'MI', 'RCB', 'CSK', 'PBKS', 'LSG', 'KKR']  # short_name
 
     def _fetch_and_parse(self):
         resp = req.get(CricketScores.URL)
