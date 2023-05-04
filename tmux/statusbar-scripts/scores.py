@@ -104,7 +104,7 @@ class SoccerScores(ScoresAbstract):
     """
     Register at http://football-data.org/ for API key
     """
-    URL = 'https://www.fotmob.com/api/matches'
+    URL = 'https://www.fotmob.com/api/'
     DEFAULT_SCORELINE = 'A.R.S.E.N.A.L'
     TEAMS = {
         9825: 'Arsenal',
@@ -132,9 +132,14 @@ class SoccerScores(ScoresAbstract):
     TZ = ZoneInfo('America/Los_Angeles')
 
     def __init__(self):
-        dt = datetime.now(tz=SoccerScores.TZ) + timedelta(days=random.randint(-1, 3))
-        resp = req.get(SoccerScores.URL, params={'date': dt.strftime('%Y%m%d'), 'timezone': SoccerScores.TZ.key})
+        dt = datetime.now(tz=SoccerScores.TZ) + timedelta(days=0)
+        resp = req.get(SoccerScores.URL + 'matches', params={'date': dt.strftime('%Y%m%d'), 'timezone': SoccerScores.TZ.key})
         self.matches = self.validate_response(resp, self.response_callback)
+        # get next match for random team
+        if not self.matches:
+            team_id = random.choice(list(SoccerScores.TEAMS.keys()))
+            resp = req.get(SoccerScores.URL + 'teams', params={'id': team_id}).json()
+            self.matches = [resp['fixtures']['allFixtures']['nextMatch']]
 
     def get_display_string(self):
         try:
@@ -164,7 +169,7 @@ class SoccerScores(ScoresAbstract):
         utc_time = match_status['utcTime'].replace('Z', '+00:00')  # "2023-05-03T19:00:00.000Z"
         start_time = datetime.fromisoformat(utc_time)
         local_time = start_time.astimezone(SoccerScores.TZ)
-        return local_time.strftime('%I:%M %p')
+        return local_time.strftime('%a %I:%M %p')
 
     def validate_response(self, response, callback):
         return super(SoccerScores, self).validate_response(response, callback)
