@@ -3,4 +3,4 @@ ck_*.yml
 *.sublime*
 *.idea
 tigris_aliases
-__pycache__
+__pycache__/

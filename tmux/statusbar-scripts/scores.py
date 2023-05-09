@@ -128,7 +128,7 @@ class SoccerScores(ScoresAbstract):
     def __init__(self):
         dt = datetime.now(tz=TZ)
         resp = req.get(SoccerScores.URL + 'matches', params={'date': dt.strftime('%Y%m%d'), 'timezone': TZ.key})
-        self.matches = self.validate_response(resp, self.response_callback) or []
+        self.matches = self.validate_response(resp, SoccerScores.response_callback) or []
         if not self.matches:
             for team_id in SoccerScores.TEAMS.keys():
                 resp = req.get(SoccerScores.URL + 'teams', params={'id': team_id}).json()
@@ -169,14 +169,14 @@ class SoccerScores(ScoresAbstract):
     def validate_response(self, response, callback):
         return super(SoccerScores, self).validate_response(response, callback)
 
-    def response_callback(self, data):
+    @staticmethod
+    def response_callback(data):
         matches = []
         for league in data['leagues']:
-            if league['id'] in SoccerScores.COMPETITIONS.keys():
+            if any(map(lambda x: league.get(x) in SoccerScores.COMPETITIONS.keys(), ['id', 'primaryId'])):
                 for match in league['matches']:
-                    for k in ['home', 'away']:
-                        if match[k]['id'] in SoccerScores.TEAMS.keys():
-                            matches.append(match)
+                    if any(map(lambda x: match[x].get('id') in SoccerScores.TEAMS.keys(), ['home', 'away'])):
+                        matches.append(match)
         return matches
 
 
