@@ -5,12 +5,14 @@ from zoneinfo import ZoneInfo
 import requests as req
 import random
 
+TZ = ZoneInfo('America/Los_Angeles')
+
 
 class ScoresAbstract:
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def get_display_string(self):
+    def get_score_ticker(self) -> list[str]:
         pass
 
     @abstractmethod
@@ -27,27 +29,29 @@ class CricketScores(ScoresAbstract):
     TEAM_KEYWORDS = ['INDIA', 'SA', 'AUS', 'PAK', 'NZ', 'ENG', 'BAN', 'WI', 'MI', 'RCB', 'CSK', 'PBKS', 'LSG',
                      'KKR']  # short_name
 
-    def _fetch_and_parse(self):
+    def __init__(self):
         resp = req.get(CricketScores.URL)
         if not self.validate_response(resp, self.response_callback):
             raise Exception
+        self.matches = self._filtered_matches(self.data['matches'])
 
-        return self._process_data(self.data['matches'])
+    def _get_display_score(self, match):
+        return '{} || {}'.format(self._get_team_display(match), self._get_score_text(match))
 
-    def _process_data(self, matches):
-        self._set_random_match(matches)
-        # individual_scores = self._get_individual_scores(self.match)
-        return '{} || {}'.format(self._get_team_display(), self._get_score_text())
-
-    def _get_score_text(self):
-        if self.match['stage'] == 'RUNNING' and self.match['state'] == 'LIVE':
-            return self._get_team_scores(self.match)
+    @staticmethod
+    def _get_score_text(match):
+        if match['stage'] == 'RUNNING' and match['state'] == 'LIVE':
+            return CricketScores._get_team_scores(match)
         else:
-            return self.match['statusText']
+            utc_time = match['startTime'].replace('Z', '+00:00')  # "2023-05-03T19:00:00.000Z"
+            start_time = datetime.fromisoformat(utc_time)
+            local_time = start_time.astimezone(TZ)
+            return local_time.strftime('%a %I:%M %p')
 
-    def _get_team_display(self):
-        t1, t2 = self.match['teams'][0]['team'], self.match['teams'][1]['team']
-        return '{} vs {} {}'.format(t1['abbreviation'], t2['abbreviation'], self.match['format'])
+    @staticmethod
+    def _get_team_display(match):
+        t1, t2 = match['teams'][0]['team'], match['teams'][1]['team']
+        return '{} vs {} {}'.format(t1['abbreviation'], t2['abbreviation'], match['format'])
 
     @staticmethod
     def _get_team_scores(match):
@@ -67,19 +71,7 @@ class CricketScores(ScoresAbstract):
 
         return '{} | {}'.format(batting_formatted_score, bowling_formatted_score)
 
-    @staticmethod
-    def _get_individual_scores(match):
-        batsmen = {}
-        for player in match['players']:
-            batsmen[player['id']] = player['name']
-
-        batsmen_scores = []
-        for batsman in match['score']['batsman']:
-            batsmen_scores.append('{}: {}'.format(batsmen[batsman['id']], batsman['r']))
-
-        return ', '.join(batsmen_scores)
-
-    def _set_random_match(self, matches):
+    def _filtered_matches(self, matches):
         filtered_matches = dict()
         for m in matches:
             for t in m['teams']:
@@ -87,7 +79,7 @@ class CricketScores(ScoresAbstract):
                     filtered_matches[m['id']] = m
         if not filtered_matches:
             return 'No live Cricket matches'
-        self.match = random.choice(list(filtered_matches.values()))
+        return filtered_matches.values()
 
     def validate_response(self, response, callback):
         return super(CricketScores, self).validate_response(response, callback)
@@ -96,8 +88,11 @@ class CricketScores(ScoresAbstract):
         self.data = data['content']
         return len(self.data['matches']) > 0
 
-    def get_display_string(self):
-        return self._fetch_and_parse()
+    def get_score_ticker(self) -> list[str]:
+        ticker = []
+        for match in self.matches:
+            ticker.append(self._get_display_score(match))
+        return ticker
 
 
 class SoccerScores(ScoresAbstract):
@@ -129,46 +124,46 @@ class SoccerScores(ScoresAbstract):
         54: 'Bundesliga',
         10000002: 'MLS'
     }
-    TZ = ZoneInfo('America/Los_Angeles')
 
     def __init__(self):
-        dt = datetime.now(tz=SoccerScores.TZ) + timedelta(days=0)
-        resp = req.get(SoccerScores.URL + 'matches', params={'date': dt.strftime('%Y%m%d'), 'timezone': SoccerScores.TZ.key})
-        self.matches = self.validate_response(resp, self.response_callback)
-        # get next match for random team
+        dt = datetime.now(tz=TZ)
+        resp = req.get(SoccerScores.URL + 'matches', params={'date': dt.strftime('%Y%m%d'), 'timezone': TZ.key})
+        self.matches = self.validate_response(resp, self.response_callback) or []
         if not self.matches:
-            team_id = random.choice(list(SoccerScores.TEAMS.keys()))
-            resp = req.get(SoccerScores.URL + 'teams', params={'id': team_id}).json()
-            self.matches = [resp['fixtures']['allFixtures']['nextMatch']]
+            for team_id in SoccerScores.TEAMS.keys():
+                resp = req.get(SoccerScores.URL + 'teams', params={'id': team_id}).json()
+                self.matches.append(resp['fixtures']['allFixtures']['nextMatch'])
 
-    def get_display_string(self):
-        try:
-            return self._get_fixtures()
-        except:
-            return SoccerScores.DEFAULT_SCORELINE
+    def get_score_ticker(self) -> list[str]:
+        ticker = []
+        for match in self.matches:
+            try:
+                home_team, away_team = match['home']['name'], match['away']['name']
+                t = '{} {} {} || {}'.format(home_team, self._get_match_score(match), away_team,
+                                            self._get_match_status(match))
+                ticker.append(t)
+            except:
+                ticker.append(SoccerScores.DEFAULT_SCORELINE)
+        return ticker
 
-    def _get_fixtures(self):
-        self.match = random.choice(self.matches)
-        home_team, away_team = self.match['home']['name'], self.match['away']['name']
-
-        return '{} {} {} || {}'.format(home_team, self._get_match_score(), away_team, self._get_match_status())
-
-    def _get_match_score(self):
-        match_status = self.match['status']
+    @staticmethod
+    def _get_match_score(match):
+        match_status = match['status']
         if not match_status.get('started', False):
             return "vs."
 
         return match_status['scoreStr']
 
-    def _get_match_status(self):
-        match_status = self.match['status']
+    @staticmethod
+    def _get_match_status(match):
+        match_status = match['status']
         if match_status.get('finished'):
             return 'FT'
         if match_status.get('liveTime'):
             return match_status['liveTime']['short']
         utc_time = match_status['utcTime'].replace('Z', '+00:00')  # "2023-05-03T19:00:00.000Z"
         start_time = datetime.fromisoformat(utc_time)
-        local_time = start_time.astimezone(SoccerScores.TZ)
+        local_time = start_time.astimezone(TZ)
         return local_time.strftime('%a %I:%M %p')
 
     def validate_response(self, response, callback):
@@ -186,11 +181,11 @@ class SoccerScores(ScoresAbstract):
 
 
 if __name__ == '__main__':
-    if random.randint(1, 100) < 10:
+    if random.randint(1, 100) < 30:
         score = CricketScores()
     else:
         score = SoccerScores()
-    score_display = score.get_display_string()
+    score_display = score.get_score_ticker()
 
     if not score_display:
         print('A.R.S.E.N.A.L')
