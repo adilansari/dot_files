@@ -87,7 +87,8 @@ class CricketScores(ScoresAbstract):
     def get_score_ticker(self) -> list[str]:
         ticker = []
         for match in self.matches:
-            ticker.append(self._get_display_score(match))
+            if isinstance(match, dict):
+                ticker.append(self._get_display_score(match))
         return ticker
 
 
