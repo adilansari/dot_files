@@ -76,8 +76,6 @@ class CricketScores(ScoresAbstract):
             for t in m['teams']:
                 if t['team']['abbreviation'] in self.TEAM_KEYWORDS:
                     filtered_matches[m['id']] = m
-        if not filtered_matches:
-            return 'No live Cricket matches'
         return filtered_matches.values()
 
     def response_callback(self, data):
@@ -87,8 +85,9 @@ class CricketScores(ScoresAbstract):
     def get_score_ticker(self) -> list[str]:
         ticker = []
         for match in self.matches:
-            if isinstance(match, dict):
-                ticker.append(self._get_display_score(match))
+            ticker.append(self._get_display_score(match))
+        if not ticker:
+            ticker.append("No live cricket matches!!")
         return ticker
 
 
@@ -208,11 +207,9 @@ class MotoGP(ScoresAbstract):
 
 
 if __name__ == '__main__':
-    # if random.randint(1, 100) < 30:
-    #     score = CricketScores()
-    # else:
+    score = CricketScores()
     #     score = SoccerScores()
-    score = SoccerScores()
+    # score = SoccerScores()
     score_display = score.get_score_ticker()
 
     if not score_display:
