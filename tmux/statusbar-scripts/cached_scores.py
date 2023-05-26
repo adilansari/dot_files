@@ -4,7 +4,7 @@ from json import JSONEncoder
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-from scores import SoccerScores, CricketScores
+from scores import SoccerScores, CricketScores, MotoGP
 
 # TMP_FILE_PATH = path.join(path.dirname(path.realpath(__file__)), ".tmux_status_cache.json")
 TMP_FILE_PATH = path.join('/tmp/tmux-status', '.tmux_status_cache.json')
@@ -55,6 +55,7 @@ def _reload():
 
     content = SoccerScores().get_score_ticker() or []
     content.extend(CricketScores().get_score_ticker())
+    content.extend(MotoGP().get_score_ticker())
     cache = Cache(datetime.now(TZ_PST).__str__(), 0, content)
     with open(TMP_FILE_PATH, 'w') as f:
         json.dump(cache, cls=CacheEncoder, indent=4, fp=f)

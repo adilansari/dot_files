@@ -3,7 +3,6 @@ from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 import requests as req
-import random
 
 TZ = ZoneInfo('America/Los_Angeles')
 
@@ -27,7 +26,7 @@ class ScoresAbstract:
 class CricketScores(ScoresAbstract):
     URL = 'https://hs-consumer-api.espncricinfo.com/v1/pages/matches/live?lang=en'
     TEAM_KEYWORDS = ['INDIA', 'SA', 'AUS', 'PAK', 'NZ', 'ENG', 'BAN', 'WI', 'MI', 'RCB', 'CSK', 'PBKS', 'LSG',
-                     'KKR']  # short_name
+                     'KKR', 'GT']  # short_name
 
     def __init__(self):
         resp = req.get(CricketScores.URL)
@@ -81,9 +80,6 @@ class CricketScores(ScoresAbstract):
             return 'No live Cricket matches'
         return filtered_matches.values()
 
-    def validate_response(self, response, callback):
-        return super(CricketScores, self).validate_response(response, callback)
-
     def response_callback(self, data):
         self.data = data['content']
         return len(self.data['matches']) > 0
@@ -126,13 +122,15 @@ class SoccerScores(ScoresAbstract):
     }
 
     def __init__(self):
-        dt = datetime.now(tz=TZ)
-        resp = req.get(SoccerScores.URL + 'matches', params={'date': dt.strftime('%Y%m%d'), 'timezone': TZ.key})
-        self.matches = self.validate_response(resp, SoccerScores.response_callback) or []
-        if not self.matches:
-            for team_id in SoccerScores.TEAMS.keys():
-                resp = req.get(SoccerScores.URL + 'teams', params={'id': team_id}).json()
-                self.matches.append(resp['fixtures']['allFixtures']['nextMatch'])
+        self.matches = []
+        for day in range(0, 4):
+            dt = datetime.now(tz=TZ) + timedelta(days=day)
+            resp = req.get(SoccerScores.URL + 'matches', params={'date': dt.strftime('%Y%m%d'), 'timezone': TZ.key})
+            self.matches.extend(self.validate_response(resp, SoccerScores.response_callback))
+        # if not self.matches:
+        #     for team_id in SoccerScores.TEAMS.keys():
+        #         resp = req.get(SoccerScores.URL + 'teams', params={'id': team_id}).json()
+        #         self.matches.append(resp['fixtures']['allFixtures']['nextMatch'])
 
     def get_score_ticker(self) -> list[str]:
         ticker = []
@@ -166,9 +164,6 @@ class SoccerScores(ScoresAbstract):
         local_time = start_time.astimezone(TZ)
         return local_time.strftime('%a %I:%M %p')
 
-    def validate_response(self, response, callback):
-        return super(SoccerScores, self).validate_response(response, callback)
-
     @staticmethod
     def response_callback(data):
         matches = []
@@ -180,11 +175,43 @@ class SoccerScores(ScoresAbstract):
         return matches
 
 
+class MotoGP(ScoresAbstract):
+    URL = 'https://www.motogp.com/api/calendar-front/be/events-api/api/v1/business-unit/mgp/season/{year}/events?type=SPORT&upcoming=true'
+
+    def __init__(self):
+        dt = datetime.now(tz=TZ)
+        resp = req.get(MotoGP.URL.format(year=dt.year))
+        self.event = self.validate_response(resp, MotoGP.response_callback)
+
+    @staticmethod
+    def response_callback(data):
+        if len(data['events']) == 0:
+            return {
+                'name': 'No MotoGP Race info',
+            }
+        return data['events'][0]
+
+    def get_score_ticker(self) -> list[str]:
+        event_name = self.event['name']
+        ticker = []
+        for b in self.event.get('broadcasts'):
+            if b['kind'] in ['QUALIFYING', 'RACE'] and b['category']['acronym'] == 'MGP':
+                s_name = b['name']
+                start_time = datetime.strptime(b['date_start'], '%Y-%m-%dT%H:%M:%S%z')  # "2023-05-13T10:50:00+0200"
+                local_time = start_time.astimezone(TZ)
+                ts = local_time.strftime('%b %d %I:%M %p')
+                ticker.append(f'{event_name} || {s_name} || {ts}')
+        if not ticker:
+            ticker.append(event_name)
+        return ticker
+
+
 if __name__ == '__main__':
-    if random.randint(1, 100) < 30:
-        score = CricketScores()
-    else:
-        score = SoccerScores()
+    # if random.randint(1, 100) < 30:
+    #     score = CricketScores()
+    # else:
+    #     score = SoccerScores()
+    score = SoccerScores()
     score_display = score.get_score_ticker()
 
     if not score_display:
