@@ -172,20 +172,26 @@ class SoccerScores(ScoresAbstract):
 
 
 class MotoGP(ScoresAbstract):
-    URL = 'https://www.motogp.com/api/calendar-front/be/events-api/api/v1/business-unit/mgp/season/{year}/events?type=SPORT&upcoming=true'
+    URL = 'https://api.motogp.pulselive.com/motogp/v1/events?seasonYear={year}'
+    NOW = datetime.now(tz=TZ)
 
     def __init__(self):
-        dt = datetime.now(tz=TZ)
-        resp = req.get(MotoGP.URL.format(year=dt.year))
+        resp = req.get(MotoGP.URL.format(year=MotoGP.NOW.year))
         self.event = self.validate_response(resp, MotoGP.response_callback)
 
     @staticmethod
     def response_callback(data):
-        if len(data['events']) == 0:
-            return {
-                'name': 'No MotoGP Race info',
-            }
-        return data['events'][0]
+        events_by_date = []
+        for d in data:
+            start_time = datetime.strptime(d['date_start'], '%Y-%m-%dT%H:%M:%S%z')  # "2023-05-13T10:50:00+0200"
+            events_by_date.append((start_time, d))
+            local_start_time = start_time.astimezone(TZ)
+            if MotoGP.NOW < local_start_time:
+                return d
+
+        return {
+            'name': 'No MotoGP Race info',
+        }
 
     def get_score_ticker(self) -> list[str]:
         event_name = self.event['name']
@@ -204,7 +210,8 @@ class MotoGP(ScoresAbstract):
 
 if __name__ == '__main__':
     # score = CricketScores()
-    score = SoccerScores()
+    # score = SoccerScores()
+    score = MotoGP()
     score_display = score.get_score_ticker()
 
     if not score_display:
