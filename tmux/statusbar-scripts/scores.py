@@ -176,7 +176,8 @@ class MotoGP(ScoresAbstract):
     NOW = datetime.now(tz=TZ)
 
     def __init__(self):
-        resp = req.get(MotoGP.URL.format(year=MotoGP.NOW.year))
+        # resp = req.get(MotoGP.URL.format(year=MotoGP.NOW.year))
+        resp = req.get(MotoGP.URL.format(year=2024))
         self.event = self.validate_response(resp, MotoGP.response_callback)
 
     @staticmethod
