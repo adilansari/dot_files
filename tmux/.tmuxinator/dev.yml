@@ -1,0 +1,63 @@
+# /Users/adil/.tmuxinator/dev.yml
+
+name: dev
+root: ~/devbox/gocode/src/github.com/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Note that the pre and post options have been deprecated and will be replaced by
+# project hooks.
+
+# Project hooks
+
+# Runs on project start, always
+# on_project_start: command
+
+# Run on project start, the first time
+# on_project_first_start: command
+
+# Run on project start, after the first time
+# on_project_restart: command
+
+# Run on project exit ( detaching from tmux session )
+# on_project_exit: command
+
+# Run on project stop
+# on_project_stop: command
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+# startup_window: editor
+
+# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
+# startup_pane: 1
+
+# Controls whether the tmux session should be attached to automatically. Defaults to true.
+# attach: false
+
+windows:
+  - tigris-os:
+      root: ~/devbox/gocode/src/github.com/tigrisdata/tigris-os
+        #layout: fdab,185x128,0,0[185x95,0,0,0,185x32,0,96,2]
+      layout: 2261,185x129,0,0[185x19,0,0,3,185x83,0,20,0,185x25,0,104,2]
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+      # synchronize: after
+      panes:
+        - DOCKER_HOST=unix:///Users/adil/.docker/run/docker.sock ctop
+        - docker ps
+        - git status
+  - github: 
+      layout: 4d2f,185x129,0,0[185x79,0,0,1,185x49,0,80,4]
+      panes:
+        - gh dash
+        - ls

@@ -49,18 +49,18 @@ env/bin/python scores.py [API_SECRET]
 |:---:|:---:|---|
 | :art: | [gitmoji-cli](https://github.com/carloscuesta/gitmoji-cli) | improving the **look** of git commits |
 | :speaker: | [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) | **Shell** works best |
-| :sparkles: | [IntelliJ material theme](https://plugins.jetbrains.com/plugin/8006-material-theme-ui) | IntelliJ UI theme |
 | :elephant: | [httpie](https://httpie.org/) | beautiful **CuRL** replacement with goodies  |
-| :dolphin: | [autojump](https://github.com/wting/autojump) | **cd** command but fast |
+| :roller_coaster: | [autojump](https://github.com/wting/autojump) | **cd** command but fast |
 | :snake: | [hack](http://sourcefoundry.org/hack/) | beautiful **fontface** for source code |
 | :recycle: | [github dashboard](https://github.com/dlvhdr/gh-dash) | GitHub dashboard **on your terminal** |
+| :dolphin: | [ctop](https://github.com/bcicen/ctop) | Top like interface for container metrics |
 
 
 # License
 ```
 The MIT License
 
-Copyright (c) 2023 Adil Ansari
+Copyright (c) 2024 Adil Ansari
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
