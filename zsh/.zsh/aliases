@@ -21,8 +21,9 @@ alias glog='git log --oneline ${1:---graph}'
 alias gst='git stash'
 alias gb='git branch'
 alias gd='git diff'
-alias gd_stat='git diff --stat master..HEAD'
-alias greb="git rebase -i main"
+alias gd_stat='git diff --stat main..HEAD'
+alias greb="git rebase --exec 'git commit --amend --no-edit -n -S' -i main"
+alias ghrelease="gh pr create -B release -H main"
 
 # tmux aliases
 alias tms='tmuxinator start'
