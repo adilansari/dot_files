@@ -47,9 +47,8 @@ root: ~/devbox/gocode/src/github.com/
 windows:
   - tigris-os:
       root: ~/devbox/gocode/src/github.com/tigrisdata/tigris-os
-        #layout: fdab,185x128,0,0[185x95,0,0,0,185x32,0,96,2]
-      layout: 2261,185x129,0,0[185x19,0,0,3,185x83,0,20,0,185x25,0,104,2]
-      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      layout: 4ea2,185x129,0,0[185x19,0,0,0,185x77,0,20,2,185x31,0,98,3]
+      # Synchronize all panes o
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
@@ -57,7 +56,13 @@ windows:
         - docker ps
         - git status
   - github: 
-      layout: 4d2f,185x129,0,0[185x79,0,0,1,185x49,0,80,4]
+      layout: af13,185x129,0,0[185x49,0,0,1,185x20,0,50{90x20,0,50,7,94x20,91,50,8},185x58,0,71,4]
       panes:
-        - gh dash
         - ls
+        - tigris-infra:
+          - cd ~/devbox/gocode/src/github.com/tigrisdata/tigris-infra
+          - gh run watch
+        - tigris-os:
+          - cd ~/devbox/gocode/src/github.com/tigrisdata/tigris-os
+          - gh run watch
+        - gh dash

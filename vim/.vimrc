@@ -26,6 +26,7 @@ Plugin 'luochen1990/rainbow'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'othree/html5.vim'
 Plugin 'pangloss/vim-javascript'
+Plugin 'charlespascoe/vim-go-syntax'
 
 call vundle#end()
 
