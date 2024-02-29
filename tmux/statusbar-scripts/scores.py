@@ -29,7 +29,7 @@ class CricketScores(ScoresAbstract):
                      'KKR', 'GT']  # short_name
 
     def __init__(self):
-        resp = req.get(CricketScores.URL)
+        resp = req.get(CricketScores.URL, headers={"User-Agent": "Mozilla/5.0"})
         if not self.validate_response(resp, self.response_callback):
             raise Exception
         self.matches = self._filtered_matches(self.data['matches'])
@@ -176,8 +176,7 @@ class MotoGP(ScoresAbstract):
     NOW = datetime.now(tz=TZ)
 
     def __init__(self):
-        # resp = req.get(MotoGP.URL.format(year=MotoGP.NOW.year))
-        resp = req.get(MotoGP.URL.format(year=2024))
+        resp = req.get(MotoGP.URL.format(year=MotoGP.NOW.year))
         self.event = self.validate_response(resp, MotoGP.response_callback)
 
     @staticmethod
@@ -187,7 +186,7 @@ class MotoGP(ScoresAbstract):
             start_time = datetime.strptime(d['date_start'], '%Y-%m-%dT%H:%M:%S%z')  # "2023-05-13T10:50:00+0200"
             events_by_date.append((start_time, d))
             local_start_time = start_time.astimezone(TZ)
-            if MotoGP.NOW < local_start_time:
+            if MotoGP.NOW < local_start_time and d['broadcasts']:
                 return d
 
         return {
