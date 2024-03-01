@@ -17,6 +17,8 @@
 7. [Install Vim plugins](https://github.com/VundleVim/Vundle.vim/blob/v0.10.2/doc/vundle.txt#L234-L254)
 	- Open vimrc, `vi $HOME/.vimrc`
 	- `:PluginInstall`
+8. Install tmux and [tmux plugin manager](https://github.com/tmux-plugins/tpm)
+
 
 # tmux + zsh = awesomeness
 
