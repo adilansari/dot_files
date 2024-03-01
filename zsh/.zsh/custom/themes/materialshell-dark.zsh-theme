@@ -11,12 +11,14 @@ eval cyan='$FG[037]'
 eval white='$FG[231]'
 eval grey='$FG[145]'
 
-PROMPT='$(_virtualenv)${PROMPT_SUFFIX}$(_git_time_since_commit) ${_current_dir}💥
+PROMPT='$(_virtualenv)${PROMPT_PREFIX}$(_git_time_since_commit) ${_current_dir}${PROMPT_SUFFIX}
 %{$yellow%}$ ➔ %{$reset_color%} '
 
-PROMPT_PREFIX='λ'
-PROMPT_SUFFIX="%{$magenta%}❮❮❮λ%{$reset_color%}"
+PROMPT_PREFIX="%{$red%}❰%{$cyan%}❰%{$magenta%}❰"
+#PROMPT_PREFIX="%{$magenta%}❰❰❰%{$reset_color%}"
+PROMPT_SUFFIX="%{$red%}❱%{$cyan%}❱%{$magenta%}❱"
 PROMPT2='%{$grey%}asad◀%{$reset_color%}'
+PROMPT_END=''
 
 #RPROMPT='$(_vi_status)%{$(echotc UP 1)%}$(git_prompt_short_sha) $(_git_time_since_commit) ${_return_status} %T% %{$(echotc DO 1)%}'
 RPROMPT='$(_vi_status)%{$(echotc UP 1)%}$(git_prompt_short_sha) ${_return_status} %{$white%}%T%{$(echotc DO 1)%}%{$reset_color%}'
