@@ -52,9 +52,9 @@ windows:
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - DOCKER_HOST=unix:///Users/adil/.docker/run/docker.sock ctop
         - docker ps
         - git status
+        - DOCKER_HOST=unix:///Users/adil/.docker/run/docker.sock ctop
   - github: 
       layout: 7121,185x129,0,0[185x48,0,0,1,185x28,0,49{90x28,0,49,4,94x28,91,49,5},185x51,0,78,6]
       panes:
