@@ -4,3 +4,4 @@ ck_*.yml
 *.idea
 tigris_aliases
 __pycache__/
+.vscode

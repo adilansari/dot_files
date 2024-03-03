@@ -50,7 +50,7 @@ plugins=(autojump git python history history-substring-search brew colorize comm
 
 # User configuration
 
-export EDITOR='vim'
+export EDITOR='nvim'
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.zsh/tmuxinator.zsh
