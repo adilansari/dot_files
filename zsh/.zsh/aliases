@@ -9,8 +9,8 @@ aliases () {
 alias ctag_py='ctags -R --languages=python --exclude=.git --exclude=log --exclude=env'
 alias ctags="`brew --prefix`/bin/ctags"
 
-# vim
-alias vi='vim'
+# editor
+alias vi='nvim'
 
 # git aliases
 alias g='git status'
