@@ -3,6 +3,7 @@ from os import path,makedirs
 from json import JSONEncoder
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from time import time
 
 from scores import SoccerScores, CricketScores, MotoGP
 
@@ -14,11 +15,13 @@ TZ_PST = ZoneInfo('America/Los_Angeles')
 class Cache:
     next_line: int
     content: list[str]
+    current_line_ttl: int
 
-    def __init__(self, created_at, next_line, content):
+    def __init__(self, created_at, next_line, content, current_line_ttl=0):
         self.created_at = created_at
         self.next_line = next_line
         self.content = content
+        self.current_line_ttl = current_line_ttl
 
 
 class CacheEncoder(JSONEncoder):
@@ -39,7 +42,10 @@ def _get_next_line():
             if cache.next_line >= len(cache.content):
                 return None
             display_str = cache.content[cache.next_line]
-            cache.next_line += 1
+            curr_epoch_seconds = int(time())
+            if curr_epoch_seconds >= cache.current_line_ttl:
+                cache.next_line += 1
+                cache.current_line_ttl = int(time()) + 10
 
         with open(TMP_FILE_PATH, 'w') as f:
             json.dump(cache, cls=CacheEncoder, indent=4, fp=f)
