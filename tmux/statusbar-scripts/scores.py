@@ -124,10 +124,6 @@ class SoccerScores(ScoresAbstract):
             dt = datetime.now(tz=TZ) + timedelta(days=day)
             resp = req.get(SoccerScores.URL + 'matches', params={'date': dt.strftime('%Y%m%d'), 'timezone': TZ.key})
             self.matches.extend(self.validate_response(resp, SoccerScores.response_callback))
-        # if not self.matches:
-        #     for team_id in SoccerScores.TEAMS.keys():
-        #         resp = req.get(SoccerScores.URL + 'teams', params={'id': team_id}).json()
-        #         self.matches.append(resp['fixtures']['allFixtures']['nextMatch'])
 
     def get_score_ticker(self) -> list[str]:
         ticker = []

@@ -45,7 +45,7 @@ ZSH_CUSTOM=$HOME/.zsh/custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(autojump git python history history-substring-search brew colorize command-not-found docker jsontools pip sbt scala supervisor tmux virtualenv vundle)
+plugins=(autojump git python history history-substring-search colorize command-not-found tmux)
 
 
 # User configuration
@@ -70,11 +70,6 @@ source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #  export EDITOR='mvim'
 #fi
 
-# added by travis gem
-[ -f /Users/adil/.travis/travis.sh ] && source /Users/adil/.travis/travis.sh
-
-# java path - java 8
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
 # go path
 export GOPATH="$HOME/devbox/gocode"
