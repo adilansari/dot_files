@@ -4,8 +4,9 @@
 [push]
 	default = simple
 [core]
-	editor = /usr/bin/vim
+	editor = nvim
 	excludesfile = /Users/adil/.gitignore
+	pager = delta
 [alias]
 	ignore = update-index --assume-unchanged
 	unignore = update-index --no-assume-unchanged
@@ -18,3 +19,12 @@
 	smudge = git-lfs smudge -- %f
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[interactive]
+  difffilter = delta --color-only
+[delta]
+  navigate = true
+  line-numbers = true
+[merge]
+  conflictstyle = diff3
+[diff]
+  colorMoved = default
