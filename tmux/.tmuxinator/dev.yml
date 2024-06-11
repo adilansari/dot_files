@@ -45,7 +45,7 @@ root: ~/devbox/gocode/src/github.com/
 # attach: false
 
 windows:
-  - development:
+  - Tigris-OS:
       root: ~/devbox/gocode/src/github.com/tigrisdata/tigris-os
       layout: 5996,185x128,0,0[185x79,0,0,0,185x31,0,80,2,185x16,0,112,3]
       # Synchronize all panes o
@@ -55,12 +55,14 @@ windows:
         - docker ps
         - git status
         - DOCKER_HOST=unix:///Users/adil/.docker/run/docker.sock ctop
-  - Github.com: 
-      layout: 7121,185x129,0,0[185x48,0,0,1,185x28,0,49{90x28,0,49,4,94x28,91,49,5},185x51,0,78,6]
+  - Infra-GitHub: 
+      root: ~/devbox/gocode/src/github.com/tigrisdata/tigris-infra
+      layout: 8a8f,185x128,0,0[185x49,0,0,1,185x38,0,50{90x38,0,50,4,94x38,91,50,5},185x39,0,89,6]
       panes:
         - ls
         - tigris-infra:
           - cd ~/devbox/gocode/src/github.com/tigrisdata/tigris-infra
+          - git pull
           - gh run watch
         - tigris-os:
           - cd ~/devbox/gocode/src/github.com/tigrisdata/tigris-os

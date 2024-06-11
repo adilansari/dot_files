@@ -5,10 +5,6 @@ aliases () {
 	grep "$1" ~/.zsh/tigris_aliases
 }
 
-# ctags
-alias ctag_py='ctags -R --languages=python --exclude=.git --exclude=log --exclude=env'
-alias ctags="`brew --prefix`/bin/ctags"
-
 # editor
 alias vi='nvim'
 
@@ -39,7 +35,6 @@ alias ....='cd ../../..'    # And for good measure
 alias l='ls -lah'           # Long view, show hidden
 alias la='ls -AF'           # Compact view, show hidden
 alias ll='ls -lFh'          # Long view, no hidden
-alias clean_pyc='find . -name "*.pyc" -type f -delete'   # pyc cleanup from al subdir
 
 # Jekyll
 alias jekyll_serve="bundle exec jekyll build && bundle exec jekyll serve"
@@ -49,6 +44,9 @@ alias redis-launch="sudo launchctl start io.redis.redis-server"
 alias redis-stop="sudo launchctl stop io.redis.redis-server"
 alias mongo-launch="sudo launchctl load /Library/LaunchDaemons/io.mongo.mongodb.plist"
 alias mongo-stop="sudo launchctl unload /Library/LaunchDaemons/io.mongo.mongodb.plist"
+
+# kubernetes
+alias k="kubectl"
 
 # Helpers
 alias grep='grep --color=auto' # Always highlight grep search term

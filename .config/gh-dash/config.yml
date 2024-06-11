@@ -1,6 +1,6 @@
 prSections:
   - title: Active PRs
-    filters: is:open repo:tigrisdata/tigris-os repo:tigrisdata/tigris-infra
+    filters: is:open repo:tigrisdata/tigris-os repo:tigrisdata/tigris-infra 
   - title: My Pull Requests
     filters: is:open author:@me
   - title: Needs My Review
@@ -47,7 +47,7 @@ defaults:
       assignees:
         width: 20
         hidden: true
-  refetchIntervalMinutes: 2
+  refetchIntervalMinutes: 1
 theme:
   ui:
     table:
@@ -57,7 +57,7 @@ theme:
       primary: "#E2E1ED"
       secondary: "#e7e56f"
       inverted: "#242347"
-      faint: "#3E4057"
+      faint: "#FFE559"
       warning: "#F23D5C"
       success: "#3DF294"
     background:
@@ -65,4 +65,4 @@ theme:
     border:
       primary: "#87878E"
       secondary: "#B7B7BB"
-      faint: "#39393b"
+      faint: "#39393B"
