@@ -20,8 +20,8 @@ filenames=(
 # Create symlinks for dot_files
 # ln -sf source_file target_file
 create_symlink() {
-	ln -sf $1 .
-	echo "creating symlink for $1"
+	echo "creating symlink for $1 to $HOME"
+	ln -sf $1 $HOME
 }
 
 # iterate over given file/directory names
