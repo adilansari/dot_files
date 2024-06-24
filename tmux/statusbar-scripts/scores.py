@@ -26,7 +26,7 @@ class ScoresAbstract:
 class CricketScores(ScoresAbstract):
     URL = 'https://hs-consumer-api.espncricinfo.com/v1/pages/matches/live?lang=en'
     TEAM_KEYWORDS = ['INDIA', 'SA', 'AUS', 'PAK', 'NZ', 'ENG', 'BAN', 'WI', 'MI', 'RCB', 'CSK', 'PBKS', 'LSG',
-                     'KKR', 'GT']  # short_name
+                     'KKR', 'GT', 'AFG']  # short_name
 
     def __init__(self):
         resp = req.get(CricketScores.URL, headers={"User-Agent": "Mozilla/5.0"})

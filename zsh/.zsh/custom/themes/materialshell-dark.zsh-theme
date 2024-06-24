@@ -13,21 +13,24 @@ eval magenta='$FG[161]'
 eval cyan='$FG[037]'
 eval white='$FG[231]'
 eval grey='$FG[145]'
+eval bg_grey='$BG[145]'
+eval black='$FG[232]'
 
+PROMPT_SEPARATOR=$'\ue0b0'
 PROMPT='$(_virtualenv)${PROMPT_PREFIX}$(_git_time_since_commit) ${_current_dir}${PROMPT_SUFFIX}
-%{$yellow%}$ ➔ %{$reset_color%} '
+%{$yellow%}$ ➔ ${_return_status}%{$reset_color%} '
 
 PROMPT_PREFIX="%{$magenta%}❰%{$cyan%}❰%{$red%}❰"
 #PROMPT_PREFIX="%{$magenta%}❰❰❰%{$reset_color%}"
 PROMPT_SUFFIX="%{$red%}❱%{$cyan%}❱%{$magenta%}❱"
-PROMPT2='%{$grey%}asad◀%{$reset_color%}'
+PROMPT2="%{$bg_grey%} %{$black%}↪ %{$reset_color%}%{$grey%}${PROMPT_SEPARATOR}%{$reset_color%} "
 PROMPT_END=''
 
 #RPROMPT='$(_vi_status)%{$(echotc UP 1)%}$(git_prompt_short_sha) $(_git_time_since_commit) ${_return_status} %T% %{$(echotc DO 1)%}'
 RPROMPT='$(_vi_status)%{$(echotc UP 1)%}$(git_prompt_short_sha) ${_return_status} %{$white%}%T%{$(echotc DO 1)%}%{$reset_color%}'
 
 local _current_dir="%{$yellow%}%0~%{$reset_color%} "
-local _return_status="%{$red%}%(?..×)%{$reset_color%}"
+local _return_status="%{$red%}%(?..✘ )%{$reset_color%}"
 local _hist_no="%{$grey%}%h%{$reset_color%}"
 
 function _user_host() {
