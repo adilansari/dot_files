@@ -60,7 +60,7 @@ def _reload():
         makedirs(path.dirname(TMP_FILE_PATH), exist_ok=True)
 
     content = SoccerScores().get_score_ticker() or []
-    content.extend(CricketScores().get_score_ticker())
+    #content.extend(CricketScores().get_score_ticker())
     content.extend(MotoGP().get_score_ticker())
     cache = Cache(datetime.now(TZ_PST).__str__(), 0, content)
     with open(TMP_FILE_PATH, 'w') as f:
