@@ -1,23 +1,21 @@
 # Installation instructions
 
 1. Install [Homebrew](https://brew.sh/), the package manager for macOS.
-2. Use `Homebrew` to install [tmux](https://formulae.brew.sh/formula/tmux), [tmuxinator](https://formulae.brew.sh/formula/tmuxinator).
-3. Set `vim` as default editor and install [vundle](https://github.com/VundleVim/Vundle.vim)
-4. Get [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh/)(recommended).
+2. Use `Homebrew` to install [tmux](https://formulae.brew.sh/formula/tmux), [tmuxinator](https://formulae.brew.sh/formula/tmuxinator), [tmux plugin manager](https://github.com/tmux-plugins/tpm)
+3. Install [nvchad](https://nvchad.com/docs/quickstart/install) and set `nvim` as your default editor
+4. Get [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh/)(recommended)
 5. Clone this repo and create symlinks
 ```bash
 	$ git clone https://github.com/adilansari/dot_files.git
 	$ sh dot_files/install.sh
 ```
-6. Change the terminal theme to material-shell:
+6. Install [Jetbrains mono nerd font](https://formulae.brew.sh/cask/font-jetbrains-mono-nerd-font#default) font
+7. Change the terminal theme to material-shell:
 	- Terminal -> Preferences -> Profiles
 	- Expand the Settings icon at the bottom of list of themes in left sidebar
 	- Import the `$DOT_FILES_DIR/osx/materialshell-dark.terminal` theme and set as Default.
+    - Change font to **Jetbrains Mono Nerd Font**, size: 16
 	- Restart terminal
-7. [Install Vim plugins](https://github.com/VundleVim/Vundle.vim/blob/v0.10.2/doc/vundle.txt#L234-L254)
-	- Open vimrc, `vi $HOME/.vimrc`
-	- `:PluginInstall`
-8. Install tmux and [tmux plugin manager](https://github.com/tmux-plugins/tpm)
 
 
 # tmux + zsh = awesomeness

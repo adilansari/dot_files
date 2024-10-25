@@ -59,12 +59,23 @@ windows:
       root: ~/devbox/gocode/src/github.com/tigrisdata/tigris-infra
       layout: 8a8f,185x128,0,0[185x49,0,0,1,185x38,0,50{90x38,0,50,4,94x38,91,50,5},185x39,0,89,6]
       panes:
-        - ls
+        - infra-code:
+          - git pull
+          - ls -al
+          - git show head
+          - git blame apps/tigris-os-server/overlays/fly/prod/prod-k3s-central-iad-1/version.yaml
         - tigris-infra:
           - cd ~/devbox/gocode/src/github.com/tigrisdata/tigris-infra
-          - git pull
+          - git log -n 3
+          - git show head
           - gh run watch
         - tigris-os:
           - cd ~/devbox/gocode/src/github.com/tigrisdata/tigris-os
-          - gh run watch
+          - gh release list
         - gh dash
+  - HTTP curl:
+      root: ~/devbox/gocode/src/github.com/tigrisdata/cli-utils/fly-api-helper
+      layout: even-vertical
+      panes:
+        - poetry env info
+        - ls
