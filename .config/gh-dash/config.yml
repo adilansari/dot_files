@@ -1,6 +1,6 @@
 prSections:
   - title: Active PRs
-    filters: is:open repo:tigrisdata/tigris-os repo:tigrisdata/tigris-infra 
+    filters: is:open repo:tigrisdata/tigris-os repo:tigrisdata/tigris-infra repo:tigrisdata/grafana-provisioner-server
   - title: My Pull Requests
     filters: is:open author:@me
   - title: Needs My Review
@@ -51,6 +51,7 @@ defaults:
 theme:
   ui:
     table:
+      compact: true
       showSeparator: true
   colors:
     text:
@@ -58,6 +59,7 @@ theme:
       secondary: "#e7e56f"
       inverted: "#242347"
       faint: "#FFE559"
+      error: "#FF443E"
       warning: "#F23D5C"
       success: "#3DF294"
     background:

@@ -74,7 +74,7 @@ windows:
           - gh release list
         - gh dash
   - HTTP curl:
-      root: ~/devbox/gocode/src/github.com/tigrisdata/cli-utils/fly-api-helper
+      root: ~/devbox/gocode/src/github.com/tigrisdata/cli-utils/extensions-helper/
       layout: even-vertical
       panes:
         - poetry env info
