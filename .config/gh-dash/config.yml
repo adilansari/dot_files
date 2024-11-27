@@ -59,7 +59,7 @@ theme:
       secondary: "#e7e56f"
       inverted: "#242347"
       faint: "#FFE559"
-      error: "#F02C2C"
+      error: "#FF443E"
       warning: "#F23D5C"
       success: "#3DF294"
     background:
