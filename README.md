@@ -47,20 +47,19 @@ env/bin/python scores.py [API_SECRET]
 
 | Emoji | What | Description |
 |:---:|:---:|---|
-| :art: | [gitmoji-cli](https://github.com/carloscuesta/gitmoji-cli) | improving the **look** of git commits |
 | :speaker: | [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) | **Shell** works best |
 | :elephant: | [httpie](https://httpie.org/) | beautiful **CuRL** replacement with goodies  |
 | :roller_coaster: | [autojump](https://github.com/wting/autojump) | **cd** command but fast |
-| :snake: | [hack](http://sourcefoundry.org/hack/) | beautiful **fontface** for source code |
+| :snake: | [nerd fonts](https://www.nerdfonts.com/) | beautiful **fontfaces** for source code |
 | :recycle: | [github dashboard](https://github.com/dlvhdr/gh-dash) | GitHub dashboard **on your terminal** |
 | :dolphin: | [ctop](https://github.com/bcicen/ctop) | Top like interface for container metrics |
-
+| :snowflake: | [K9s](https://k9scli.io/) | Kubernetes CLI to manage clusters |
 
 # License
 ```
 The MIT License
 
-Copyright (c) 2024 Adil Ansari
+Copyright (c) 2025 Adil Ansari
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
