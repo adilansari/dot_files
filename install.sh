@@ -20,7 +20,8 @@ linktargets=(
   'git/.gitconfig'
   'git/.gitignore'
   '.bash_profile'
-  'config/gh-dash:$HOME/.config/gh-dash'
+  'config/gh-dash:$HOME/.config'
+  'config/htop:$HOME/.config'
 )
 
 # Create symlinks for dot_files
