@@ -13,8 +13,8 @@ filenames=(
 	'vim'
 	'tmux'
 	'git'
-	'.ctags'
 	'.bash_profile'
+	'config'
 ) 
 
 # Create symlinks for dot_files

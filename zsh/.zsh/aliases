@@ -39,12 +39,6 @@ alias ll='ls -lFh'          # Long view, no hidden
 # Jekyll
 alias jekyll_serve="bundle exec jekyll build && bundle exec jekyll serve"
 
-# Launchctl
-alias redis-launch="sudo launchctl start io.redis.redis-server"
-alias redis-stop="sudo launchctl stop io.redis.redis-server"
-alias mongo-launch="sudo launchctl load /Library/LaunchDaemons/io.mongo.mongodb.plist"
-alias mongo-stop="sudo launchctl unload /Library/LaunchDaemons/io.mongo.mongodb.plist"
-
 # kubernetes
 alias k="kubectl"
 
