@@ -11,17 +11,17 @@ fi
 # by default, all symlinks are created to $HOME
 # but you can specify a different target using colon : delimiter
 linktargets=(
-  'zsh/.zsh'
-  'zsh/.zshrc'
-  'vim/.vimrc'
-  'tmux/.tmux.conf'
-  'tmux/.tmuxinator'
-  'git/.git-completion.bash'
-  'git/.gitconfig'
-  'git/.gitignore'
-  '.bash_profile'
-  'config/gh-dash:$HOME/.config'
-  'config/htop:$HOME/.config'
+  "zsh/.zsh"
+  "zsh/.zshrc"
+  "vim/.vimrc"
+  "tmux/.tmux.conf"
+  "tmux/.tmuxinator"
+  "git/.git-completion.bash"
+  "git/.gitconfig"
+  "git/.gitignore"
+  ".bash_profile"
+  "config/gh-dash:$HOME/.config"
+  "config/htop:$HOME/.config"
 )
 
 # Create symlinks for dot_files
