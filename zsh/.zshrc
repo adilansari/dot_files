@@ -63,15 +63,7 @@ source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-#if [[ -n $SSH_CONNECTION ]]; then
-#  export EDITOR='vim'
-#else
-#  export EDITOR='mvim'
-#fi
-
-
 # go path
 export GOPATH="$HOME/devbox/gocode"
 export GOBIN="$GOPATH/bin"
-export PATH="$PATH:$GOPATH:$GOBIN"
+export PATH="$PATH:$GOPATH:$GOBIN:$HOME/.local/bin"

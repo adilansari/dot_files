@@ -55,6 +55,8 @@ env/bin/python scores.py [API_SECRET]
 | :dolphin: | [ctop](https://github.com/bcicen/ctop) | Top like interface for container metrics |
 | :snowflake: | [K9s](https://k9scli.io/) | Kubernetes CLI to manage clusters |
 
+[curated list of awesome CLIs](https://dlvhdr.me/posts/cli-tools)
+
 # License
 ```
 The MIT License
