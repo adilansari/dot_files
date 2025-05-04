@@ -63,7 +63,18 @@ source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+KCPATH=""
+for kcfile in $(ls ~/.kube/(dev|idev|prod)-k3s*); do
+	if [ -z ${KCPATH} ]; then
+		KCPATH="${kcfile}"
+	else
+		KCPATH="${KCPATH}:${kcfile}"
+	fi
+done
+export KUBECONFIG="${KCPATH}"
+
 # go path
 export GOPATH="$HOME/devbox/gocode"
 export GOBIN="$GOPATH/bin"
 export PATH="$PATH:$GOPATH:$GOBIN:$HOME/.local/bin"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"

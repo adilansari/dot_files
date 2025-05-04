@@ -16,6 +16,8 @@
 	- Import the `$DOT_FILES_DIR/osx/materialshell-dark.terminal` theme and set as Default.
     - Change font to **Jetbrains Mono Nerd Font**, size: 16
 	- Restart terminal
+8. Install fzf
+9. Install fastfetch
 
 
 # tmux + zsh = awesomeness

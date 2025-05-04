@@ -19,15 +19,14 @@ eval black='$FG[232]'
 PROMPT_SEPARATOR=$'\ue0b0'
 PROMPT='$(_virtualenv)${PROMPT_PREFIX}$(_git_time_since_commit) ${_current_dir}${PROMPT_SUFFIX}
 %{$yellow%}$ ➔ ${_return_status}%{$reset_color%} '
+#PROMPT='$(_virtualenv)${PROMPT_PREFIX} $(git_prompt_string) ${_current_dir}${PROMPT_SUFFIX}
 
 PROMPT_PREFIX="%{$magenta%}❰%{$cyan%}❰%{$red%}❰"
-#PROMPT_PREFIX="%{$magenta%}❰❰❰%{$reset_color%}"
 PROMPT_SUFFIX="%{$red%}❱%{$cyan%}❱%{$magenta%}❱"
 PROMPT2="%{$bg_grey%} %{$black%}↪ %{$reset_color%}%{$grey%}${PROMPT_SEPARATOR}%{$reset_color%} "
 PROMPT_END=''
 
 #RPROMPT='$(_vi_status)%{$(echotc UP 1)%}$(git_prompt_short_sha) $(_git_time_since_commit) ${_return_status} %T% %{$(echotc DO 1)%}'
-RPROMPT='$(_vi_status)%{$(echotc UP 1)%}$(git_prompt_short_sha) ${_return_status} %{$white%}%T%{$(echotc DO 1)%}%{$reset_color%}'
 
 local _current_dir="%{$yellow%}%0~%{$reset_color%} "
 local _return_status="%{$red%}%(?..✘ )%{$reset_color%}"

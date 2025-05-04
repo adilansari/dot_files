@@ -1,5 +1,6 @@
 # master
 alias zshconfig="vi ~/.zshrc"
+alias zshreload="source ~/.zshrc"
 aliases () {
 	grep "$1" ~/.zsh/aliases
 	grep "$1" ~/.zsh/tigris_aliases
@@ -19,7 +20,10 @@ alias gb='git branch'
 alias gd='git diff'
 alias gd_stat='git diff --stat main..HEAD'
 alias greb="git rebase --exec 'git commit --amend --no-edit -n -S' -i main"
+
+## github
 alias ghrelease="gh pr create -B release -H main"
+alias ghrunlog='gh run view --log $(gh run list --branch $(git rev-parse --abbrev-ref HEAD) --json databaseId | jq ".[0].databaseId") | tail -n 200'
 
 # tmux aliases
 alias tms='tmuxinator start'
