@@ -22,6 +22,7 @@ linktargets=(
   ".bash_profile"
   "config/gh-dash:$HOME/.config"
   "config/htop:$HOME/.config"
+  "zsh/.zsh/.p10k.zsh:$HOME/.p10k.zsh"
 )
 
 # Create symlinks for dot_files

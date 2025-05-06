@@ -16,6 +16,9 @@
 	- Import the `$DOT_FILES_DIR/osx/materialshell-dark.terminal` theme and set as Default.
     - Change font to **Jetbrains Mono Nerd Font**, size: 16
 	- Restart terminal
+8. Install fzf
+9. Install fastfetch
+10. Install powerlevel10k prompt for ZSH
 
 
 # tmux + zsh = awesomeness
@@ -54,6 +57,8 @@ env/bin/python scores.py [API_SECRET]
 | :recycle: | [github dashboard](https://github.com/dlvhdr/gh-dash) | GitHub dashboard **on your terminal** |
 | :dolphin: | [ctop](https://github.com/bcicen/ctop) | Top like interface for container metrics |
 | :snowflake: | [K9s](https://k9scli.io/) | Kubernetes CLI to manage clusters |
+
+[curated list of awesome CLIs](https://dlvhdr.me/posts/cli-tools)
 
 # License
 ```
