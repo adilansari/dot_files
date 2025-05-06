@@ -18,6 +18,7 @@
 	- Restart terminal
 8. Install fzf
 9. Install fastfetch
+10. Install powerlevel10k prompt for ZSH
 
 
 # tmux + zsh = awesomeness
