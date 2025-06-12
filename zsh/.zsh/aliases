@@ -23,7 +23,7 @@ alias greb="git rebase --exec 'git commit --amend --no-edit -n -S' -i main"
 
 ## github
 alias ghrelease="gh pr create -B release -H main"
-alias ghrunlog='gh run view --log $(gh run list --branch $(git rev-parse --abbrev-ref HEAD) --json databaseId | jq ".[0].databaseId") | tail -n 200'
+alias ghrunlog='gh run view --log $(gh run list --branch $(git rev-parse --abbrev-ref HEAD) --workflow go-test --json databaseId | jq ".[0].databaseId") | tail -n 200'
 
 # tmux aliases
 alias tms='tmuxinator start'
