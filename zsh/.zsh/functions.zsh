@@ -12,7 +12,7 @@ dgrep() {
 }
 dfgrep() {
 	# A recursive, case-insensitive grep that excludes binary files
-	# and returns only unique filenames
+	# and returns only unique filenames containing search string
 	grep -iR "$1" * | grep -v "Binary"| grep -v "env" | sed 's/:/ /g' | awk '{ print $1 }' | sort | uniq
 }
 psgrep() {

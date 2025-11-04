@@ -12,7 +12,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="materialshell-dark"
+#ZSH_THEME="materialshell-dark"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -61,7 +61,8 @@ export EDITOR='nvim'
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.zsh/tmuxinator.zsh
-source $HOME/.zsh/prompts.zsh
+# since we are using powerlevel10k prompts, this is redundant
+# source $HOME/.zsh/prompts.zsh
 source $HOME/.zsh/functions.zsh
 source $HOME/.zsh/aliases
 source $HOME/.zsh/tigris_aliases
@@ -70,7 +71,7 @@ source $HOME/.zsh/tigris_aliases
 # export LANG=en_US.UTF-8
 
 KCPATH=""
-for kcfile in $(ls ~/.kube/(dev|idev|prod)-k3s*); do
+for kcfile in $(ls ~/.kube/(dev|idev|prod)-(k3s|oke|k8s)-*); do
 	if [ -z ${KCPATH} ]; then
 		KCPATH="${kcfile}"
 	else
@@ -84,8 +85,30 @@ export GOPATH="$HOME/devbox/gocode"
 export GOBIN="$GOPATH/bin"
 export PATH="$PATH:$GOPATH:$GOBIN:$HOME/.local/bin"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Only load p10k if not in Cursor/IDE and not already loaded
+if [[ -n "$TERM_PROGRAM" ]] && [[ "$TERM_PROGRAM" == "cursor" ]] || [[ -n "$VSCODE_INJECTION" ]]; then
+  # Simple prompt for Cursor to ensure clean output parsing
+  PROMPT='%~ %# '
+else
+  # Load Powerlevel10k for regular terminals
+  if [[ -z "$POWERLEVEL9K_VERSION" ]]; then
+    source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+  fi
+fi
+
+# Properly handle zsh-syntax-highlighting re-sourcing
+if [[ -n "$ZSH_HIGHLIGHT_VERSION" ]]; then
+  # Already loaded - clean up existing widgets to prevent recursion
+  for widget in ${(k)widgets}; do
+    if [[ "$widgets[$widget]" == user:_zsh_highlight_widget_* ]]; then
+      zle -N $widget ${widgets[$widget]#user:_zsh_highlight_widget_}
+    fi
+  done
+  unset ZSH_HIGHLIGHT_VERSION
+  unfunction _zsh_highlight 2>/dev/null
+  unfunction _zsh_highlight_bind_widgets 2>/dev/null
+fi
