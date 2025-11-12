@@ -20,7 +20,7 @@
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 [interactive]
-  difffilter = delta --color-only
+  diffFilter = delta --color-only
 [delta]
   navigate = true
   line-numbers = true
