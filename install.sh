@@ -22,7 +22,11 @@ linktargets=(
   ".bash_profile"
   "config/gh-dash:$HOME/.config"
   "config/htop:$HOME/.config"
+  "config/nvim/mappings.lua:$HOME/.config/nvim/lua"
+  "config/nvim/options.lua:$HOME/.config/nvim/lua"
   "zsh/.zsh/.p10k.zsh:$HOME/.p10k.zsh"
+  "claude/CLAUDE.md:$HOME/.claude"
+  "claude/skills:$HOME/.claude"
 )
 
 # Create symlinks for dot_files

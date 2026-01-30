@@ -52,11 +52,11 @@ ZSH_CUSTOM=$HOME/.zsh/custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(autojump git python history history-substring-search colorize command-not-found tmux)
+plugins=(zoxide git python history history-substring-search colorize command-not-found tmux fzf)
 
 
 # User configuration
-
+export ZOXIDE_CMD_OVERRIDE="j"
 export EDITOR='nvim'
 
 source $ZSH/oh-my-zsh.sh

@@ -52,7 +52,7 @@ env/bin/python scores.py [API_SECRET]
 |:---:|:---:|---|
 | :speaker: | [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) | **Shell** works best |
 | :elephant: | [httpie](https://httpie.org/) | beautiful **CuRL** replacement with goodies  |
-| :roller_coaster: | [autojump](https://github.com/wting/autojump) | **cd** command but fast |
+| :roller_coaster: | [zoxide](https://github.com/ajeetdsouza/zoxide) | **cd** command but fast |
 | :snake: | [nerd fonts](https://www.nerdfonts.com/) | beautiful **fontfaces** for source code |
 | :recycle: | [github dashboard](https://github.com/dlvhdr/gh-dash) | GitHub dashboard **on your terminal** |
 | :dolphin: | [ctop](https://github.com/bcicen/ctop) | Top like interface for container metrics |
