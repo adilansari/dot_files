@@ -1,6 +1,7 @@
 [user]
 	name = Adil Ansari
 	email = ansari.adil20@gmail.com
+	signingkey = 66908A7C3FA21A5B
 [push]
 	default = simple
 [core]
