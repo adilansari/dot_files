@@ -65,20 +65,9 @@ source $HOME/.zsh/tmuxinator.zsh
 # source $HOME/.zsh/prompts.zsh
 source $HOME/.zsh/functions.zsh
 source $HOME/.zsh/aliases
-source $HOME/.zsh/tigris_aliases
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
-
-KCPATH=""
-for kcfile in $(ls ~/.kube/(dev|idev|prod)-(k3s|oke|k8s)-*); do
-	if [ -z ${KCPATH} ]; then
-		KCPATH="${kcfile}"
-	else
-		KCPATH="${KCPATH}:${kcfile}"
-	fi
-done
-export KUBECONFIG="${KCPATH}"
 
 # go path
 export GOPATH="$HOME/devbox/gocode"
@@ -86,6 +75,8 @@ export GOBIN="$GOPATH/bin"
 export PATH="$PATH:$GOPATH:$GOBIN:$HOME/.local/bin"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
 
 # Only load p10k if not in Cursor/IDE and not already loaded
 if [[ -n "$TERM_PROGRAM" ]] && [[ "$TERM_PROGRAM" == "cursor" ]] || [[ -n "$VSCODE_INJECTION" ]]; then
@@ -112,3 +103,5 @@ if [[ -n "$ZSH_HIGHLIGHT_VERSION" ]]; then
   unfunction _zsh_highlight 2>/dev/null
   unfunction _zsh_highlight_bind_widgets 2>/dev/null
 fi
+export PATH="$PATH:$GOPATH:$GOBIN"
+
