@@ -29,3 +29,5 @@
   conflictstyle = diff3
 [diff]
   colorMoved = default
+[gpg]
+	program = gpg
