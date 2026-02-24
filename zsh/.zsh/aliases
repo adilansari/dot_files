@@ -83,32 +83,50 @@ alias gwp='git worktree prune'
 # usage: gwb feature-a
 # usage: gwb feature-b feature-a -- to create feature-b branch/tree from feature-a, its main by default
 gwb() {
+  if [[ -z "$1" ]]; then echo "usage: gwb <branch> [base]"; return 1; fi
   local branch=$1
-  local base=${2:-main}    # defaults to main, override with second arg
-  local repo_name=$(basename $(git rev-parse --show-toplevel))
-  local parent=$(dirname $(git rev-parse --show-toplevel))
+  local base=${2:-main}
+  local main_root=$(git worktree list --porcelain | head -1 | sed 's/^worktree //')
+  local repo_name=$(basename "$main_root")
+  local parent=$(dirname "$main_root")
   local worktree_dir="$parent/${repo_name}-${branch}"
   git worktree add -b "$branch" "$worktree_dir" "$base"
   echo "✓ Created: $worktree_dir (base: $base)"
 }
 
-# remove worktree after gh pr merge -sd
-# usage: gwrm provider-invoicing
+# remove worktree — run from inside the worktree (no args), or pass branch name from main repo
+# usage: gwrm              (from inside the worktree)
+# usage: gwrm staged-bytes (from main repo)
 gwrm() {
-  local branch=$1
-  local repo_name=$(basename $(git rev-parse --show-toplevel))
-  local parent=$(dirname $(git rev-parse --show-toplevel))
-  local worktree_dir="$parent/${repo_name}-${branch}"
-  git worktree remove "$worktree_dir"
-  echo "✓ Removed worktree: $branch"
+  local main_root=$(git worktree list --porcelain | head -1 | sed 's/^worktree //')
+
+  if [[ -n "$1" ]]; then
+    local branch=$1
+    local repo_name=$(basename "$main_root")
+    local parent=$(dirname "$main_root")
+    local worktree_dir="$parent/${repo_name}-${branch}"
+    git worktree remove "$worktree_dir"
+    echo "✓ Removed worktree: $branch"
+  elif [[ "$(git rev-parse --show-toplevel)" != "$main_root" ]]; then
+    local worktree_dir=$(git rev-parse --show-toplevel)
+    local branch=$(git branch --show-current)
+    cd "$main_root"
+    git worktree remove "$worktree_dir"
+    echo "✓ Removed worktree: $branch"
+  else
+    echo "usage: gwrm <branch> (or run from within the worktree)"
+    return 1
+  fi
 }
 
 # checkout a PR into its own worktree for review
 # usage: gwpr 123
 gwpr() {
+  if [[ -z "$1" ]]; then echo "usage: gwpr <pr-number>"; return 1; fi
   local pr=$1
-  local repo_name=$(basename $(git rev-parse --show-toplevel))
-  local parent=$(dirname $(git rev-parse --show-toplevel))
+  local main_root=$(git worktree list --porcelain | head -1 | sed 's/^worktree //')
+  local repo_name=$(basename "$main_root")
+  local parent=$(dirname "$main_root")
   local worktree_dir="$parent/${repo_name}-pr-${pr}"
   gh pr checkout "$pr" --worktree "$worktree_dir" 2>/dev/null || {
     local branch=$(gh pr view "$pr" --json headRefName -q '.headRefName')
