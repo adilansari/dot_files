@@ -107,13 +107,13 @@ gwrm() {
     local worktree_dir="$parent/${repo_name}-${branch}"
     git worktree remove "$worktree_dir"
     cd "$main_root" && git pull
-    echo "✓ Removed worktree: $branch"
+    git branch -d "$branch" 2>/dev/null && echo "✓ Removed worktree + branch: $branch" || echo "✓ Removed worktree: $branch (branch kept — not fully merged)"
   elif [[ "$(git rev-parse --show-toplevel)" != "$main_root" ]]; then
     local worktree_dir=$(git rev-parse --show-toplevel)
     local branch=$(git branch --show-current)
     cd "$main_root"
     git worktree remove "$worktree_dir" && git pull
-    echo "✓ Removed worktree: $branch"
+    git branch -d "$branch" 2>/dev/null && echo "✓ Removed worktree + branch: $branch" || echo "✓ Removed worktree: $branch (branch kept — not fully merged)"
   else
     echo "usage: gwrm <branch> (or run from within the worktree)"
     return 1
