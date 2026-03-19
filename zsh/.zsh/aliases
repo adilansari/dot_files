@@ -91,6 +91,7 @@ gwb() {
   local parent=$(dirname "$main_root")
   local worktree_dir="$parent/${repo_name}-${branch}"
   git worktree add -b "$branch" "$worktree_dir" "$base" && cd "$worktree_dir"
+  [[ -d "$main_root/.idea" ]] && cp -r "$main_root/.idea" "$worktree_dir/.idea"
   echo "✓ Created: $worktree_dir (base: $base)"
 }
 
@@ -133,6 +134,7 @@ gwpr() {
   if [[ -z "$branch" ]]; then echo "Could not find PR #$pr"; return 1; fi
   git fetch origin "$branch"
   git worktree add "$worktree_dir" "origin/${branch}" && cd "$worktree_dir"
+  [[ -d "$main_root/.idea" ]] && cp -r "$main_root/.idea" "$worktree_dir/.idea"
   echo "✓ PR #$pr checked out at: $worktree_dir"
 }
 

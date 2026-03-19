@@ -1,6 +1,6 @@
 ---
 name: watch-pr
-description: Watch a PR for new comments and CI failures. Use when monitoring pull requests, babysitting PRs, waiting for reviews, or tracking CI status on an open PR.
+description: Watch a PR and resolve every unresolved comment. Use when monitoring pull requests, babysitting PRs, waiting for reviews, or tracking CI status on an open PR. One job — zero unresolved comments.
 argument-hint: "[pr-number]"
 disable-model-invocation: true
 ---
@@ -11,43 +11,93 @@ Derive the repo owner/name from the current git remote (`gh repo view --json own
 
 Launch two background agents that run concurrently. Both agents must keep running until the PR is merged or closed — never stop early.
 
+**Critical: both agents must check current state immediately on launch, before entering their polling loops.** Pre-existing failures, unresolved comments, or other issues from before the watcher started are just as important as new ones.
+
 ---
 
-## Agent 1: Comment Watcher
+## Agent 1: Comment Resolver
 
-Poll every **30 seconds** for new comments. Use both of these on every poll cycle — each catches comments the other misses:
-- `gh pr view <pr> --json comments,reviews` — PR-level comments and review summaries
-- `gh api repos/{owner}/{repo}/pulls/<pr>/comments` — inline review comments on specific lines
+**Your one job: zero unresolved comments on this PR.**
 
-### Tracking seen comments
+Every poll cycle, fetch ALL review threads and find every unresolved one. It doesn't matter if a comment is old or new — if it's unresolved, it's your problem.
 
-On the first poll, snapshot all existing comment IDs as "already seen" — do not surface these. On every subsequent poll, compare against the seen set. Any comment with a new ID is new. Add it to the seen set immediately after surfacing it.
+### How to find unresolved comments
 
-Every comment matters. Never skip, batch, or delay a comment. If you find new comments, surface them to the user **right away** before the next sleep cycle.
+**On launch, immediately run your first check.** Then continue polling every **30 seconds**. On each cycle, use the GraphQL API to get all review threads with their resolution status:
 
-### Surfacing comments to the user
+```bash
+gh api graphql -f query='
+{
+  repository(owner: "{owner}", name: "{repo}") {
+    pullRequest(number: {pr}) {
+      reviewThreads(first: 100) {
+        nodes {
+          id
+          isResolved
+          comments(first: 10) {
+            nodes {
+              id
+              author { login }
+              body
+              path
+              line
+              createdAt
+            }
+          }
+        }
+      }
+    }
+  }
+}'
+```
 
-For each new comment, show:
-- **Who** commented
-- **Where** — file and line number if it's an inline comment, or "PR-level" otherwise
-- **What** they said — quote the full comment text
+Filter to threads where `isResolved` is `false`. These are your targets.
 
-Then suggest one of these actions:
-1. **Reply & resolve** — draft a reply for the user to approve, then post it and resolve the thread (for bot comments or straightforward clarifications)
-2. **Fix code** — describe what code change you'd make, but **wait for the user's approval** before touching anything
-3. **Clarify** — draft a clarifying question to post as a reply
+Also check PR state each cycle: `gh pr view <pr> --json state -q .state`. Stop only when `MERGED` or `CLOSED`.
 
-Wait for the user to tell you which action to take (or give their own instruction) before proceeding. Never fix code or reply autonomously.
+### Handling each unresolved thread
 
-### Stopping condition
+For each unresolved thread, read the comment(s) and decide:
 
-Check `gh pr view <pr> --json state -q .state` each cycle. Stop only when state is `MERGED` or `CLOSED`.
+1. **You can fix it yourself** — the comment asks for a code change, naming fix, typo, style issue, or something you can confidently address. Do it: make the code change, reply to the comment explaining what you did, and resolve the thread. Push the fix. Tell the user what you did.
+
+2. **You can reply and resolve** — the comment is a question you can answer, a bot comment, an FYI, or something that doesn't need a code change. Reply with a clear answer and resolve the thread. Tell the user what you did.
+
+3. **You need the user** — the comment raises a design question, asks for a judgment call, or is ambiguous enough that you shouldn't act alone. Surface it to the user immediately:
+   - **Who** commented
+   - **Where** — file:line if inline, "PR-level" otherwise
+   - **What** they said — quote the full text
+   - **Why you need them** — what decision is needed
+   - Wait for the user's instruction, then act on it, reply, and resolve.
+
+Bias toward action. If you can handle it, handle it. Only escalate to the user when you genuinely can't decide the right course.
+
+### Resolving threads
+
+After replying to a comment, resolve the thread:
+
+```bash
+gh api graphql -f query='
+mutation {
+  resolveReviewThread(input: {threadId: "{thread_id}"}) {
+    thread { isResolved }
+  }
+}'
+```
+
+### Tracking what you've handled
+
+Keep a set of thread IDs you've already resolved or escalated to the user. Don't re-surface threads you're waiting on user input for — but do re-check them if the user hasn't responded after 2 minutes, with a gentle reminder.
+
+### The goal
+
+Every cycle should end with you either having resolved all threads, or actively waiting on the user for the ones you couldn't handle yourself. If the unresolved count is zero, say nothing — just keep watching. If new unresolved threads appear, handle them immediately.
 
 ---
 
 ## Agent 2: CI Monitor
 
-Poll every **60 seconds** for CI check status using `gh pr checks <pr>`.
+**On launch, immediately check current CI status** — don't wait for the first poll interval. If checks have already failed before you started watching, handle them right away using the failure logic below. Then continue polling every **60 seconds** using `gh pr checks <pr>`.
 
 ### On failure
 
