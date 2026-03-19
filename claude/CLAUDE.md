@@ -18,6 +18,7 @@
 - Before making changes, understand the existing code structure
 - Make incremental changes that are easy to review
 - When debugging, explain the root cause, not just the fix
+- Always use signed commits (`git commit -S`)
 
 ## Tools & Environment
 
