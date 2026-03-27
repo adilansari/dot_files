@@ -26,7 +26,7 @@ r=d['chart']['result'][0]['meta']
 price=r['regularMarketPrice']
 prev=r['chartPreviousClose']
 pct=((price-prev)/prev)*100
-color='#[bg=colour22,fg=white]' if pct >= 0 else '#[bg=colour124,fg=white]'
+color='#[fg=green]' if pct >= 0 else '#[fg=red]'
 print(f\"{color} {label}: {price:,.2f} ({pct:+.2f}%)\")
 " 2>/dev/null)
 
