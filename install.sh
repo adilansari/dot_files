@@ -16,6 +16,7 @@ linktargets=(
   "vim/.vimrc"
   "tmux/.tmux.conf"
   "tmux/.tmuxinator"
+  "tmux/scripts:.tmux-scripts"
   "git/.git-completion.bash"
   "git/.gitconfig"
   "git/.gitignore"

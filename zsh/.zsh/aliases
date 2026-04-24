@@ -95,6 +95,24 @@ gwb() {
   echo "✓ Created: $worktree_dir (base: $base)"
 }
 
+# try to delete a local branch, handling squash/rebase merges via gh
+_gw_delete_branch() {
+  local branch=$1
+  if git branch -d "$branch" 2>/dev/null; then
+    echo "✓ Removed branch: $branch"
+    return 0
+  fi
+  if command -v gh >/dev/null 2>&1; then
+    local pr=$(gh pr list --state merged --head "$branch" --limit 1 --json number -q '.[0].number' 2>/dev/null)
+    if [[ -n "$pr" ]]; then
+      git branch -D "$branch" && echo "✓ Removed branch (squash-merged in PR #$pr): $branch"
+      return 0
+    fi
+  fi
+  echo "⚠ Branch kept: $branch (not merged — 'git branch -D $branch' to force)"
+  return 1
+}
+
 # remove worktree — run from inside the worktree (no args), or pass branch name from main repo
 # usage: gwrm              (from inside the worktree)
 # usage: gwrm staged-bytes (from main repo)
@@ -108,13 +126,13 @@ gwrm() {
     local worktree_dir="$parent/${repo_name}-${branch}"
     git worktree remove "$worktree_dir"
     cd "$main_root" && git pull
-    git branch -d "$branch" 2>/dev/null && echo "✓ Removed worktree + branch: $branch" || echo "✓ Removed worktree: $branch (branch kept — not fully merged)"
+    _gw_delete_branch "$branch"
   elif [[ "$(git rev-parse --show-toplevel)" != "$main_root" ]]; then
     local worktree_dir=$(git rev-parse --show-toplevel)
     local branch=$(git branch --show-current)
     cd "$main_root"
     git worktree remove "$worktree_dir" && git pull
-    git branch -d "$branch" 2>/dev/null && echo "✓ Removed worktree + branch: $branch" || echo "✓ Removed worktree: $branch (branch kept — not fully merged)"
+    _gw_delete_branch "$branch"
   else
     echo "usage: gwrm <branch> (or run from within the worktree)"
     return 1
