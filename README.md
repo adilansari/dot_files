@@ -57,6 +57,7 @@ env/bin/python scores.py [API_SECRET]
 | :recycle: | [github dashboard](https://github.com/dlvhdr/gh-dash) | GitHub dashboard **on your terminal** |
 | :dolphin: | [ctop](https://github.com/bcicen/ctop) | Top like interface for container metrics |
 | :snowflake: | [K9s](https://k9scli.io/) | Kubernetes CLI to manage clusters |
+| :file_folder: | [yazi](https://yazi-rs.github.io/) | **Terminal file manager** with vim-like keybindings |
 
 [curated list of awesome CLIs](https://dlvhdr.me/posts/cli-tools)
 
