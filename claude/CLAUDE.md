@@ -46,6 +46,66 @@ When creating plans (plan mode, /architect, or any design/implementation plannin
 - Follow existing project conventions when working in established codebases
 - Prefer simple solutions over clever ones
 
+## Comments
+
+Comments are first-class code citizens. They cost reader time and require maintenance, so the bar is high — a comment that doesn't earn its keep is a liability, not documentation.
+
+**Default: no comment.** Names and structure should carry the meaning. If you reach for a comment, first ask whether a better name or smaller function would remove the need.
+
+Add a comment only when the *why* is non-obvious to someone reading the code cold:
+- A hidden invariant or business rule the code enforces
+- A surprising behavior or workaround for a specific bug
+- A constraint imposed from outside (ordering, atomicity, external API quirk)
+
+Hard rules:
+- **1-2 lines max.** If it needs more, the code is wrong or the comment is restating the code.
+- **Never restate what the code does.** A comment that paraphrases the next line is pure noise.
+- **No forward-references** to commits, PRs, or "future work" (`// enforced in a follow-up PR`). They rot the day the PR merges and confuse readers forever.
+- **No godoc on small private helpers or tests** — the name and body are self-evident.
+- **Field/proto comments**: one short line, only if the name doesn't already convey it. Don't inline design-doc cross-references — link from a separate doc if needed.
+
+**Bad — restates the code, padded with provenance noise:**
+```go
+// applyPaymentVerifiedAtPatch encodes the atomic mutual-exclusion semantics
+// for the payment_verified_at field. Stamping a non-zero verifiedAt also
+// clears payment_verification_required (set/clear cannot coexist by
+// invariant — see docs/abuse-prevention-public-bucket-gate.md § Admin
+// override). Clearing the stamp (zero time) leaves the required flag alone.
+func applyPaymentVerifiedAtPatch(meta *api.NamespaceMetadata, verifiedAt *timestamppb.Timestamp) {
+    if verifiedAt == nil || verifiedAt.AsTime().IsZero() {
+        meta.PaymentVerifiedAt = nil
+        return
+    }
+    meta.PaymentVerifiedAt = verifiedAt
+    meta.PaymentVerificationRequired = nil
+}
+```
+
+**Good — no godoc. The name and body say it. If the mutual-exclusion invariant matters, document it once on the struct/field, not on every helper that touches it:**
+```go
+func applyPaymentVerifiedAtPatch(meta *api.NamespaceMetadata, verifiedAt *timestamppb.Timestamp) {
+    if verifiedAt == nil || verifiedAt.AsTime().IsZero() {
+        meta.PaymentVerifiedAt = nil
+        return
+    }
+    meta.PaymentVerifiedAt = verifiedAt
+    meta.PaymentVerificationRequired = nil
+}
+```
+
+**Bad — forward-reference rots on merge, design-doc link belongs in the doc, not the proto:**
+```proto
+// (enforced server-side in a follow-up PR — see
+// docs/abuse-prevention-public-bucket-gate.md § Admin override).
+optional bool payment_verification_required = 16;
+```
+
+**Good — name carries it; if a hint is needed, one line:**
+```proto
+// Mutually exclusive with payment_verified_at.
+optional bool payment_verification_required = 16;
+```
+
 ## Workflow
 
 - Before making changes, understand the existing code structure

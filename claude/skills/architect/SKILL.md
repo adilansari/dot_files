@@ -26,7 +26,7 @@ Think out loud about this. The user benefits from seeing your reasoning about th
 ### 2. Consider Design Approaches
 
 Now think about architecture — still without looking at code:
-- What design patterns naturally fit this problem? Consider the full toolkit: Strategy for swappable behaviors, Observer for event-driven decoupling, Mediator for coordinating complex interactions, Command for encapsulating operations, Factory for flexible object creation, Decorator for composable enhancements, Adapter for bridging interfaces, State for behavior that changes with context, Iterator for traversal abstractions, Chain of Responsibility for pipeline processing, Visitor for operations across type hierarchies, Builder for complex construction — and beyond GoF: CQRS, Event Sourcing, Hexagonal/Ports-and-Adapters, Repository, Unit of Work, Saga, Circuit Breaker, and others.
+- What design patterns naturally fit this problem? Consider the full toolkit — GoF (Strategy, Observer, Mediator, Command, Factory, Decorator, Adapter, State, Chain of Responsibility, Visitor, Builder, Iterator) and beyond (CQRS, Event Sourcing, Hexagonal/Ports-and-Adapters, Repository, Unit of Work, Saga, Circuit Breaker). Name what fits and why; don't list patterns for completeness.
 - What does a modular design look like here? Good modularity means each piece has a clear responsibility, communicates through well-defined interfaces, and can be understood, tested, and changed independently.
 - What are the trade-offs between approaches? There's rarely one right answer — lay out 2-3 credible designs with their strengths and weaknesses.
 
@@ -58,6 +58,7 @@ Give concrete, grounded recommendations:
 - Show the structure: sketch the packages/modules/interfaces, not just describe them abstractly
 - Explain the modularity: which pieces can change independently, what the interfaces look like, how new variants get added
 - Flag trade-offs honestly: what does this design cost in complexity, and what does it buy?
+- Code sketches in your output follow the comment rules in `~/.claude/CLAUDE.md` § Comments — no godoc on small helpers, no forward-references, no restating the code. The sketch should look like merge-ready code, not annotated pedagogy.
 
 ## Output Format
 
