@@ -1,8 +1,8 @@
 prSections:
   - title: Active PRs
-    filters: is:open repo:tigrisdata/tigris-os repo:tigrisdata/tigris-infra repo:tigrisdata/grafana-provisioner-server
+    filters: is:open draft:false repo:tigrisdata/tigris-os repo:tigrisdata/tigris-infra repo:tigrisdata/grafana-provisioner-server
   - title: My Pull Requests
-    filters: is:open author:@me
+    filters: is:open author:@me repo:tigrisdata/tigris-os repo:tigrisdata/tigris-infra repo:tigrisdata/grafana-provisioner-server
   - title: Needs My Review
     filters: is:open review-requested:@me
   - title: Involved
@@ -16,7 +16,7 @@ issuesSections:
     filters: is:open involves:@me -author:@me
 defaults:
   preview:
-    open: true
+    open: false
     width: 75
   prsLimit: 20
   issuesLimit: 20
@@ -48,6 +48,14 @@ defaults:
         width: 20
         hidden: true
   refetchIntervalMinutes: 1
+keybindings:
+  prs:
+    - key: m
+      name: squash merge
+      command: gh pr merge --repo {{.RepoName}} {{.PrNumber}} -sd
+    - key: v
+      name: approve
+      command: gh pr review --repo {{.RepoName}} --approve {{.PrNumber}}
 theme:
   ui:
     table:

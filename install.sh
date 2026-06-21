@@ -16,6 +16,7 @@ linktargets=(
   "vim/.vimrc"
   "tmux/.tmux.conf"
   "tmux/.tmuxinator"
+  "tmux/scripts:.tmux-scripts"
   "git/.git-completion.bash"
   "git/.gitconfig"
   "git/.gitignore"
@@ -26,7 +27,6 @@ linktargets=(
   "config/nvim/options.lua:$HOME/.config/nvim/lua"
   "zsh/.zsh/.p10k.zsh:$HOME/.p10k.zsh"
   "claude/CLAUDE.md:$HOME/.claude"
-  "claude/skills:$HOME/.claude"
 )
 
 # Create symlinks for dot_files
@@ -44,6 +44,15 @@ for item in ${linktargets[@]}; do
     target=$HOME
   fi
   create_symlink $DOT_FILES_DIR/$source $target
+done
+
+# Per-skill symlinks: ~/.claude/skills/ is kept as a real directory so
+# third-party skill installers (e.g. antithesis-skills) can drop their own
+# symlinks alongside ours without colliding with a whole-directory symlink.
+mkdir -p "$HOME/.claude/skills"
+for skill_dir in "$DOT_FILES_DIR"/claude/skills/*/; do
+  skill_name=$(basename "$skill_dir")
+  create_symlink "${skill_dir%/}" "$HOME/.claude/skills/$skill_name"
 done
 
 exit 0
