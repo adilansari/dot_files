@@ -2,7 +2,7 @@ prSections:
   - title: Active PRs
     filters: is:open draft:false repo:tigrisdata/tigris-os repo:tigrisdata/tigris-infra repo:tigrisdata/grafana-provisioner-server
   - title: My Pull Requests
-    filters: is:open author:@me repo:tigrisdata/tigris-os repo:tigrisdata/tigris-infra repo:tigrisdata/grafana-provisioner-server
+    filters: is:open author:@me
   - title: Needs My Review
     filters: is:open review-requested:@me
   - title: Involved
