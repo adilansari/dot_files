@@ -45,65 +45,42 @@ When creating plans (plan mode, /architect, or any design/implementation plannin
 
 - Follow existing project conventions when working in established codebases
 - Prefer simple solutions over clever ones
+- New-file copyright headers: never default to a hardcoded year. Match a recently-added file in the same project, or use the current year if none — never a stale one from training data.
 
 ## Comments
 
-Comments are first-class code citizens. They cost reader time and require maintenance, so the bar is high — a comment that doesn't earn its keep is a liability, not documentation.
+**Do this every time: before you present or commit code you wrote, make a dedicated comment pass.** Re-read every comment you added and delete any that fail the bar below. This is a required final step on a coding task — the same standing as signed commits, not "if you remember." Your default is to over-comment; this pass is what counters it.
 
-**Default: no comment.** Names and structure should carry the meaning. If you reach for a comment, first ask whether a better name or smaller function would remove the need.
+A comment earns its place only when the *why* is non-obvious to someone reading the code cold:
+- a hidden invariant or business rule the code enforces
+- a surprising behavior or workaround for a specific bug
+- a constraint imposed from outside (ordering, atomicity, external API quirk)
 
-Add a comment only when the *why* is non-obvious to someone reading the code cold:
-- A hidden invariant or business rule the code enforces
-- A surprising behavior or workaround for a specific bug
-- A constraint imposed from outside (ordering, atomicity, external API quirk)
+**A kept comment must be self-contained.** Assume the reader has only this file open and has never read the design doc. It may not name a tier, phase, layer, signal, or any term the code in this file doesn't define — no "(Tier 1)", no "Tier-3 switch", no vocabulary lifted from an RFC. If the comment can't be understood without leaving the file, it's broken: state the actual reason in plain words ("returns nil so the caller skips wiring and boot dodges chstore.New's log.Fatal"), or delete it.
 
-Hard rules:
-- **1-2 lines max.** If it needs more, the code is wrong or the comment is restating the code.
-- **Never restate what the code does.** A comment that paraphrases the next line is pure noise.
-- **No forward-references** to commits, PRs, or "future work" (`// enforced in a follow-up PR`). They rot the day the PR merges and confuse readers forever.
-- **No godoc on small private helpers or tests** — the name and body are self-evident.
-- **Field/proto comments**: one short line, only if the name doesn't already convey it. Don't inline design-doc cross-references — link from a separate doc if needed.
+Delete on sight:
+- **Restatements** — paraphrases the line below it.
+- **Godoc on small private helpers or tests** — the name and body already say it.
+- **Type/package docs that restate the name** or inventory what's inside — the declarations say it.
+- **Narration of library/driver behavior** — it's documented upstream, don't re-explain it.
+- **Forward-references** to commits/PRs/"future work" — they rot on merge.
+- **Provenance / design-doc essays** inline — link from a doc instead.
+- **Anything over 1-2 lines** — if it needs more, fix the code or the name.
 
-**Bad — restates the code, padded with provenance noise:**
+Default to no comment. If you reach for one, first ask whether a better name or smaller function removes the need.
+
+**The test is deletion, not justification.** Delete the comment, then name the exact wrong assumption a reader makes without it. Can't name one, it stays deleted. "Explains the why", "documents intent", "notes the constraint" is how restatements survive. A true statement is never a reason to keep a comment, only a concrete misread prevented is. This applies to every comment in code you touch, not only ones you add.
+
+Most common miss — godoc that restates a self-evident helper. The fix is to delete it; if an invariant matters, document it once on the struct field, not on every helper that touches it:
 ```go
-// applyPaymentVerifiedAtPatch encodes the atomic mutual-exclusion semantics
-// for the payment_verified_at field. Stamping a non-zero verifiedAt also
-// clears payment_verification_required (set/clear cannot coexist by
-// invariant — see docs/abuse-prevention-public-bucket-gate.md § Admin
-// override). Clearing the stamp (zero time) leaves the required flag alone.
-func applyPaymentVerifiedAtPatch(meta *api.NamespaceMetadata, verifiedAt *timestamppb.Timestamp) {
-    if verifiedAt == nil || verifiedAt.AsTime().IsZero() {
-        meta.PaymentVerifiedAt = nil
-        return
-    }
-    meta.PaymentVerifiedAt = verifiedAt
-    meta.PaymentVerificationRequired = nil
-}
-```
+// Bad — restates the body, plus a provenance essay:
+// applyPaymentVerifiedAtPatch encodes the atomic mutual-exclusion semantics for
+// payment_verified_at; stamping a non-zero verifiedAt also clears the required
+// flag (see docs/...§Admin override). Clearing leaves the required flag alone.
+func applyPaymentVerifiedAtPatch(meta *api.NamespaceMetadata, verifiedAt *timestamppb.Timestamp) { ... }
 
-**Good — no godoc. The name and body say it. If the mutual-exclusion invariant matters, document it once on the struct/field, not on every helper that touches it:**
-```go
-func applyPaymentVerifiedAtPatch(meta *api.NamespaceMetadata, verifiedAt *timestamppb.Timestamp) {
-    if verifiedAt == nil || verifiedAt.AsTime().IsZero() {
-        meta.PaymentVerifiedAt = nil
-        return
-    }
-    meta.PaymentVerifiedAt = verifiedAt
-    meta.PaymentVerificationRequired = nil
-}
-```
-
-**Bad — forward-reference rots on merge, design-doc link belongs in the doc, not the proto:**
-```proto
-// (enforced server-side in a follow-up PR — see
-// docs/abuse-prevention-public-bucket-gate.md § Admin override).
-optional bool payment_verification_required = 16;
-```
-
-**Good — name carries it; if a hint is needed, one line:**
-```proto
-// Mutually exclusive with payment_verified_at.
-optional bool payment_verification_required = 16;
+// Good — no godoc; the name and body carry it:
+func applyPaymentVerifiedAtPatch(meta *api.NamespaceMetadata, verifiedAt *timestamppb.Timestamp) { ... }
 ```
 
 ## Workflow
