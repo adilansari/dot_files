@@ -1,2 +1,4 @@
 env
 *.iml
+
+**/.claude/settings.local.json
