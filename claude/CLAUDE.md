@@ -36,11 +36,6 @@ When creating plans (plan mode, /architect, or any design/implementation plannin
 - Revise based on feedback — don't just acknowledge it, show the updated plan
 - One round-trip of feedback is normal; don't rush to implementation
 
-### 5. PR Lifecycle — Close the Loop
-- If the work produces code changes that will be pushed and a PR created, the plan's final step must include: create PR → run `/watch-pr` to subscribe to CI and review activity
-- This applies to any work-related code (features, fixes, refactors). Skip for non-code tasks (docs-only, local config, research)
-- Don't ask whether to watch — just include it as a standard closing step in the plan
-
 ## Coding Style
 
 - Follow existing project conventions when working in established codebases
