@@ -55,4 +55,22 @@ for skill_dir in "$DOT_FILES_DIR"/claude/skills/*/; do
   create_symlink "${skill_dir%/}" "$HOME/.claude/skills/$skill_name"
 done
 
+# Prune skill symlinks whose repo source was deleted. Scope to this repo's
+# skills dir so third-party skill symlinks (e.g. antithesis-skills) are untouched.
+#
+# TODO: once both Macs are migrated, also purge residual watch-pr mentions from
+# machine-local ~/.claude artifacts (backups, file-history, history.jsonl, transcripts).
+for link in "$HOME"/.claude/skills/*; do
+  [[ -L "$link" ]] || continue
+  dest=$(readlink "$link")
+  case "$dest" in
+    "$DOT_FILES_DIR"/claude/skills/*)
+      if [[ ! -e "$dest" ]]; then
+        echo "removing stale skill symlink $link -> $dest"
+        rm "$link"
+      fi
+      ;;
+  esac
+done
+
 exit 0
