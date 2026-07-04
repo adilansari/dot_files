@@ -30,10 +30,10 @@ linktargets=(
 )
 
 # Create symlinks for dot_files
-# ln -sf source_file target_file
+# -n stops ln from following an existing symlink-to-dir target and dropping the new link inside it.
 create_symlink() {
 	echo "creating symlink for $1 to $2"
-	ln -sf $1 $2
+	ln -sfn $1 $2
 }
 
 # iterate over given file/directory names
