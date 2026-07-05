@@ -16,7 +16,7 @@ linktargets=(
   "vim/.vimrc"
   "tmux/.tmux.conf"
   "tmux/.tmuxinator"
-  "tmux/scripts:.tmux-scripts"
+  "tmux/scripts:$HOME/.tmux-scripts"
   "git/.git-completion.bash"
   "git/.gitconfig"
   "git/.gitignore"
@@ -29,11 +29,9 @@ linktargets=(
   "claude/CLAUDE.md:$HOME/.claude"
 )
 
-# Create symlinks for dot_files
-# ln -sf source_file target_file
 create_symlink() {
 	echo "creating symlink for $1 to $2"
-	ln -sf $1 $2
+	ln -sfh $1 $2
 }
 
 # iterate over given file/directory names
@@ -46,31 +44,53 @@ for item in ${linktargets[@]}; do
   create_symlink $DOT_FILES_DIR/$source $target
 done
 
-# Per-skill symlinks: ~/.claude/skills/ is kept as a real directory so
-# third-party skill installers (e.g. antithesis-skills) can drop their own
-# symlinks alongside ours without colliding with a whole-directory symlink.
-mkdir -p "$HOME/.claude/skills"
-for skill_dir in "$DOT_FILES_DIR"/claude/skills/*/; do
-  skill_name=$(basename "$skill_dir")
-  create_symlink "${skill_dir%/}" "$HOME/.claude/skills/$skill_name"
-done
-
-# Prune skill symlinks whose repo source was deleted. Scope to this repo's
-# skills dir so third-party skill symlinks (e.g. antithesis-skills) are untouched.
+# ~/.claude/skills/ and hooks/ stay real dirs, not whole-directory symlinks: a whole-dir
+# symlink would collide with third-party installers (e.g. antithesis-skills) that drop their
+# own entries in. The case match keeps pruning to this repo's paths so those entries survive.
 #
 # TODO: once both Macs are migrated, also purge residual watch-pr mentions from
 # machine-local ~/.claude artifacts (backups, file-history, history.jsonl, transcripts).
-for link in "$HOME"/.claude/skills/*; do
-  [[ -L "$link" ]] || continue
-  dest=$(readlink "$link")
-  case "$dest" in
-    "$DOT_FILES_DIR"/claude/skills/*)
-      if [[ ! -e "$dest" ]]; then
-        echo "removing stale skill symlink $link -> $dest"
-        rm "$link"
-      fi
-      ;;
-  esac
-done
+link_claude_dir() {
+  local name="$1" glob="$2" dest="$HOME/.claude/$1"
+  mkdir -p "$dest"
+  for src in "$DOT_FILES_DIR"/claude/"$name"/$glob; do
+    [[ -e "$src" ]] || continue
+    create_symlink "${src%/}" "$dest/$(basename "$src")"
+  done
+  for link in "$dest"/*; do
+    [[ -L "$link" ]] || continue
+    local target
+    target=$(readlink "$link")
+    case "$target" in
+      "$DOT_FILES_DIR"/claude/"$name"/*)
+        if [[ ! -e "$target" ]]; then
+          echo "removing stale symlink $link -> $target"
+          rm "$link"
+        fi
+        ;;
+    esac
+  done
+}
+
+link_claude_dir skills '*/'
+link_claude_dir hooks '*.sh'
+
+# Patch the comment-audit hook into machine-local settings.json (gitignored, so not in the
+# repo). Seed {} when absent so a fresh machine, where the file doesn't exist yet, still gets
+# patched instead of silently skipped.
+settings="$HOME/.claude/settings.json"
+if command -v jq >/dev/null 2>&1; then
+  [[ -f "$settings" ]] || echo '{}' > "$settings"
+  if ! grep -q 'comment-audit.sh' "$settings"; then
+    tmp=$(mktemp)
+    if jq '.hooks.PostToolUse += [{"matcher":"Edit|Write|MultiEdit","hooks":[{"type":"command","command":"sh \"$HOME/.claude/hooks/comment-audit.sh\""}]}]' "$settings" >"$tmp"; then
+      mv "$tmp" "$settings"
+      echo "registered comment-audit hook in $settings"
+    else
+      rm -f "$tmp"
+      echo "WARN: could not patch $settings (invalid JSON?); left unchanged"
+    fi
+  fi
+fi
 
 exit 0

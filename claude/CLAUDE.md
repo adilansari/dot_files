@@ -7,6 +7,8 @@
 - Be direct. Lead with the answer or action, not the reasoning.
 - When I push back or ask for changes, do it — don't explain why the original was fine.
 - I prefer to stay in control of the direction. Propose, don't decide.
+- Use plain, simple English: short sentences, no idioms or figurative phrases (I'm not a native English speaker).
+- Explain with concrete examples and small tables instead of long abstract argument.
 
 ## Planning & Architecture
 
