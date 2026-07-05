@@ -29,11 +29,9 @@ linktargets=(
   "claude/CLAUDE.md:$HOME/.claude"
 )
 
-# Create symlinks for dot_files
-# ln -sf source_file target_file
 create_symlink() {
 	echo "creating symlink for $1 to $2"
-	ln -sf $1 $2
+	ln -sfh $1 $2
 }
 
 # iterate over given file/directory names
