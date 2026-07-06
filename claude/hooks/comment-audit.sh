@@ -11,7 +11,12 @@ INPUT=$(cat)
 
 FILE=$(printf '%s' "$INPUT" | jq -r '.tool_input.file_path // empty' 2>/dev/null)
 case "$FILE" in
-  *.go|*.py|*.ts|*.tsx|*.js|*.jsx|*.rs|*.sh|*.java|*.rb|*.c|*.h|*.cpp|*.cc|*.kt|*.swift) : ;;
+  *.go|*.py|*.ts|*.tsx|*.js|*.jsx|*.rs|*.sh|*.java|*.rb|*.c|*.h|*.cpp|*.cc|*.kt|*.swift| \
+  *.yml|*.yaml|*.j2|*.jinja|*.jinja2| \
+  *.service|*.timer|*.socket|*.mount|*.path|*.target|*.network|*.link|*.netdev|*.rules| \
+  *.just|*Justfile|*justfile|*Makefile|*makefile| \
+  *Dockerfile|*dockerfile|*Containerfile|*.tf|*.tfvars|*.hcl|*.nix| \
+  *.toml|*.ini|*.cfg|*.conf|*Caddyfile|*Vagrantfile) : ;;
   *) exit 0 ;;
 esac
 
