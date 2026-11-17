@@ -1,4 +1,4 @@
-export PATH="usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
 export TERM="xterm-256color"
 
 #git autocomplete
@@ -9,3 +9,5 @@ fi
 if [ -f ~/.zsh/aliases ]; then
 	. ~/.zsh/aliases
 fi
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"

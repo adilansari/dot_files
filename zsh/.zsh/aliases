@@ -2,7 +2,7 @@
 alias zshconf="vi ~/.zshrc"
 alias zshreload="source ~/.zshrc"
 aliases() {
-  local files=(~/.zsh/aliases ~/.zsh/tigris_aliases)
+  local files=(~/.zsh/aliases $(find ~/.config/zsh/conf.d -name '*.zsh' 2>/dev/null))
   local search="$*"
   local existing=()
   for f in "${files[@]}"; do
@@ -158,7 +158,10 @@ gwpr() {
 
 ## github
 alias ghrelease="gh pr create -B release -H main"
-alias ghrunlog='gh run view --log $(gh run list --branch $(git rev-parse --abbrev-ref HEAD) --workflow go-test-73 --json databaseId | jq ".[0].databaseId") | tail -n 200'
+ghrunlog() {
+  [[ -n $GH_RUNLOG_WORKFLOW ]] || { echo "set GH_RUNLOG_WORKFLOW to the workflow name" >&2; return 1; }
+  gh run view --log "$(gh run list --branch "$(git rev-parse --abbrev-ref HEAD)" --workflow "$GH_RUNLOG_WORKFLOW" --json databaseId -q '.[0].databaseId')" | tail -n 200
+}
 
 # tmux aliases
 alias tms='tmuxinator start'
@@ -177,9 +180,6 @@ alias ll='ls -lFh'          # Long view, no hidden
 
 # Jekyll
 alias jekyll_serve="bundle exec jekyll build && bundle exec jekyll serve"
-
-# kubernetes
-alias k="kubectl"
 
 # Helpers
 alias grep='grep --color=auto' # Always highlight grep search term

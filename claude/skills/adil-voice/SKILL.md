@@ -62,7 +62,7 @@ These are the hallmarks of AI-generated text. Avoid all of them:
 "Something I've noticed with AI code review bots, they hold back comments and throw them one after another instead of giving everything upfront. I think its intentional. If they give all feedback in the first pass there's no reason to run again. So they drip old comments they could've given earlier, making you fix one thing at a time and cycling through more runs."
 
 **Bad (AI email):**
-"Hi Jeff! Thank you so much for reaching out. I'd be happy to clarify this for you. You're absolutely right that buckets created via the API won't show up in the UI. We're currently exploring some exciting options for a partner portal that would significantly improve resource management capabilities. Please don't hesitate to let us know if you have any questions!"
+"Hi Sam! Thank you so much for reaching out. I'd be happy to clarify this for you. You're absolutely right that events added through the import tool won't show up in the calendar view. We're currently exploring some exciting options for a two-way sync that would significantly improve scheduling capabilities. Please don't hesitate to let us know if you have any questions!"
 
 **Good (Adil's email):**
-"Hi Jeff, Your understanding is correct, the buckets created via the API won't show up in UI, but can be searched and managed programmatically through the API. Currently integration is API only though we are exploring a partner portal to improve resource management. Do you have any immediate use cases or workflows at hand to share, it will help us prioritize right tooling."
+"Hi Sam, Your understanding is correct, the events added through the import tool won't show up in calendar view, but can be searched and edited from the list view. Currently import is one-way only though we are exploring a two-way sync to make scheduling easier. Do you have any immediate use cases or workflows at hand to share, it will help us prioritize right tooling."

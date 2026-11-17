@@ -17,7 +17,7 @@ The single biggest failure mode is firing when the user is asking for help *doin
 - "Here's my plan to fix the disk-full alert, poke holes in it" → YES this skill.
 - "Which drive should I buy" → NOT this skill. They're exploring options.
 - "I'm about to buy these two shucked drives, sanity-check me" → YES this skill.
-- "Write a Slack reply to Irena" → NOT this skill. They want drafting help.
+- "Write a Slack reply to Sam" → NOT this skill. They want drafting help.
 - "Here's my Slack reply — does this hold up" → YES this skill.
 
 If the user hasn't produced a concrete artifact (plan, draft, message, form, decision, code, purchase list), this skill doesn't fire. Help them build the thing first; critique is for what already exists.
@@ -118,7 +118,7 @@ Strong: "You hold a substantial traditional IRA balance and plan to do a backdoo
 > The plan mentions Redis caching. You might want to think about what happens if Redis goes down. Also the schema isn't super clear and error handling could be more robust. Have you considered scalability?
 
 **Strong critique:**
-> **High** — Invoice totals are cached in Redis with no fallback. When Redis is unavailable (deploys, evictions, partitions), the billing service returns incorrect totals rather than degrading gracefully. Either add an explicit "serve stale or refuse" policy, or route misses to FoundationDB. The plan treats Redis as source of truth, which it isn't.
+> **High** — Invoice totals are cached in Redis with no fallback. When Redis is unavailable (deploys, evictions, partitions), the billing service returns incorrect totals rather than degrading gracefully. Either add an explicit "serve stale or refuse" policy, or route misses to the primary database. The plan treats Redis as source of truth, which it isn't.
 >
 > **Medium** — Step 4 assumes the aggregation job finishes in under a minute. At current row counts that's true; at projected Q3 volume probably not. Confirm the timeout is configured explicitly, not inheriting a default.
 >

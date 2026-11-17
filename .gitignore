@@ -1,6 +1,5 @@
 env
 *.idea
-tigris_aliases
 __pycache__/
 .vscode
 .claude/settings.local.json
