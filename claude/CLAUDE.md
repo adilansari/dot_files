@@ -53,7 +53,7 @@ A comment earns its place only when the *why* is non-obvious to someone reading 
 - a surprising behavior or workaround for a specific bug
 - a constraint imposed from outside (ordering, atomicity, external API quirk)
 
-**A kept comment must be self-contained.** Assume the reader has only this file open and has never read the design doc. It may not name a tier, phase, layer, signal, or any term the code in this file doesn't define — no "(Tier 1)", no "Tier-3 switch", no vocabulary lifted from an RFC. If the comment can't be understood without leaving the file, it's broken: state the actual reason in plain words ("returns nil so the caller skips wiring and boot dodges chstore.New's log.Fatal"), or delete it.
+**A kept comment must be self-contained.** Assume the reader has only this file open and has never read the design doc. It may not name a tier, phase, layer, signal, or any term the code in this file doesn't define — no "(Tier 1)", no "Tier-3 switch", no vocabulary lifted from an RFC. If the comment can't be understood without leaving the file, it's broken: state the actual reason in plain words ("returns nil so the caller skips wiring and boot dodges the store constructor's log.Fatal"), or delete it.
 
 Delete on sight:
 - **Restatements** — paraphrases the line below it.
@@ -71,13 +71,13 @@ Default to no comment. If you reach for one, first ask whether a better name or 
 Most common miss — godoc that restates a self-evident helper. The fix is to delete it; if an invariant matters, document it once on the struct field, not on every helper that touches it:
 ```go
 // Bad — restates the body, plus a provenance essay:
-// applyPaymentVerifiedAtPatch encodes the atomic mutual-exclusion semantics for
-// payment_verified_at; stamping a non-zero verifiedAt also clears the required
-// flag (see docs/...§Admin override). Clearing leaves the required flag alone.
-func applyPaymentVerifiedAtPatch(meta *api.NamespaceMetadata, verifiedAt *timestamppb.Timestamp) { ... }
+// applyArchivedAtPatch encodes the atomic mutual-exclusion semantics for
+// archived_at; stamping a non-zero archivedAt also clears the pinned
+// flag (see docs/...§Archive flow). Clearing leaves the pinned flag alone.
+func applyArchivedAtPatch(note *Note, archivedAt *time.Time) { ... }
 
 // Good — no godoc; the name and body carry it:
-func applyPaymentVerifiedAtPatch(meta *api.NamespaceMetadata, verifiedAt *timestamppb.Timestamp) { ... }
+func applyArchivedAtPatch(note *Note, archivedAt *time.Time) { ... }
 ```
 
 ## Workflow

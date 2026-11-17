@@ -5,13 +5,15 @@
 	default = simple
 [core]
 	editor = nvim
-	excludesfile = /Users/adil/.gitignore
+	excludesfile = ~/.gitignore
 	pager = delta
 [alias]
 	ignore = update-index --assume-unchanged
 	unignore = update-index --no-assume-unchanged
 	ignored = !git ls-files -v | grep "^[[:lower:]]"
 	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
+[fetch]
+	prune = true
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true
@@ -28,3 +30,7 @@
   conflictstyle = diff3
 [diff]
   colorMoved = default
+[include]
+	path = ~/.config/git/profile.gitconfig
+[include]
+	path = ~/.config/git/local.gitconfig

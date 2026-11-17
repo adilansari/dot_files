@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+blocklist=${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/blocklist
+[[ -f $blocklist ]] || exit 0
+
+if grep -v '^#' "$1" | grep -n -i -F -f <(grep -v '^[[:space:]]*$' "$blocklist"); then
+  echo "commit blocked: the message lines above match terms in $blocklist" >&2
+  exit 1
+fi
